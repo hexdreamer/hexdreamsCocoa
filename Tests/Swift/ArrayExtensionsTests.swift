@@ -36,7 +36,7 @@ class ArrayExtensionsTests: XCTestCase {
     }
 
     private func map<E,K>(
-        array :Array<E>,
+        _ array :Array<E>,
         keyGetter :(element :E) -> K
         ) -> [K]
     {
@@ -68,7 +68,7 @@ class ArrayExtensionsTests: XCTestCase {
     }
 
     private func mapDict<E,K>(
-        array :Array<E>,
+        _ array :Array<E>,
         keyGetter :(element :E) -> K?
         ) throws -> Dictionary<K,E>
     {

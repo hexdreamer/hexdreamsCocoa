@@ -10,7 +10,7 @@ import hexdreamsCocoa
 @objc(HXManagedPerson)
 class HXManagedPerson: HXManagedObject {
 
-    override func update(dict :[String:AnyObject]) -> Bool {
+    override func takeValuesFrom(_ dict :[String:AnyObject]) -> Bool {
         self.personID = dict["id"] as! NSNumber?
         self.firstName = dict["firstName"] as! String?
         self.lastName = dict["lastName"] as! String?

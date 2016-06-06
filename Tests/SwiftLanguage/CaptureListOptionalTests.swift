@@ -73,7 +73,7 @@ class CaptureListConditionalTests: XCTestCase {
     }
     */
     
-    func doitOutOfBand(message :String) {
+    func doitOutOfBand(_ message :String) {
         print("Doing it to \(message)\n")
     }
 }

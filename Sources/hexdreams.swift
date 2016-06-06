@@ -5,7 +5,7 @@
 
 public class hexdreams {
 
-    public enum Error : ErrorType {
+    public enum Error : ErrorProtocol {
         case ObjectNotFound(Any,String,String)  // our equivalent of NullPointerException args: sender, function, message
     }
 

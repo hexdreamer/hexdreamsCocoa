@@ -10,7 +10,7 @@ import CoreData
 class HXTestDataController: HXDataController {
 
     override func modelURL() -> NSURL {
-        guard let url = NSBundle(forClass: self.dynamicType).URLForResource("hexdreams", withExtension: "momd") else {
+        guard let url = NSBundle(for: self.dynamicType).urlForResource("hexdreams", withExtension: "momd") else {
             fatalError("Could not find hexdreams model")
         }
         return url;
@@ -18,7 +18,7 @@ class HXTestDataController: HXDataController {
 
     // We can't eliminate the entityPKGetter because we need it for the PKClass. Otherwise, we can't properly declare variables like pks or mosByID
     func updateEntity<Entity:HXManagedObject,PKClass:Hashable>(
-        entityClass entityClass :Entity.Type,
+        entityClass :Entity.Type,
         entityPKAttribute       :String,
         entityPKGetter          :(element :Entity) -> PKClass?,
         jsonData                :NSData?,
@@ -30,7 +30,7 @@ class HXTestDataController: HXDataController {
         guard let nnjsonData = jsonData else {
             throw Errors.BadJSON(message:"This is really BadJSON")
         }
-        guard let json = try NSJSONSerialization.JSONObjectWithData(nnjsonData, options: []) as? [[String:AnyObject]] else {
+        guard let json = try NSJSONSerialization.jsonObject(with: nnjsonData, options: []) as? [[String:AnyObject]] else {
             throw Errors.BadJSON(message:"This is really BadJSON")
         }
         
@@ -44,10 +44,10 @@ class HXTestDataController: HXDataController {
         }
 
         var mosByID = [PKClass:Entity]()
-        var blockError :ErrorType? = nil
-        moc.performBlockAndWait {
+        var blockError :ErrorProtocol? = nil
+        moc.performAndWait {
             do {
-                guard let entityDescription = NSEntityDescription.entityForClass(Entity.self, inManagedObjectContext: moc)else {
+                guard let entityDescription = NSEntityDescription.entityForClass(entityClass: Entity.self, inManagedObjectContext: moc)else {
                     throw Errors.EntityNotFound(message: "This is really EntityNotFound")
                 }
                 guard let entityName = entityDescription.name else {
@@ -65,10 +65,10 @@ class HXTestDataController: HXDataController {
                     guard let pk = jsonPKGetter(dictionary: entityDict)
                         else {throw Errors.MissingPrimaryKey(dictionary: entityDict)}
                     let existingMO = mosByID[pk]
-                    guard let mo = existingMO != nil ? existingMO : Entity(entity: entityDescription, insertIntoManagedObjectContext: moc) else {
+                    guard let mo = existingMO != nil ? existingMO : Entity(entity: entityDescription, insertInto: moc) else {
                         throw Errors.General(message: "Could not create managed object")
                     }
-                    if mo.update(entityDict) {
+                    if mo.takeValuesFrom(entityDict) {
                         if existingMO == nil {
                             mosByID[pk] = mo
                         }
@@ -90,14 +90,14 @@ class HXTestDataController: HXDataController {
     }
 
     func updatePersons() throws {
-        let url = NSBundle(forClass: self.dynamicType).URLForResource("HXPerson", withExtension: "json")
-        let jsonData = NSData(contentsOfURL: url!)
-        try self.updateEntity(
+        let url = NSBundle(for: self.dynamicType).urlForResource("HXPerson", withExtension: "json")
+        let jsonData = NSData(contentsOf: url!)
+        _ = try self.updateEntity(
             entityClass: HXManagedPerson.self,
             entityPKAttribute: "personID",
             entityPKGetter: {return $0.personID},
             jsonData: jsonData,
-            jsonPKGetter: {guard let pk = $0["id"] as? Int else {return nil}; return NSNumber(integer:pk)},
+            jsonPKGetter: {guard let pk = $0["id"] as? Int else {return nil}; return NSNumber(value:pk)},
             moc: self.writemoc,
             options: []
         )

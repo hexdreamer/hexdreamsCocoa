@@ -15,14 +15,14 @@ public class HXModelController : NSObject {
     let storeURL :NSURL
     
     lazy var managedObjectModel: NSManagedObjectModel = {
-        return NSManagedObjectModel(contentsOfURL: self.modelURL)!
+        return NSManagedObjectModel(contentsOf: self.modelURL)!
     } ()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         var coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         var error :NSError? = nil
         do {
-            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: self.storeURL, options: nil)
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: self.storeURL, options: nil)
         } catch var error1 as NSError {
             error = error1
         } catch {
@@ -33,15 +33,15 @@ public class HXModelController : NSObject {
         }()
     
     public lazy var moc: NSManagedObjectContext = {
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
         return managedObjectContext
         }()
     
     public lazy var writemoc: NSManagedObjectContext = {
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HXModelController._contextDidSave(_:)), name: NSManagedObjectContextObjectsDidChangeNotification, object: managedObjectContext)
+        NSNotificationCenter.default().addObserver(self, selector: #selector(HXModelController._contextDidSave(notification:)), name: NSManagedObjectContextObjectsDidChangeNotification, object: managedObjectContext)
         return managedObjectContext
         }()
 
@@ -58,11 +58,11 @@ public class HXModelController : NSObject {
         assert(notification.object as! NSManagedObjectContext == self.writemoc)
         
         if NSThread.isMainThread() {
-            self.moc.mergeChangesFromContextDidSaveNotification(notification)
+            self.moc.mergeChanges(fromContextDidSave: notification)
         } else {
             dispatch_async(dispatch_get_main_queue()) {
-                self.moc.mergeChangesFromContextDidSaveNotification(notification)
-                NSNotificationCenter.defaultCenter().postNotificationName(HXModelControllerUpdatedNotification, object: self)
+                self.moc.mergeChanges(fromContextDidSave: notification)
+                NSNotificationCenter.default().post(name: HXModelControllerUpdatedNotification, object: self)
             }
         }
     }

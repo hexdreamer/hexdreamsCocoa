@@ -13,17 +13,17 @@ private let SORT_STRINGS_CASEINSENSITIVE_DESCENDING = ["cidown" , "cidesc"]
 private let SORT_DATE_ASCENDING = ["dateup" ,"dateasc"]
 private let SORT_DATE_DESCENDING = ["datedown" , "datedesc"]
 
-public enum NSSortDescriptorError: ErrorType {
+public enum NSSortDescriptorError: ErrorProtocol {
     case UnsupportedSortDirection
 }
 
 extension NSSortDescriptor {
 
-    public class func sortDescriptorsFromString(sortString :String) throws -> [NSSortDescriptor] {
+    public class func sortDescriptorsFrom(string sortString :String) throws -> [NSSortDescriptor] {
         var descriptors = [NSSortDescriptor]()
         let components = sortString.split("[, ]+")
 
-        for i in 0.stride(to: components.count, by: 2) {
+        for i in stride(from: 0, to: components.count, by: 2) {
             let key = components[i]
             let direction = components[i + 1]
             var descriptor :NSSortDescriptor?

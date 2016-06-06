@@ -8,9 +8,9 @@ import UIKit
 public class HXViewController : UIViewController, UITextFieldDelegate {
     
     // MARK: UITextFieldDelegate Methods
-    public func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if textField.actionsForTarget(self, forControlEvent: .EditingDidEnd) != nil {
-            textField.sendActionsForControlEvents(.EditingDidEnd)
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.actions(forTarget: self, forControlEvent: .editingDidEnd) != nil {
+            textField.sendActions(for: .editingDidEnd)
         }
         return true;
     }

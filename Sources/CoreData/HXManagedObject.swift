@@ -8,11 +8,11 @@ import CoreData
 
 public class HXManagedObject : NSManagedObject {
 
-    public required override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    public required override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
     }
 
-    public func update(dict :[String:AnyObject]) -> Bool {
+    public func takeValuesFrom(_ dict :[String:AnyObject]) -> Bool {
         return true;
     }
 

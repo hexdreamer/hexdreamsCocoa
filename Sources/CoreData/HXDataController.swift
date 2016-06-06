@@ -11,7 +11,7 @@ import UIKit
 
 public class HXDataController {
 
-    public enum Errors : ErrorType {
+    public enum Errors : ErrorProtocol {
         case BadJSON(message :String)
         case EntityNotFound(message :String)
         case MissingPrimaryKey(dictionary: [String:AnyObject])
@@ -27,7 +27,7 @@ public class HXDataController {
         }()
 
     public lazy var urlSession :NSURLSession = {
-        return NSURLSession(configuration: NSURLSessionConfiguration.ephemeralSessionConfiguration(), delegate:nil, delegateQueue:self.queue)
+        return NSURLSession(configuration: NSURLSessionConfiguration.ephemeral(), delegate:nil, delegateQueue:self.queue)
         }()
 
     public var moc :NSManagedObjectContext {
@@ -46,14 +46,14 @@ public class HXDataController {
         guard let filename = self.modelURL().lastPathComponent as NSString? else {
             fatalError("Failed to generate storeURL")
         }
-        let modelName = filename.stringByDeletingPathExtension
-        return UIApplication.applicationDocumentsDirectory().URLByAppendingPathComponent("\(modelName).sqlite")
+        let modelName = filename.deletingPathExtension
+        return UIApplication.applicationDocumentsDirectory().appendingPathComponent("\(modelName).sqlite")
     }
 
     public init() {
     }
 
-    public struct UpdateEntityOptions : OptionSetType {
+    public struct UpdateEntityOptions : OptionSet {
         public let rawValue : Int
         static let DeleteExtras = UpdateEntityOptions(rawValue: 1)
         static let UseStreaming = UpdateEntityOptions(rawValue: 2)

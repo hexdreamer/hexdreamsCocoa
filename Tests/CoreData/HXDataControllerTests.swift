@@ -21,9 +21,9 @@ class HXDataControllerTests: XCTestCase {
             XCTFail("storePath is nil")
             return
         }
-        if NSFileManager.defaultManager().fileExistsAtPath(storePath) {
+        if NSFileManager.default().fileExists(atPath: storePath) {
             do {
-                try NSFileManager.defaultManager().removeItemAtURL(storeURL)
+                try NSFileManager.default().removeItem(at: storeURL)
             } catch {
                 XCTFail("\(error)")
             }
@@ -41,7 +41,7 @@ class HXDataControllerTests: XCTestCase {
             try self.dataController.updatePersons()
             self.dataController.queue.waitUntilAllOperationsAreFinished()
             let moc = self.dataController.moc
-            moc.performBlockAndWait {
+            moc.performAndWait {
                 do {
                     var persons = try moc.fetch(entityName: "HXManagedPerson", predicate: nil, sortString: "personID,up", returnFaults:false) as! [HXManagedPerson]
                     XCTAssertEqual(persons.count, 2);

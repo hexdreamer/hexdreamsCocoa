@@ -8,7 +8,7 @@ import CoreData
 public extension NSManagedObjectContext {
     
     public func fetch(
-        entityName entityName :String,
+        entityName :String,
         predicate             :NSPredicate? = nil,
         sortString            :String? = nil,
         returnFaults          :Bool = false)
@@ -17,10 +17,10 @@ public extension NSManagedObjectContext {
         let request = NSFetchRequest(entityName: entityName)
         request.predicate = predicate
         if let sortString = sortString {
-            try request.sortDescriptors = NSSortDescriptor.sortDescriptorsFromString(sortString)
+            try request.sortDescriptors = NSSortDescriptor.sortDescriptorsFrom(string: sortString)
         }
         request.returnsObjectsAsFaults = returnFaults
-        let results = try self.executeFetchRequest(request)
+        let results = try self.fetch(request)
         return results
     }
     

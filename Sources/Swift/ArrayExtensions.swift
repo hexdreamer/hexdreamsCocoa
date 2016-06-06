@@ -6,7 +6,7 @@
 public extension Array {
 
     public func mapDict<Key>(
-        getter: (element: Element) -> Key?
+        _ getter: (element: Element) -> Key?
         ) throws -> Dictionary<Key,Element>
     {
         var dict = Dictionary<Key,Element>(minimumCapacity: self.count)

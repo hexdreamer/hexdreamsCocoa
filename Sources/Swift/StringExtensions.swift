@@ -5,14 +5,14 @@
 
 public extension String {
     
-    public func split(pattern :String) -> [String] {
+    public func split(_ pattern :String) -> [String] {
         var results = [String]()
         var remaining = self.startIndex..<self.endIndex;
-        while let matchRange = self.rangeOfString(pattern, options: .RegularExpressionSearch, range: remaining, locale: nil) {
-            results.append(self.substringWithRange(remaining.startIndex..<matchRange.startIndex))
-            remaining.startIndex = matchRange.endIndex
+        while let matchRange = self.range(of:pattern, options: .regularExpressionSearch, range: remaining, locale: nil) {
+            results.append(self.substring(with: remaining.lowerBound..<matchRange.lowerBound))
+            remaining = matchRange.upperBound..<self.endIndex
         }
-        results.append(self.substringWithRange(remaining))
+        results.append(self.substring(with:remaining))
         return results
     }
     

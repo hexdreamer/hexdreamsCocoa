@@ -29,34 +29,34 @@ public class HXMatrix {
     }
     
     public convenience init(rows: UInt, columns: UInt) {
-        self.init(rows: rows, columns: columns, values: Array(count: Int(rows * columns), repeatedValue: 0.0))
+        self.init(rows: rows, columns: columns, values: Array(repeating: 0.0, count: Int(rows * columns)))
     }
     
     public subscript(row: UInt, column: UInt) -> Double {
         get {
-            assert(_indexIsValidForRow(row, column: column), "Index out of range")
+            assert(_indexIsValidFor(row: row, column: column), "Index out of range")
             return grid[Int((row * columns) + column)]
         }
         set {
-            assert(_indexIsValidForRow(row, column: column), "Index out of range")
+            assert(_indexIsValidFor(row: row, column: column), "Index out of range")
             grid[Int((row * columns) + column)] = newValue
         }
     }
     
     public func inverse() -> HXMatrix {
         assert(self.rows == self.columns, "Can only invert a square matrix")
-        return HXMatrix(rows: self.rows, columns: self.columns, values: self._invert(self.grid, rows: self.rows))
+        return HXMatrix(rows: self.rows, columns: self.columns, values: self._invert(matrix: self.grid, rows: self.rows))
     }
     
-    public func multiply(right :HXMatrix) -> HXMatrix {
+    public func multiply(matrix right:HXMatrix) -> HXMatrix {
         assert(self.columns == right.rows, "Matrix dimensions do not match for multiplication")
-        let result = self._multiplyMatrices(self.grid, rowsA: self.rows, colsA: self.columns, matrixB: right.grid, rowsB: right.rows, colsB: right.columns)
+        let result = self._multiply(matrixA: self.grid, rowsA: self.rows, colsA: self.columns, matrixB: right.grid, rowsB: right.rows, colsB: right.columns)
         return HXMatrix(rows: self.rows, columns: right.columns, values: result)
     }
     
     //MARK: Private Methods
     
-    private func _indexIsValidForRow(row: UInt, column: UInt) -> Bool {
+    private func _indexIsValidFor(row: UInt, column: UInt) -> Bool {
         return row >= 0 && row < rows && column >= 0 && column < columns
     }
 
@@ -65,17 +65,17 @@ public class HXMatrix {
         var N    :__CLPK_integer = __CLPK_integer(rows)
         var A    :[__CLPK_doublereal] = matrix
         var LDA  :__CLPK_integer = __CLPK_integer(rows)
-        var IPIV :[__CLPK_integer] = [__CLPK_integer](count: Int(rows), repeatedValue: 0)
+        var IPIV :[__CLPK_integer] = [__CLPK_integer](repeating: 0, count: Int(rows))
         var INFO :__CLPK_integer = 0
         var LWORK :__CLPK_integer = N * N
-        var WORK :[__CLPK_doublereal] = [__CLPK_doublereal](count: Int(LWORK), repeatedValue: 0.0)
+        var WORK :[__CLPK_doublereal] = [__CLPK_doublereal](repeating: 0.0, count: Int(LWORK))
         
         dgetrf_(&M, &N, &A, &LDA, &IPIV, &INFO)
         dgetri_(&N, &A, &LDA, &IPIV, &WORK, &LWORK, &INFO)
         return A
     }
     
-    private func _multiplyMatrices(matrixA :[Double], rowsA :UInt, colsA :UInt, matrixB :[Double], rowsB :UInt, colsB :UInt) -> [Double] {
+    private func _multiply(matrixA :[Double], rowsA :UInt, colsA :UInt, matrixB :[Double], rowsB :UInt, colsB :UInt) -> [Double] {
         let Order :CBLAS_ORDER = CblasRowMajor
         let TransA :CBLAS_TRANSPOSE = CblasNoTrans
         let TransB :CBLAS_TRANSPOSE = CblasNoTrans
@@ -88,7 +88,7 @@ public class HXMatrix {
         var B :[Double] = matrixB
         let ldb :Int32 = Int32(colsB)
         let beta :Double = 1.0
-        var C :[Double] = [Double](count: Int(M * N), repeatedValue: 0.0)
+        var C :[Double] = [Double](repeating: 0.0, count: Int(M * N))
         let ldc :Int32 = N
         
         cblas_dgemm(Order, TransA, TransB, M, N, K, alpha, &A, lda, &B, ldb, beta, &C, ldc)
@@ -100,5 +100,5 @@ public class HXMatrix {
 infix operator ⋅ { associativity left precedence 100 }
 
 public func ⋅ (left: HXMatrix, right: HXMatrix) -> HXMatrix {
-    return left.multiply(right)
+    return left.multiply(matrix:right)
 }
