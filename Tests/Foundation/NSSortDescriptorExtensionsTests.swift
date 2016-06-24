@@ -19,7 +19,7 @@ class NSSortDescriptorExtensionsTests: XCTestCase {
 
     func testSomething() {
         do {
-            let sortDescriptors = try NSSortDescriptor.sortDescriptorsFrom(string:"name,up, age,down, street,ciup, city,cidown, start,dateup, stop,datedown")
+            let sortDescriptors = try SortDescriptor.sortDescriptorsFrom(string:"name,up, age,down, street,ciup, city,cidown, start,dateup, stop,datedown")
             XCTAssertNotNil(sortDescriptors)
             XCTAssertEqual(6, sortDescriptors.count)
             assert(sortDescriptors[0], "name",   true)
@@ -35,7 +35,7 @@ class NSSortDescriptorExtensionsTests: XCTestCase {
 
     func testUnsupportedSortDirection() {
         do {
-            let _ = try NSSortDescriptor.sortDescriptorsFrom(string: "name,bogus")
+            let _ = try SortDescriptor.sortDescriptorsFrom(string: "name,bogus")
             XCTFail()
         } catch NSSortDescriptorError.UnsupportedSortDirection {
             return
@@ -48,24 +48,24 @@ class NSSortDescriptorExtensionsTests: XCTestCase {
     func testOptionalMap() {
         do {
             var sortString :String?
-            var sortDescriptors :[NSSortDescriptor]?
+            var sortDescriptors :[SortDescriptor]?
 
             sortString = "name,up"
-            try sortDescriptors = sortString.map {try NSSortDescriptor.sortDescriptorsFrom(string:$0)}
+            try sortDescriptors = sortString.map {try SortDescriptor.sortDescriptorsFrom(string:$0)}
             XCTAssertNotNil(sortDescriptors);
             if let sortDescriptor = sortDescriptors?[0] {
                 assert(sortDescriptor, "name",   true)
             }
 
             sortString = nil
-            try sortDescriptors = sortString.map {try NSSortDescriptor.sortDescriptorsFrom(string:$0)}
+            try sortDescriptors = sortString.map {try SortDescriptor.sortDescriptorsFrom(string:$0)}
             XCTAssertNil(sortDescriptors);
         } catch {
             XCTFail()
         }
     }
 
-    func assert(_ sortDescriptor :NSSortDescriptor, _ key :String, _ ascending :Bool) {
+    func assert(_ sortDescriptor :SortDescriptor, _ key :String, _ ascending :Bool) {
         XCTAssertEqual(key, sortDescriptor.key)
         XCTAssertEqual(ascending, sortDescriptor.ascending)
     }

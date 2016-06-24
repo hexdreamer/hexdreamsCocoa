@@ -8,7 +8,7 @@ import UIKit
 extension UIApplication {
 
     public class func applicationDocumentsDirectory() -> NSURL {
-        let urls = NSFileManager.default().urlsForDirectory(NSSearchPathDirectory.documentDirectory, inDomains: NSSearchPathDomainMask.userDomainMask)
+        let urls = FileManager.default().urlsForDirectory(FileManager.SearchPathDirectory.documentDirectory, inDomains: FileManager.SearchPathDomainMask.userDomainMask)
         if let documentsDirectory = urls.last {
             return documentsDirectory
         }

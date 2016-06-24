@@ -22,12 +22,12 @@ public class HXDataController {
         return HXModelController(modelURL: self.modelURL(), storeURL:self.storeURL())
         } ()
 
-    public lazy var queue :NSOperationQueue = {
-        return NSOperationQueue()
+    public lazy var queue :OperationQueue = {
+        return OperationQueue()
         }()
 
-    public lazy var urlSession :NSURLSession = {
-        return NSURLSession(configuration: NSURLSessionConfiguration.ephemeral(), delegate:nil, delegateQueue:self.queue)
+    public lazy var urlSession :URLSession = {
+        return URLSession(configuration: URLSessionConfiguration.ephemeral(), delegate:nil, delegateQueue:self.queue)
         }()
 
     public var moc :NSManagedObjectContext {
@@ -47,7 +47,7 @@ public class HXDataController {
             fatalError("Failed to generate storeURL")
         }
         let modelName = filename.deletingPathExtension
-        return UIApplication.applicationDocumentsDirectory().appendingPathComponent("\(modelName).sqlite")
+        return UIApplication.applicationDocumentsDirectory().appendingPathComponent("\(modelName).sqlite")!
     }
 
     public init() {

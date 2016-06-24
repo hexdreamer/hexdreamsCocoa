@@ -38,7 +38,6 @@
 		B9CCA1C21CC8891C0002A24F /* HXTestDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA1B11CC8891C0002A24F /* HXTestDataController.swift */; };
 		B9CCA1C31CC8891C0002A24F /* ArrayExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA1B31CC8891C0002A24F /* ArrayExtensionsTests.swift */; };
 		B9CCA1C41CC8891C0002A24F /* StringExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA1B41CC8891C0002A24F /* StringExtensionsTests.swift */; };
-		B9CCA1C51CC8891C0002A24F /* CaptureListOptionalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA1B61CC8891C0002A24F /* CaptureListOptionalTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,7 +85,6 @@
 		B9CCA1B11CC8891C0002A24F /* HXTestDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXTestDataController.swift; sourceTree = "<group>"; };
 		B9CCA1B31CC8891C0002A24F /* ArrayExtensionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensionsTests.swift; sourceTree = "<group>"; };
 		B9CCA1B41CC8891C0002A24F /* StringExtensionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensionsTests.swift; sourceTree = "<group>"; };
-		B9CCA1B61CC8891C0002A24F /* CaptureListOptionalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureListOptionalTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,7 +223,6 @@
 				B9CCA1AA1CC8891C0002A24F /* Model */,
 				B9CCA1A81CC8891C0002A24F /* Math */,
 				B9CCA1B21CC8891C0002A24F /* Swift */,
-				B9CCA1B51CC8891C0002A24F /* SwiftLanguage */,
 			);
 			name = Tests;
 			path = ../Tests;
@@ -287,14 +284,6 @@
 			path = Swift;
 			sourceTree = "<group>";
 		};
-		B9CCA1B51CC8891C0002A24F /* SwiftLanguage */ = {
-			isa = PBXGroup;
-			children = (
-				B9CCA1B61CC8891C0002A24F /* CaptureListOptionalTests.swift */,
-			);
-			path = SwiftLanguage;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -352,11 +341,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = hexdreams;
 				TargetAttributes = {
 					B9218AED1CC887A000A97389 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 					};
 					B9218AF71CC887A000A97389 = {
 						CreatedOnToolsVersion = 7.3;
@@ -426,7 +416,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9218AFE1CC887A000A97389 /* hexdreamsCocoaTests.swift in Sources */,
-				B9CCA1C51CC8891C0002A24F /* CaptureListOptionalTests.swift in Sources */,
 				B9CCA1BE1CC8891C0002A24F /* HXManagedPerson+CoreDataProperties.swift in Sources */,
 				B9CCA1B91CC8891C0002A24F /* CGRectExtensionsTests.swift in Sources */,
 				B9CCA1C21CC8891C0002A24F /* HXTestDataController.swift in Sources */,
@@ -558,6 +547,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hexdreams.hexdreamsCocoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -574,6 +564,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hexdreams.hexdreamsCocoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -594,6 +586,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hexdreams.hexdreamsCocoaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};

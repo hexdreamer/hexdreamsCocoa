@@ -4,18 +4,20 @@
 // This code is PUBLIC DOMAIN
 
 import UIKit
-import hexdreamsCocoa
 import CoreData
+import hexdreamsCocoa
 
 class HXTestDataController: HXDataController {
 
     override func modelURL() -> NSURL {
-        guard let url = NSBundle(for: self.dynamicType).urlForResource("hexdreams", withExtension: "momd") else {
+        guard let url = Bundle(for: self.dynamicType).urlForResource("hexdreams", withExtension: "momd") else {
             fatalError("Could not find hexdreams model")
         }
         return url;
     }
 
+    /*
+     kenny FIXME won't compile
     // We can't eliminate the entityPKGetter because we need it for the PKClass. Otherwise, we can't properly declare variables like pks or mosByID
     func updateEntity<Entity:HXManagedObject,PKClass:Hashable>(
         entityClass :Entity.Type,
@@ -30,7 +32,7 @@ class HXTestDataController: HXDataController {
         guard let nnjsonData = jsonData else {
             throw Errors.BadJSON(message:"This is really BadJSON")
         }
-        guard let json = try NSJSONSerialization.jsonObject(with: nnjsonData, options: []) as? [[String:AnyObject]] else {
+        guard let json = try JSONSerialization.jsonObject(with: nnjsonData as Data, options: []) as? [[String:AnyObject]] else {
             throw Errors.BadJSON(message:"This is really BadJSON")
         }
         
@@ -38,7 +40,7 @@ class HXTestDataController: HXDataController {
         // This doesn't save us any code over the "manual way" of just doing it ourselves. We need a better map method that ensures we get back non-optionals. Is that even possible? I want a generic function that returns something slightly different than it's input T vs T?
         let pks = try json.map { (dict :[String:AnyObject]) -> PKClass in
             guard let pk = jsonPKGetter(dictionary: dict) else {
-                throw hexdreams.Error.ObjectNotFound(self, "updateEntity", "Primary key not found in \(dict)")
+                throw Error.ObjectNotFound(self, "updateEntity", "Primary key not found in \(dict)")
             }
             return pk
         }
@@ -56,8 +58,8 @@ class HXTestDataController: HXDataController {
                 guard let inList = pks as? AnyObject else {
                     throw Errors.General(message: "JSON primary keys \(pks) do not conform to AnyObject")
                 }
-                let predicate = NSPredicate(format: "%@ in %@", argumentArray:[entityPKAttribute, inList])
-                guard let existingMOs = try moc.fetch(entityName: entityName, predicate: predicate, sortString: nil, returnFaults: false) as? Array<Entity>
+                let predicate = Predicate(format: "%@ in %@", argumentArray:[entityPKAttribute, inList])
+                guard let existingMOs = try moc.pdfetch(entityName: entityName, predicate: predicate, sortString: nil, returnFaults: false)
                     else {throw Errors.General(message: "Error fetching existing objects")}
                 mosByID = try existingMOs.mapDict(entityPKGetter)
 
@@ -90,7 +92,7 @@ class HXTestDataController: HXDataController {
     }
 
     func updatePersons() throws {
-        let url = NSBundle(for: self.dynamicType).urlForResource("HXPerson", withExtension: "json")
+        let url = Bundle(for: self.dynamicType).urlForResource("HXPerson", withExtension: "json")
         let jsonData = NSData(contentsOf: url!)
         _ = try self.updateEntity(
             entityClass: HXManagedPerson.self,
@@ -102,5 +104,6 @@ class HXTestDataController: HXDataController {
             options: []
         )
     }
+    */
 
 }

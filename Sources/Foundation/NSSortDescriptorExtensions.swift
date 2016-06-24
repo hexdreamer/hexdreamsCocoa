@@ -17,29 +17,29 @@ public enum NSSortDescriptorError: ErrorProtocol {
     case UnsupportedSortDirection
 }
 
-extension NSSortDescriptor {
+extension SortDescriptor {
 
-    public class func sortDescriptorsFrom(string sortString :String) throws -> [NSSortDescriptor] {
-        var descriptors = [NSSortDescriptor]()
+    public class func sortDescriptorsFrom(string sortString :String) throws -> [SortDescriptor] {
+        var descriptors = [SortDescriptor]()
         let components = sortString.split("[, ]+")
 
         for i in stride(from: 0, to: components.count, by: 2) {
             let key = components[i]
             let direction = components[i + 1]
-            var descriptor :NSSortDescriptor?
+            var descriptor :SortDescriptor?
 
             if SORT_STRINGS_ASCENDING.contains(direction) {
-                descriptor = NSSortDescriptor(key: key, ascending: true)
+                descriptor = SortDescriptor(key: key, ascending: true)
             } else if SORT_STRINGS_DESCENDING.contains(direction) {
-                descriptor = NSSortDescriptor(key: key, ascending: false)
+                descriptor = SortDescriptor(key: key, ascending: false)
             } else if SORT_STRINGS_CASEINSENSITIVE_ASCENDING.contains(direction) {
-                descriptor = NSSortDescriptor(key: key, ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:)));
+                descriptor = SortDescriptor(key: key, ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:)));
             } else if SORT_STRINGS_CASEINSENSITIVE_DESCENDING.contains(direction) {
-                descriptor = NSSortDescriptor(key: key, ascending: false, selector: #selector(NSString.caseInsensitiveCompare(_:)));
+                descriptor = SortDescriptor(key: key, ascending: false, selector: #selector(NSString.caseInsensitiveCompare(_:)));
             } else if SORT_DATE_ASCENDING.contains(direction) {
-                descriptor = NSSortDescriptor(key: key, ascending: true, selector: #selector(NSNumber.compare(_:)));
+                descriptor = SortDescriptor(key: key, ascending: true, selector: #selector(NSNumber.compare(_:)));
             } else if SORT_DATE_DESCENDING.contains(direction) {
-                descriptor = NSSortDescriptor(key: key, ascending: false, selector: #selector(NSNumber.compare(_:)));
+                descriptor = SortDescriptor(key: key, ascending: false, selector: #selector(NSNumber.compare(_:)));
             }
 
             if let descriptor = descriptor {

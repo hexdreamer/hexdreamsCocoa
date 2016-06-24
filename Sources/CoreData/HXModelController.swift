@@ -5,24 +5,24 @@
 
 import CoreData
 
-public var HXModelControllerUpdatedNotification = "HXModelControllerUpdatedNotification"
-
 // Needs to subclass from NSObject so it can receive notifications
 public class HXModelController : NSObject {
-    
+
+    static let UpdatedNotification = Notification.Name("HXModelControllerUpdatedNotification")
+
     // MARK: Properties
     let modelURL :NSURL
     let storeURL :NSURL
     
     lazy var managedObjectModel: NSManagedObjectModel = {
-        return NSManagedObjectModel(contentsOf: self.modelURL)!
+        return NSManagedObjectModel(contentsOf: self.modelURL as URL)!
     } ()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         var coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         var error :NSError? = nil
         do {
-            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: self.storeURL, options: nil)
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: self.storeURL as URL, options: nil)
         } catch var error1 as NSError {
             error = error1
         } catch {
@@ -41,7 +41,7 @@ public class HXModelController : NSObject {
     public lazy var writemoc: NSManagedObjectContext = {
         var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-        NSNotificationCenter.default().addObserver(self, selector: #selector(HXModelController._contextDidSave(notification:)), name: NSManagedObjectContextObjectsDidChangeNotification, object: managedObjectContext)
+        NotificationCenter.default().addObserver(self, selector: #selector(HXModelController._contextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: managedObjectContext)
         return managedObjectContext
         }()
 
@@ -54,15 +54,15 @@ public class HXModelController : NSObject {
 
     // MARK: Pseudo Private Methods - can't actually be declared private, or won't be found by notification
         
-    func _contextDidSave(notification :NSNotification) {
+    func _contextDidSave(notification :Notification) {
         assert(notification.object as! NSManagedObjectContext == self.writemoc)
         
-        if NSThread.isMainThread() {
+        if Thread.isMainThread() {
             self.moc.mergeChanges(fromContextDidSave: notification)
         } else {
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.moc.mergeChanges(fromContextDidSave: notification)
-                NSNotificationCenter.default().post(name: HXModelControllerUpdatedNotification, object: self)
+                NotificationCenter.default().post(name: HXModelController.UpdatedNotification, object: self)
             }
         }
     }
