@@ -36,8 +36,6 @@ class HXDataControllerTests: XCTestCase {
         super.tearDown()
     }
 
-    /*
-     kenny FIXME won't compile
     func testUpdateEntity() {
         do {
             try self.dataController.updatePersons()
@@ -45,7 +43,9 @@ class HXDataControllerTests: XCTestCase {
             let moc = self.dataController.moc
             moc.performAndWait {
                 do {
-                    var persons = try moc.pdfetch(entityName: "HXManagedPerson", predicate: nil, sortString: "personID,up", returnFaults:false)
+                    guard let persons = try moc.pdfetch(entityName: "HXManagedPerson", predicate: nil, sortString: "personID,up", returnFaults:false) as? Array<HXManagedPerson> else {
+                        throw Error.InvalidArgumentError
+                    }
                     XCTAssertEqual(persons.count, 2);
 
                     XCTAssertEqual(persons[0].personID, 1)
@@ -63,6 +63,5 @@ class HXDataControllerTests: XCTestCase {
             XCTFail("\(error)")
         }
     }
-    */
 
 }

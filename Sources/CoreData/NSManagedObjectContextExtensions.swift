@@ -6,13 +6,13 @@
 import CoreData
 
 public extension NSManagedObjectContext {
-    
+
     public func pdfetch(
-        entityName :String,
+        entityName            :String,
         predicate             :Predicate? = nil,
         sortString            :String? = nil,
         returnFaults          :Bool = false)
-        throws -> [AnyObject]? {
+        throws -> [AnyObject] {
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         request.predicate = predicate

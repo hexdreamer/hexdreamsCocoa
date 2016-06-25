@@ -16,11 +16,9 @@ class HXTestDataController: HXDataController {
         return url;
     }
 
-    /*
-     kenny FIXME won't compile
     // We can't eliminate the entityPKGetter because we need it for the PKClass. Otherwise, we can't properly declare variables like pks or mosByID
     func updateEntity<Entity:HXManagedObject,PKClass:Hashable>(
-        entityClass :Entity.Type,
+        entityClass             :Entity.Type,
         entityPKAttribute       :String,
         entityPKGetter          :(element :Entity) -> PKClass?,
         jsonData                :NSData?,
@@ -59,7 +57,7 @@ class HXTestDataController: HXDataController {
                     throw Errors.General(message: "JSON primary keys \(pks) do not conform to AnyObject")
                 }
                 let predicate = Predicate(format: "%@ in %@", argumentArray:[entityPKAttribute, inList])
-                guard let existingMOs = try moc.pdfetch(entityName: entityName, predicate: predicate, sortString: nil, returnFaults: false)
+                guard let existingMOs = try moc.pdfetch(entityName: entityName, predicate: predicate, sortString: nil, returnFaults: false) as? Array<Entity>
                     else {throw Errors.General(message: "Error fetching existing objects")}
                 mosByID = try existingMOs.mapDict(entityPKGetter)
 
@@ -104,6 +102,5 @@ class HXTestDataController: HXDataController {
             options: []
         )
     }
-    */
 
 }
