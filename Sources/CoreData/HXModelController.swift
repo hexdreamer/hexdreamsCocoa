@@ -11,8 +11,8 @@ public class HXModelController : NSObject {
     static let UpdatedNotification = Notification.Name("HXModelControllerUpdatedNotification")
 
     // MARK: Properties
-    let modelURL :NSURL
-    let storeURL :NSURL
+    let modelURL :URL
+    let storeURL :URL
     
     lazy var managedObjectModel: NSManagedObjectModel = {
         return NSManagedObjectModel(contentsOf: self.modelURL as URL)!
@@ -41,13 +41,13 @@ public class HXModelController : NSObject {
     public lazy var writemoc: NSManagedObjectContext = {
         var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-        NotificationCenter.default().addObserver(self, selector: #selector(HXModelController._contextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: managedObjectContext)
+        NotificationCenter.default.addObserver(self, selector: #selector(HXModelController._contextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: managedObjectContext)
         return managedObjectContext
         }()
 
     // MARK: Constructors/Destructors
     
-    public init(modelURL :NSURL, storeURL :NSURL) {
+    public init(modelURL :URL, storeURL :URL) {
         self.modelURL = modelURL
         self.storeURL = storeURL
     }
@@ -57,12 +57,12 @@ public class HXModelController : NSObject {
     func _contextDidSave(notification :Notification) {
         assert(notification.object as! NSManagedObjectContext == self.writemoc)
         
-        if Thread.isMainThread() {
+        if Thread.isMainThread {
             self.moc.mergeChanges(fromContextDidSave: notification)
         } else {
             DispatchQueue.main.async {
                 self.moc.mergeChanges(fromContextDidSave: notification)
-                NotificationCenter.default().post(name: HXModelController.UpdatedNotification, object: self)
+                NotificationCenter.default.post(name: HXModelController.UpdatedNotification, object: self)
             }
         }
     }

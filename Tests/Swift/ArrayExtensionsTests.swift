@@ -37,7 +37,7 @@ class ArrayExtensionsTests: XCTestCase {
 
     private func map<E,K>(
         _ array :Array<E>,
-        keyGetter :(element :E) -> K
+        keyGetter :(_ element :E) -> K
         ) -> [K]
     {
         return array.map(keyGetter)
@@ -69,7 +69,7 @@ class ArrayExtensionsTests: XCTestCase {
 
     private func mapDict<E,K>(
         _ array :Array<E>,
-        keyGetter :(element :E) -> K?
+        keyGetter :(E) -> K?
         ) throws -> Dictionary<K,E>
     {
         return try array.mapDict(keyGetter)
@@ -81,7 +81,7 @@ class ArrayExtensionsTests: XCTestCase {
             self.array.last?.lastName = nil
             let _ = try self.array.mapDict {$0.lastName}
             XCTFail()
-        } catch Error.ObjectNotFound {
+        } catch Errors.ObjectNotFound {
             errorEncountered = true
         } catch {
             XCTFail("\(error)")

@@ -17,13 +17,10 @@ class HXDataControllerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         let storeURL = self.dataController.storeURL()
-        guard let storePath = storeURL.path else {
-            XCTFail("storePath is nil")
-            return
-        }
-        if FileManager.default().fileExists(atPath: storePath) {
+        let storePath = storeURL.path
+        if FileManager.default.fileExists(atPath: storePath) {
             do {
-                try FileManager.default().removeItem(at: storeURL as URL)
+                try FileManager.default.removeItem(at: storeURL as URL)
             } catch {
                 XCTFail("\(error)")
             }
@@ -44,7 +41,7 @@ class HXDataControllerTests: XCTestCase {
             moc.performAndWait {
                 do {
                     guard let persons = try moc.pdfetch(entityName: "HXManagedPerson", predicate: nil, sortString: "personID,up", returnFaults:false) as? Array<HXManagedPerson> else {
-                        throw Error.InvalidArgumentError
+                        throw hexdreamsCocoa.Errors.InvalidArgumentError
                     }
                     XCTAssertEqual(persons.count, 2);
 

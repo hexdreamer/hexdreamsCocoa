@@ -9,8 +9,9 @@ import hexdreamsCocoa
 
 class HXTestDataController: HXDataController {
 
-    override func modelURL() -> NSURL {
-        guard let url = Bundle(for: self.dynamicType).urlForResource("hexdreams", withExtension: "momd") else {
+    override func modelURL() -> URL {
+        //guard let url = Bundle(for: type(of: self)).urlForResource("hexdreams", withExtension: "momd") else {
+        guard let url = Bundle(for: type(of: self)).url(forResource:"hexdreams", withExtension: "momd") else {
             fatalError("Could not find hexdreams model")
         }
         return url;
@@ -20,9 +21,9 @@ class HXTestDataController: HXDataController {
     func updateEntity<Entity:HXManagedObject,PKClass:Hashable>(
         entityClass             :Entity.Type,
         entityPKAttribute       :String,
-        entityPKGetter          :(element :Entity) -> PKClass?,
-        jsonData                :NSData?,
-        jsonPKGetter            :(dictionary :[String:AnyObject]) -> PKClass?,
+        entityPKGetter          :@escaping (_ element :Entity) -> PKClass?,
+        jsonData                :Data?,
+        jsonPKGetter            :@escaping (_ dictionary :[String:AnyObject]) -> PKClass?,
         moc                     :NSManagedObjectContext,
         options                 :UpdateEntityOptions
         ) throws -> [PKClass:Entity]
@@ -37,14 +38,14 @@ class HXTestDataController: HXDataController {
         // We have to wrap the call to map here with our own code so we can switch types. We need [PKClass] and not [PKClass?]. If we have [PKClass?], we will trigger the "JSON primary keys \(pks) do not conform to AnyObject" below.
         // This doesn't save us any code over the "manual way" of just doing it ourselves. We need a better map method that ensures we get back non-optionals. Is that even possible? I want a generic function that returns something slightly different than it's input T vs T?
         let pks = try json.map { (dict :[String:AnyObject]) -> PKClass in
-            guard let pk = jsonPKGetter(dictionary: dict) else {
-                throw Error.ObjectNotFound(self, "updateEntity", "Primary key not found in \(dict)")
+            guard let pk = jsonPKGetter(dict) else {
+                throw hexdreamsCocoa.Errors.ObjectNotFound(self, "updateEntity", "Primary key not found in \(dict)")
             }
             return pk
         }
 
         var mosByID = [PKClass:Entity]()
-        var blockError :ErrorProtocol? = nil
+        var blockError :Error? = nil
         moc.performAndWait {
             do {
                 guard let entityDescription = NSEntityDescription.entityForClass(entityClass: Entity.self, inManagedObjectContext: moc)else {
@@ -53,16 +54,13 @@ class HXTestDataController: HXDataController {
                 guard let entityName = entityDescription.name else {
                     throw Errors.EntityNotFound(message:"This is really EntityNotFound")
                 }
-                guard let inList = pks as? AnyObject else {
-                    throw Errors.General(message: "JSON primary keys \(pks) do not conform to AnyObject")
-                }
-                let predicate = Predicate(format: "%@ in %@", argumentArray:[entityPKAttribute, inList])
+                let predicate = NSPredicate(format: "%@ in %@", argumentArray:[entityPKAttribute, pks])
                 guard let existingMOs = try moc.pdfetch(entityName: entityName, predicate: predicate, sortString: nil, returnFaults: false) as? Array<Entity>
                     else {throw Errors.General(message: "Error fetching existing objects")}
                 mosByID = try existingMOs.mapDict(entityPKGetter)
 
                 for entityDict in json {
-                    guard let pk = jsonPKGetter(dictionary: entityDict)
+                    guard let pk = jsonPKGetter(entityDict)
                         else {throw Errors.MissingPrimaryKey(dictionary: entityDict)}
                     let existingMO = mosByID[pk]
                     guard let mo = existingMO != nil ? existingMO : Entity(entity: entityDescription, insertInto: moc) else {
@@ -90,8 +88,10 @@ class HXTestDataController: HXDataController {
     }
 
     func updatePersons() throws {
-        let url = Bundle(for: self.dynamicType).urlForResource("HXPerson", withExtension: "json")
-        let jsonData = NSData(contentsOf: url!)
+        guard let url = Bundle(for: type(of: self)).url(forResource:"HXPerson", withExtension: "json") else {
+            fatalError()
+        }
+        let jsonData = try Data(contentsOf: url)
         _ = try self.updateEntity(
             entityClass: HXManagedPerson.self,
             entityPKAttribute: "personID",

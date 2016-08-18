@@ -9,9 +9,9 @@ import Foundation
 import CoreData
 import UIKit
 
-public class HXDataController {
+open class HXDataController {
 
-    public enum Errors : ErrorProtocol {
+    public enum Errors : Error {
         case BadJSON(message :String)
         case EntityNotFound(message :String)
         case MissingPrimaryKey(dictionary: [String:AnyObject])
@@ -27,7 +27,7 @@ public class HXDataController {
         }()
 
     public lazy var urlSession :URLSession = {
-        return URLSession(configuration: URLSessionConfiguration.ephemeral(), delegate:nil, delegateQueue:self.queue)
+        return URLSession(configuration: URLSessionConfiguration.ephemeral, delegate:nil, delegateQueue:self.queue)
         }()
 
     public var moc :NSManagedObjectContext {
@@ -38,16 +38,16 @@ public class HXDataController {
         return self.modelController.writemoc
     }
 
-    public func modelURL() -> NSURL {
+    open func modelURL() -> URL {
         fatalError("Needs to be overridden")
     }
 
-    public func storeURL() -> NSURL {
+    public func storeURL() -> URL {
         guard let filename = self.modelURL().lastPathComponent as NSString? else {
             fatalError("Failed to generate storeURL")
         }
         let modelName = filename.deletingPathExtension
-        return UIApplication.applicationDocumentsDirectory().appendingPathComponent("\(modelName).sqlite")!
+        return UIApplication.applicationDocumentsDirectory().appendingPathComponent("\(modelName).sqlite")
     }
 
     public init() {

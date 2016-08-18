@@ -6,13 +6,13 @@
 public extension Array {
 
     public func mapDict<Key>(
-        _ getter: (element: Element) -> Key?
+        _ getter: (_ element: Element) -> Key?
         ) throws -> Dictionary<Key,Element>
     {
         var dict = Dictionary<Key,Element>(minimumCapacity: self.count)
         for obj in self {
-            guard let key = getter(element: obj) else {
-                throw hexdreamsCocoa.Error.ObjectNotFound(self, "mapDict", "Array.mapDict: object does not contain value for key: \(obj)")
+            guard let key = getter(obj) else {
+                throw hexdreamsCocoa.Errors.ObjectNotFound(self, "mapDict", "Array.mapDict: object does not contain value for key: \(obj)")
             }
             dict[key] = obj
         }
@@ -24,7 +24,7 @@ public extension Array {
         return try ArrayBridge<Element,CChar>(array:self) {
             guard let item = $0 as? String,
                   let translated = item.cString(using: .utf8) else {
-                throw hexdreamsCocoa.Error.InvalidArgumentError
+                throw hexdreamsCocoa.Errors.InvalidArgumentError
             }
             return translated
         }
@@ -49,7 +49,7 @@ public struct ArrayBridge<SwiftType,CType> {
     let pointers   :[UnsafePointer<CType>?]
     public let pointer    :UnsafePointer<UnsafePointer<CType>?>
 
-    init(array :[SwiftType], transform: @noescape (SwiftType) throws -> [CType]) throws {
+    init(array :[SwiftType], transform: (SwiftType) throws -> [CType]) throws {
         self.originals = array
         self.translated = try array.map(transform)
 

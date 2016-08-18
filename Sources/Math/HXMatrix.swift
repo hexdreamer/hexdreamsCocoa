@@ -95,10 +95,13 @@ public class HXMatrix {
         return C
     }
 
+    // MARK: Operator Support
+    static public func ⋅ (left: HXMatrix, right: HXMatrix) -> HXMatrix {
+        return left.multiply(matrix:right)
+    }
+
 }
 
-infix operator ⋅ { associativity left precedence 100 }
+// NOTE there is a DOT there as the operator
+infix operator ⋅
 
-public func ⋅ (left: HXMatrix, right: HXMatrix) -> HXMatrix {
-    return left.multiply(matrix:right)
-}

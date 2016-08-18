@@ -24,7 +24,7 @@ class NSPredicateTests: XCTestCase {
     }
     
     func testInPredicate() {
-        let predicate = Predicate(format: "firstName in %@", ["Charlie", "Linus"])
+        let predicate = NSPredicate(format: "firstName in %@", ["Charlie", "Linus"])
         let results = self.array.filter {predicate.evaluate(with: $0)}
         XCTAssertEqual(results.count, 2)
     }
@@ -35,8 +35,8 @@ class NSPredicateTests: XCTestCase {
         XCTAssertEqual(results.count, 2)
     }
 
-    private func filterWithTemplate<T:AnyObject>(_ input :[T]) -> [HXPerson] {
-        let predicate = Predicate(format: "firstName in %@", input)
+    fileprivate func filterWithTemplate<T:Any>(_ input :[T]) -> [HXPerson] {
+        let predicate = NSPredicate(format: "firstName in %@", input)
         let results = self.array.filter {predicate.evaluate(with: $0)}
         return results
     }
