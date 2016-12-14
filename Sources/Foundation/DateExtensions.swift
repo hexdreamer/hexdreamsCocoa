@@ -37,15 +37,6 @@ public extension Date {
         return formatter
     }
     
-    public static func iso8601Formatter(timeZone:TimeZone) -> DateFormatter {
-        let locale = Locale(identifier:"en_US_POSIX")
-        let formatter = DateFormatter()
-        formatter.locale = locale
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-        formatter.timeZone = timeZone
-        return formatter
-    }
-
     // MARK: Creating New Dates
     public static func dateWith(year:Int, month:Int, day:Int, hour:Int, minute:Int, second:Int, timeZone:TimeZone) -> Date? {
         var cal = Calendar(identifier:.gregorian)
@@ -81,6 +72,16 @@ public extension Date {
         return cal.date(from: components)
     }
     
+    public func beginningOfDay(timeZone:TimeZone) -> Date {
+        var cal = Calendar(identifier:.gregorian)
+        cal.timeZone = timeZone
+        let components = cal.dateComponents([.year, .month, .day], from:self)
+        guard let beginningOfDay = cal.date(from:components) else {
+            fatalError("Could not generate beginning of date \(self)")
+        }
+        return beginningOfDay
+    }
+        
     // MARK: Comparing Dates
     public func equalTo(other :Date) -> Bool  {
         return self.compare(other) == .orderedSame
