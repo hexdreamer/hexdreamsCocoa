@@ -12,7 +12,7 @@ public extension Array {
         var dict = Dictionary<Key,Element>(minimumCapacity: self.count)
         for obj in self {
             guard let key = getter(obj) else {
-                throw hexdreamsCocoa.Errors.ObjectNotFound(self, "mapDict", "Array.mapDict: object does not contain value for key: \(obj)")
+                throw Errors.ObjectNotFound(self, "mapDict", "Array.mapDict: object does not contain value for key: \(obj)")
             }
             dict[key] = obj
         }
@@ -20,11 +20,14 @@ public extension Array {
     }
 
     // Translate [String] to (const char * const *), which translates to Swift as
+    // May want to replace this with Swift's own private function:
+    // https://lists.swift.org/pipermail/swift-users/Week-of-Mon-20160815/002957.html
+    // https://github.com/apple/swift/blob/dfc3933a05264c0c19f7cd43ea0dca351f53ed48/stdlib/private/SwiftPrivate/SwiftPrivate.swift#L68
     public func cStringArray() throws -> ArrayBridge<Element,CChar> {
         return try ArrayBridge<Element,CChar>(array:self) {
             guard let item = $0 as? String,
                   let translated = item.cString(using: .utf8) else {
-                throw hexdreamsCocoa.Errors.InvalidArgumentError
+                throw Errors.InvalidArgumentError("blah")
             }
             return translated
         }

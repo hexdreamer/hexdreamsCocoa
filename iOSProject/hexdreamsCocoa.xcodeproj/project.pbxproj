@@ -10,6 +10,8 @@
 		B9218AF21CC887A000A97389 /* hexdreamsCocoa.h in Headers */ = {isa = PBXBuildFile; fileRef = B9218AF11CC887A000A97389 /* hexdreamsCocoa.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B9218AF91CC887A000A97389 /* hexdreamsCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9218AEE1CC887A000A97389 /* hexdreamsCocoa.framework */; };
 		B9218AFE1CC887A000A97389 /* hexdreamsCocoaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9218AFD1CC887A000A97389 /* hexdreamsCocoaTests.swift */; };
+		B96CC3BA1DF1F612007DD4AA /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CC3B91DF1F612007DD4AA /* DateExtensions.swift */; };
+		B9C601B61E01CBD9000FB2BA /* CommandLineInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C601B51E01CBD9000FB2BA /* CommandLineInterface.swift */; };
 		B9CCA1901CC889060002A24F /* HXDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA17C1CC889060002A24F /* HXDataController.swift */; };
 		B9CCA1911CC889060002A24F /* HXManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA17D1CC889060002A24F /* HXManagedObject.swift */; };
 		B9CCA1921CC889060002A24F /* HXModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA17E1CC889060002A24F /* HXModelController.swift */; };
@@ -57,6 +59,8 @@
 		B9218AF81CC887A000A97389 /* hexdreamsCocoaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hexdreamsCocoaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9218AFD1CC887A000A97389 /* hexdreamsCocoaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hexdreamsCocoaTests.swift; sourceTree = "<group>"; };
 		B9218AFF1CC887A000A97389 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B96CC3B91DF1F612007DD4AA /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		B9C601B51E01CBD9000FB2BA /* CommandLineInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineInterface.swift; sourceTree = "<group>"; };
 		B9CCA17C1CC889060002A24F /* HXDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXDataController.swift; sourceTree = "<group>"; };
 		B9CCA17D1CC889060002A24F /* HXManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXManagedObject.swift; sourceTree = "<group>"; };
 		B9CCA17E1CC889060002A24F /* HXModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXModelController.swift; sourceTree = "<group>"; };
@@ -144,10 +148,19 @@
 			path = hexdreamsCocoaTests;
 			sourceTree = "<group>";
 		};
+		B9C601B41E01CBD9000FB2BA /* hexdreams */ = {
+			isa = PBXGroup;
+			children = (
+				B9C601B51E01CBD9000FB2BA /* CommandLineInterface.swift */,
+			);
+			path = hexdreams;
+			sourceTree = "<group>";
+		};
 		B9CCA17A1CC889060002A24F /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				B9CCA1861CC889060002A24F /* hexdreams.swift */,
+				B9C601B41E01CBD9000FB2BA /* hexdreams */,
 				B9CCA1841CC889060002A24F /* Foundation */,
 				B9CCA18D1CC889060002A24F /* UIKit */,
 				B9CCA1811CC889060002A24F /* CoreGraphics */,
@@ -183,6 +196,7 @@
 		B9CCA1841CC889060002A24F /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				B96CC3B91DF1F612007DD4AA /* DateExtensions.swift */,
 				B9CCA1851CC889060002A24F /* NSSortDescriptorExtensions.swift */,
 			);
 			path = Foundation;
@@ -341,7 +355,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = hexdreams;
 				TargetAttributes = {
 					B9218AED1CC887A000A97389 = {
@@ -403,10 +417,12 @@
 				B9CCA19A1CC889060002A24F /* ArrayExtensions.swift in Sources */,
 				B9CCA19E1CC889060002A24F /* UIApplicationExtensions.swift in Sources */,
 				B9CCA19D1CC889060002A24F /* HXViewController.swift in Sources */,
+				B96CC3BA1DF1F612007DD4AA /* DateExtensions.swift in Sources */,
 				B9CCA1911CC889060002A24F /* HXManagedObject.swift in Sources */,
 				B9CCA1901CC889060002A24F /* HXDataController.swift in Sources */,
 				B9CCA1941CC889060002A24F /* NSManagedObjectContextExtensions.swift in Sources */,
 				B9CCA1971CC889060002A24F /* NSSortDescriptorExtensions.swift in Sources */,
+				B9C601B61E01CBD9000FB2BA /* CommandLineInterface.swift in Sources */,
 				B9CCA1961CC889060002A24F /* CGSizeExtensions.swift in Sources */,
 				B9CCA19C1CC889060002A24F /* StringExtensions.swift in Sources */,
 			);
@@ -458,8 +474,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -507,8 +525,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -538,6 +558,7 @@
 		B9218B031CC887A000A97389 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -556,6 +577,7 @@
 		B9218B041CC887A000A97389 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;

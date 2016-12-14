@@ -21,7 +21,7 @@ extension NSSortDescriptor {
 
     public class func sortDescriptorsFrom(string sortString :String) throws -> [NSSortDescriptor] {
         var descriptors = [NSSortDescriptor]()
-        let components = sortString.split("[, ]+")
+        let components = sortString.split(pattern:"[, ]+")
 
         for i in stride(from: 0, to: components.count, by: 2) {
             let key = components[i]

@@ -19,7 +19,7 @@ class StringExtensionsTest: XCTestCase {
 
     func testSplit() {
         let testString = "Wednesday July 23, 2014  6:00pm -  6:25pm"
-        let parts = testString.split("[ ,-]+")
+        let parts = testString.split(pattern: "[ ,-]+")
         
         XCTAssertEqual(parts.count, 6, "")
         XCTAssertEqual(parts[0], "Wednesday", "")
