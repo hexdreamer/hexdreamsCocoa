@@ -81,7 +81,20 @@ public extension Date {
         }
         return beginningOfDay
     }
-        
+    
+    public func endOfDay(timeZone:TimeZone) -> Date {
+        var cal = Calendar(identifier:.gregorian)
+        cal.timeZone = timeZone
+        var components = cal.dateComponents([.year, .month, .day], from:self)
+        components.hour = 23
+        components.minute = 59
+        components.second = 59
+        guard let endOfDay = cal.date(from:components) else {
+            fatalError("Could not generate end of date \(self)")
+        }
+        return endOfDay
+    }
+            
     // MARK: Comparing Dates
     public func equalTo(other :Date) -> Bool  {
         return self.compare(other) == .orderedSame

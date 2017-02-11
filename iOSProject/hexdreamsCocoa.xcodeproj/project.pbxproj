@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B91ADF361E4E81270052E3F4 /* CGContextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91ADF351E4E81270052E3F4 /* CGContextExtensions.swift */; };
+		B91ADF381E4E8B160052E3F4 /* CGPointExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91ADF371E4E8B160052E3F4 /* CGPointExtensions.swift */; };
 		B9218AF21CC887A000A97389 /* hexdreamsCocoa.h in Headers */ = {isa = PBXBuildFile; fileRef = B9218AF11CC887A000A97389 /* hexdreamsCocoa.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B9218AF91CC887A000A97389 /* hexdreamsCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9218AEE1CC887A000A97389 /* hexdreamsCocoa.framework */; };
 		B9218AFE1CC887A000A97389 /* hexdreamsCocoaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9218AFD1CC887A000A97389 /* hexdreamsCocoaTests.swift */; };
@@ -53,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B91ADF351E4E81270052E3F4 /* CGContextExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGContextExtensions.swift; sourceTree = "<group>"; };
+		B91ADF371E4E8B160052E3F4 /* CGPointExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointExtensions.swift; sourceTree = "<group>"; };
 		B9218AEE1CC887A000A97389 /* hexdreamsCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hexdreamsCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9218AF11CC887A000A97389 /* hexdreamsCocoa.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hexdreamsCocoa.h; sourceTree = "<group>"; };
 		B9218AF31CC887A000A97389 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -187,8 +191,10 @@
 		B9CCA1811CC889060002A24F /* CoreGraphics */ = {
 			isa = PBXGroup;
 			children = (
-				B9CCA1821CC889060002A24F /* CGRectExtensions.swift */,
+				B91ADF371E4E8B160052E3F4 /* CGPointExtensions.swift */,
 				B9CCA1831CC889060002A24F /* CGSizeExtensions.swift */,
+				B9CCA1821CC889060002A24F /* CGRectExtensions.swift */,
+				B91ADF351E4E81270052E3F4 /* CGContextExtensions.swift */,
 			);
 			path = CoreGraphics;
 			sourceTree = "<group>";
@@ -412,6 +418,7 @@
 				B9CCA1931CC889060002A24F /* NSEntityDescriptionExtensions.swift in Sources */,
 				B9CCA1981CC889060002A24F /* hexdreams.swift in Sources */,
 				B9CCA1991CC889060002A24F /* HXMatrix.swift in Sources */,
+				B91ADF361E4E81270052E3F4 /* CGContextExtensions.swift in Sources */,
 				B9CCA1951CC889060002A24F /* CGRectExtensions.swift in Sources */,
 				B9CCA1921CC889060002A24F /* HXModelController.swift in Sources */,
 				B9CCA19A1CC889060002A24F /* ArrayExtensions.swift in Sources */,
@@ -424,6 +431,7 @@
 				B9CCA1971CC889060002A24F /* NSSortDescriptorExtensions.swift in Sources */,
 				B9C601B61E01CBD9000FB2BA /* CommandLineInterface.swift in Sources */,
 				B9CCA1961CC889060002A24F /* CGSizeExtensions.swift in Sources */,
+				B91ADF381E4E8B160052E3F4 /* CGPointExtensions.swift in Sources */,
 				B9CCA19C1CC889060002A24F /* StringExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
