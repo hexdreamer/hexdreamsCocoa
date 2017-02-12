@@ -43,10 +43,7 @@ open class HXDataController {
     }
 
     public func storeURL() -> URL {
-        guard let filename = self.modelURL().lastPathComponent as NSString? else {
-            fatalError("Failed to generate storeURL")
-        }
-        let modelName = filename.deletingPathExtension
+        let modelName = self.modelURL().deletingPathExtension().lastPathComponent
         return UIApplication.applicationDocumentsDirectory().appendingPathComponent("\(modelName).sqlite")
     }
 
