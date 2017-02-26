@@ -13,6 +13,8 @@
 		B9218AF91CC887A000A97389 /* hexdreamsCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9218AEE1CC887A000A97389 /* hexdreamsCocoa.framework */; };
 		B9218AFE1CC887A000A97389 /* hexdreamsCocoaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9218AFD1CC887A000A97389 /* hexdreamsCocoaTests.swift */; };
 		B96CC3BA1DF1F612007DD4AA /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CC3B91DF1F612007DD4AA /* DateExtensions.swift */; };
+		B9B66E0C1E57E9D4004F5894 /* FD_utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B66E0B1E57E9D4004F5894 /* FD_utilities.swift */; };
+		B9B66E0E1E57EA0A004F5894 /* C.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B66E0D1E57EA0A004F5894 /* C.swift */; };
 		B9C601B61E01CBD9000FB2BA /* CommandLineInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C601B51E01CBD9000FB2BA /* CommandLineInterface.swift */; };
 		B9CCA1901CC889060002A24F /* HXDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA17C1CC889060002A24F /* HXDataController.swift */; };
 		B9CCA1911CC889060002A24F /* HXManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA17D1CC889060002A24F /* HXManagedObject.swift */; };
@@ -64,6 +66,8 @@
 		B9218AFD1CC887A000A97389 /* hexdreamsCocoaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hexdreamsCocoaTests.swift; sourceTree = "<group>"; };
 		B9218AFF1CC887A000A97389 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B96CC3B91DF1F612007DD4AA /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		B9B66E0B1E57E9D4004F5894 /* FD_utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FD_utilities.swift; sourceTree = "<group>"; };
+		B9B66E0D1E57EA0A004F5894 /* C.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = C.swift; sourceTree = "<group>"; };
 		B9C601B51E01CBD9000FB2BA /* CommandLineInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineInterface.swift; sourceTree = "<group>"; };
 		B9CCA17C1CC889060002A24F /* HXDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXDataController.swift; sourceTree = "<group>"; };
 		B9CCA17D1CC889060002A24F /* HXManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXManagedObject.swift; sourceTree = "<group>"; };
@@ -152,6 +156,15 @@
 			path = hexdreamsCocoaTests;
 			sourceTree = "<group>";
 		};
+		B9B66E0A1E57E9D4004F5894 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				B9B66E0D1E57EA0A004F5894 /* C.swift */,
+				B9B66E0B1E57E9D4004F5894 /* FD_utilities.swift */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
 		B9C601B41E01CBD9000FB2BA /* hexdreams */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +184,7 @@
 				B9CCA17B1CC889060002A24F /* CoreData */,
 				B9CCA1871CC889060002A24F /* Math */,
 				B9CCA1891CC889060002A24F /* Swift */,
+				B9B66E0A1E57E9D4004F5894 /* C */,
 			);
 			name = Sources;
 			path = ../Sources;
@@ -418,6 +432,7 @@
 				B9CCA1931CC889060002A24F /* NSEntityDescriptionExtensions.swift in Sources */,
 				B9CCA1981CC889060002A24F /* hexdreams.swift in Sources */,
 				B9CCA1991CC889060002A24F /* HXMatrix.swift in Sources */,
+				B9B66E0C1E57E9D4004F5894 /* FD_utilities.swift in Sources */,
 				B91ADF361E4E81270052E3F4 /* CGContextExtensions.swift in Sources */,
 				B9CCA1951CC889060002A24F /* CGRectExtensions.swift in Sources */,
 				B9CCA1921CC889060002A24F /* HXModelController.swift in Sources */,
@@ -427,6 +442,7 @@
 				B96CC3BA1DF1F612007DD4AA /* DateExtensions.swift in Sources */,
 				B9CCA1911CC889060002A24F /* HXManagedObject.swift in Sources */,
 				B9CCA1901CC889060002A24F /* HXDataController.swift in Sources */,
+				B9B66E0E1E57EA0A004F5894 /* C.swift in Sources */,
 				B9CCA1941CC889060002A24F /* NSManagedObjectContextExtensions.swift in Sources */,
 				B9CCA1971CC889060002A24F /* NSSortDescriptorExtensions.swift in Sources */,
 				B9C601B61E01CBD9000FB2BA /* CommandLineInterface.swift in Sources */,
