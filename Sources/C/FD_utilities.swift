@@ -36,7 +36,7 @@ extension C {
     public static func FD_SET(_ fd: Int32, _ set: inout fd_set) {
         let intOffset = Int(fd / 32)
         let bitOffset = fd % 32
-        let mask = 1 << bitOffset
+        let mask :Int32 = 1 << bitOffset
         switch intOffset {
         case 0: set.fds_bits.0 = set.fds_bits.0 | mask
         case 1: set.fds_bits.1 = set.fds_bits.1 | mask
@@ -87,7 +87,7 @@ extension C {
     public static func FD_CLR(_ fd: Int32, _ set: inout fd_set) {
         let intOffset = Int(fd / 32)
         let bitOffset = fd % 32
-        let mask = ~(1 << bitOffset)
+        let mask :Int32 = ~(1 << bitOffset)
         switch intOffset {
         case 0: set.fds_bits.0 = set.fds_bits.0 & mask
         case 1: set.fds_bits.1 = set.fds_bits.1 & mask
@@ -138,7 +138,7 @@ extension C {
     public static func FD_ISSET(_ fd: Int32, _ set: inout fd_set) -> Bool {
         let intOffset = Int(fd / 32)
         let bitOffset = fd % 32
-        let mask = 1 << bitOffset
+        let mask :Int32 = 1 << bitOffset
         switch intOffset {
         case 0: return set.fds_bits.0 & mask != 0
         case 1: return set.fds_bits.1 & mask != 0

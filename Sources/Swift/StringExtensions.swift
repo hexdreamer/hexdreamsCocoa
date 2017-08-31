@@ -7,12 +7,12 @@ public extension String {
     
     public func split(pattern :String) -> [String] {
         var results = [String]()
-        var remaining = self.startIndex..<self.endIndex;
-        while let matchRange = self.range(of:pattern, options: .regularExpression, range: remaining, locale: nil) {
-            results.append(self.substring(with: remaining.lowerBound..<matchRange.lowerBound))
-            remaining = matchRange.upperBound..<self.endIndex
+        var remainingRange = self.startIndex..<self.endIndex;
+        while let matchRange = self.range(of:pattern, options: .regularExpression, range: remainingRange, locale: nil) {
+            results.append(String(self[remainingRange.lowerBound..<matchRange.lowerBound]))
+            remainingRange = matchRange.upperBound..<self.endIndex
         }
-        results.append(self.substring(with:remaining))
+        results.append(String(self[remainingRange]))
         return results
     }
     
@@ -23,7 +23,7 @@ public extension String {
     public func strippedOf(prefix :String) -> String? {
         if let prefixRange = self.range(of:prefix) {
             if prefixRange.lowerBound == self.startIndex {
-                return self.substring(from:prefixRange.upperBound)
+                return String(self[prefixRange.upperBound...])
             }
         }
         return nil
@@ -36,7 +36,7 @@ public extension String {
     public func strippedOf(suffix :String) -> String? {
         if let suffixRange = self.range(of:suffix) {
             if suffixRange.upperBound == self.endIndex {
-                return self.substring(to:suffixRange.lowerBound)
+                return String(self[...suffixRange.lowerBound])
             }
         }
         return nil

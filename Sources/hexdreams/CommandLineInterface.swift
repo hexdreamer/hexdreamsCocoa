@@ -35,15 +35,15 @@ public class CommandLineInterface {
             }
 
             if let equalRange = optionarg.range(of:"=") {
-                let optionName = optionarg.substring(to:equalRange.lowerBound)
-                let optionValue = optionarg.substring(from:equalRange.upperBound)
-                guard let specification = self.specificationFor(name:optionName) else {
+                let optionName = optionarg[...equalRange.lowerBound]
+                let optionValue = optionarg[equalRange.upperBound...]
+                guard let specification = self.specificationFor(name:String(optionName)) else {
                     throw Errors.InvalidArgumentError("Unknown option \(optionName)")
                 }
                 if !specification.hasValue {
                     throw Errors.InvalidArgumentError("Option \(optionName) uses no value, but \(optionValue) was provided")
                 }
-                self.options.append(Option(specification:specification, value:optionValue))
+                self.options.append(Option(specification:specification, value:String(optionValue)))
             } else {
                 let optionName = optionarg
                 var optionValue :String?

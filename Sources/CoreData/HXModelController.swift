@@ -54,7 +54,7 @@ public class HXModelController : NSObject {
 
     // MARK: Pseudo Private Methods - can't actually be declared private, or won't be found by notification
         
-    func _contextDidSave(notification :Notification) {
+    @objc func _contextDidSave(notification :Notification) {
         assert(notification.object as! NSManagedObjectContext == self.writemoc)
         
         if Thread.isMainThread {
