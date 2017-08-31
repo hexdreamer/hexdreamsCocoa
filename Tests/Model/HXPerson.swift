@@ -5,11 +5,10 @@
 
 import Foundation
 
-@objc(HXPerson)
 class HXPerson : NSObject {
 
-    var firstName :String?
-    var lastName  :String?
+    @objc var firstName :String?
+    @objc var lastName  :String?
 
     init(_ firstName :String, _ lastName :String) {
         self.firstName = firstName
