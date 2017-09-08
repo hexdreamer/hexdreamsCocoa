@@ -5,7 +5,6 @@
 
 import Foundation
 
-// FIX THIS! Should be enums
 private let SORT_STRINGS_ASCENDING = ["up", "asc"]
 private let SORT_STRINGS_DESCENDING = ["down", "desc"]
 private let SORT_STRINGS_CASEINSENSITIVE_ASCENDING = ["ciup" , "ciasc"]
@@ -24,8 +23,8 @@ extension NSSortDescriptor {
         let components = sortString.split(pattern:"[, ]+")
 
         for i in stride(from: 0, to: components.count, by: 2) {
-            let key = components[i]
-            let direction = components[i + 1]
+            let key = String(components[i])
+            let direction = components[i + 1].lowercased()
             var descriptor :NSSortDescriptor?
 
             if SORT_STRINGS_ASCENDING.contains(direction) {

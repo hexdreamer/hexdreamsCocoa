@@ -21,7 +21,7 @@ public class CommandLineInterface {
         
         while true {
             let arg = cmdline[i]
-            var remainder :String?
+            var remainder :Substring?
             
             i += 1
             
@@ -47,7 +47,7 @@ public class CommandLineInterface {
             } else {
                 let optionName = optionarg
                 var optionValue :String?
-                guard let specification = self.specificationFor(name:optionName) else {
+                guard let specification = self.specificationFor(name:String(optionName)) else {
                     throw Errors.InvalidArgumentError("Unknown option \(optionName)")
                 }
                 if specification.hasValue {

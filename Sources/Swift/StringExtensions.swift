@@ -5,14 +5,14 @@
 
 public extension String {
     
-    public func split(pattern :String) -> [String] {
-        var results = [String]()
+    public func split(pattern :String) -> [Substring] {
+        var results = [Substring]()
         var remainingRange = self.startIndex..<self.endIndex;
-        while let matchRange = self.range(of:pattern, options: .regularExpression, range: remainingRange, locale: nil) {
-            results.append(String(self[remainingRange.lowerBound..<matchRange.lowerBound]))
+        while let matchRange = self.range(of:pattern, options: .regularExpression, range: remainingRange) {
+            results.append(self[remainingRange.lowerBound..<matchRange.lowerBound])
             remainingRange = matchRange.upperBound..<self.endIndex
         }
-        results.append(String(self[remainingRange]))
+        results.append(self[remainingRange])
         return results
     }
     
@@ -20,10 +20,10 @@ public extension String {
      #strippedOf(prefix:)
      If the prefix exists on the string, then it is stripped, and the remainder is returned. If the prefix does not exist, returns nil
      */
-    public func strippedOf(prefix :String) -> String? {
+    public func strippedOf(prefix :String) -> Substring? {
         if let prefixRange = self.range(of:prefix) {
             if prefixRange.lowerBound == self.startIndex {
-                return String(self[prefixRange.upperBound...])
+                return self[prefixRange.upperBound...]
             }
         }
         return nil
@@ -33,30 +33,26 @@ public extension String {
      #strippedOf(suffix:)
      If the suffix exists on the string, then it is stripped, and the remainder is returned. If the suffix does not exist, returns nil
      */
-    public func strippedOf(suffix :String) -> String? {
+    public func strippedOf(suffix :String) -> Substring? {
         if let suffixRange = self.range(of:suffix) {
             if suffixRange.upperBound == self.endIndex {
-                return String(self[...suffixRange.lowerBound])
+                return self[...suffixRange.lowerBound]
             }
         }
         return nil
     }
     
-    public func stripedOfQuotes() -> String {
-        var x :String?
-            
-        x = self.strippedOf(prefix:"\"")
-        if x == nil {
-            x = self
+    public func strippedOf(fixes :String) -> Substring? {
+        if let prefixRange = self.range(of:fixes) {
+            if prefixRange.lowerBound == self.startIndex {
+                let remainingRange = prefixRange.upperBound..<self.endIndex;
+                if let suffixRange = self.range(of:fixes, range:remainingRange) {
+                    return self[prefixRange.upperBound...suffixRange.lowerBound]
+                }
+            }
         }
-        x = self.strippedOf(suffix:"\"")
-        
-        guard let nnx = x else {
-            return self
-        }
-        return nnx
+        return nil
     }
-
 }
 
 // MARK: Operator Support
