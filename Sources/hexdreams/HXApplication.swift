@@ -3,9 +3,9 @@
 // Copyright © 2016 Kenny Leung
 // This code is PUBLIC DOMAIN
 
-import UIKit
+import Foundation
 
-extension UIApplication {
+public class HXApplication {
 
     public class func applicationDocumentsDirectory() -> URL {
         let urls = FileManager.default.urls(for:FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)

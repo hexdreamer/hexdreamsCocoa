@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreData
-import UIKit
 
 open class HXDataController {
 
@@ -44,7 +43,7 @@ open class HXDataController {
 
     public func storeURL() -> URL {
         let modelName = self.modelURL().deletingPathExtension().lastPathComponent
-        return UIApplication.applicationDocumentsDirectory().appendingPathComponent("\(modelName).sqlite")
+        return HXApplication.applicationDocumentsDirectory().appendingPathComponent("\(modelName).sqlite")
     }
 
     public init() {

@@ -3,7 +3,6 @@
 // Copyright © 2016 Kenny Leung
 // This code is PUBLIC DOMAIN
 
-import UIKit
 import CoreData
 import hexdreamsCocoa
 
