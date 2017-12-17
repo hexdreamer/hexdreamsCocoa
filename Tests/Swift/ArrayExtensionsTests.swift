@@ -31,7 +31,7 @@ class ArrayExtensionsTests: XCTestCase {
     }
 
     func testMapIndirect() {
-        let newArray = self.map(self.array) {return $0.lastName!}
+        let newArray = self.map(self.array) {$0.lastName!}
         XCTAssertEqual(newArray, ["Brown", "Patti", "Van Pelt"])
     }
 
@@ -89,4 +89,23 @@ class ArrayExtensionsTests: XCTestCase {
         XCTAssertTrue(errorEncountered)
     }
 
+    func testMapDictNT() {
+        let dict = self.array.mapDictNT {$0.firstName}
+        
+        XCTAssertEqual(dict["Charlie"]!.lastName!, self.array[0].lastName!)
+        XCTAssertEqual(dict["Peppermint"]!.lastName!, self.array[1].lastName!)
+        XCTAssertEqual(dict["Linus"]!.lastName!, self.array[2].lastName!)
+    }
+
+    func testMapDictWithHandler() {
+        let dict = self.array.mapDict({
+            (person:HXPerson) -> String? in person.firstName
+        },{
+            (person:HXPerson) -> Bool in true}
+        )
+        
+        XCTAssertEqual(dict["Charlie"]!.lastName!, self.array[0].lastName!)
+        XCTAssertEqual(dict["Peppermint"]!.lastName!, self.array[1].lastName!)
+        XCTAssertEqual(dict["Linus"]!.lastName!, self.array[2].lastName!)
+    }
 }
