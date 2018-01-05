@@ -188,6 +188,7 @@ public class HXObserverCenter {
     
     // This should be on the serialize queue by virtue of the timer.
     private func processUIObservers() {
+        var hasRelevantEntries = false
         var i = self.byObserver.count - 1 ; while i >= 0 { defer {i -= 1}
             let group = self.byObserver[i]
             if group.owner == nil {
@@ -201,6 +202,10 @@ public class HXObserverCenter {
                 fatalError()
             }
             handler(group)
+            hasRelevantEntries = true
+        }
+        if !hasRelevantEntries {
+            self.stopUITimer()
         }
     }
     
