@@ -47,7 +47,7 @@ class HXTestDataController: HXDataController {
         var blockError :Error? = nil
         moc.performAndWait {
             do {
-                guard let entityDescription = NSEntityDescription.entityForClass(entityClass: Entity.self, inManagedObjectContext: moc)else {
+                guard let entityDescription = NSEntityDescription.entityForClass(entityClass: Entity.self, inManagedObjectContext: moc) else {
                     throw Errors.EntityNotFound(message: "This is really EntityNotFound")
                 }
                 guard let entityName = entityDescription.name else {

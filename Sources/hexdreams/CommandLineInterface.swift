@@ -1,3 +1,7 @@
+// hexdreamsCocoa
+// CommandLineInterface.swift
+// Copyright © 2018 Kenny Leung
+// This code is PUBLIC DOMAIN
 
 public class CommandLineInterface {
     
