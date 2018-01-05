@@ -12,7 +12,7 @@ public class HXObserverCenter {
     private let serialize = DispatchQueue(label:"HXObserverCenter_serial", qos:.default, attributes:[], autoreleaseFrequency:.workItem, target:nil)
     private var byObserved = [HXObserverEntryGroup]()
     private var byObserver = [HXObserverEntryGroup]()
-    private var uitimer:DispatchSourceTimer?
+    private var uiTimer:DispatchSourceTimer?
 
     public func register (
         observer:AnyObject,
@@ -90,13 +90,13 @@ public class HXObserverCenter {
                         entry.notifying = .scheduled
                         self.sendNotification(entry)
                     }
-                case .timedcoaelscing:
+                case .timedcoalescing:
                     if entry.notifying == .waiting {
                         entry.notifying = .scheduled
                         self.sendNotification(entry)
                     }
                 case .uicoalescing:
-                    if self.uitimer == nil {
+                    if self.uiTimer == nil {
                         self.startUITimer()
                     }
                 }
@@ -114,7 +114,7 @@ public class HXObserverCenter {
                     entry.changeCount -= 1
                 case .coalescing:
                     entry.changeCount = 0
-                case .timedcoaelscing:
+                case .timedcoalescing:
                     entry.changeCount = 0
                 case .uicoalescing:
                     fatalError()
@@ -145,7 +145,7 @@ public class HXObserverCenter {
                         entry.notifying = .scheduled
                         self.sendNotification(entry)
                     }
-                case .timedcoaelscing:
+                case .timedcoalescing:
                     if entry.changeCount > 0 {
                         entry.notifying = .scheduled
                         guard let intervalMS = entry.timedCoalescingIntervalMS else {
@@ -163,7 +163,7 @@ public class HXObserverCenter {
     }
     
     private func startUITimer() {
-        if self.uitimer != nil {
+        if self.uiTimer != nil {
             return
         }
         let timer = DispatchSource.makeTimerSource(flags:[], queue:serialize)
@@ -175,14 +175,14 @@ public class HXObserverCenter {
         timer.setEventHandler {
             self.processUIObservers()
         }
-        self.uitimer = timer
+        self.uiTimer = timer
         timer.resume()
     }
     
     private func stopUITimer() {
-        if let timer = self.uitimer {
+        if let timer = self.uiTimer {
             timer.cancel()
-            self.uitimer = nil
+            self.uiTimer = nil
         }
     }
     

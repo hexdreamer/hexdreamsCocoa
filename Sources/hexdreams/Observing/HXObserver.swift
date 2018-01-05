@@ -7,7 +7,7 @@ public struct HXObserver {
     public enum Immediacy {
         case immediate
         case coalescing
-        case timedcoaelscing
+        case timedcoalescing
         case uicoalescing
     }
     public static var TimedCoalescingIntervalMSDefault:UInt = 100
