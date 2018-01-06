@@ -178,7 +178,7 @@ public class HXObserverCenter {
             leeway:DispatchTimeInterval.milliseconds(Int(HXObserver.UICoalescingLeewayMS))
         )
         timer.setEventHandler {
-            self.processUIObservers()
+            self.sendUINotifications()
         }
         self.uiTimer = timer
         timer.resume()
@@ -191,7 +191,7 @@ public class HXObserverCenter {
         }
     }
     
-    private func processUIObservers() {
+    private func sendUINotifications() {
         self.serialize.async {
             var hasRelevantEntries = false
             var i = self.byObserver.count - 1 ; while i >= 0 { defer {i -= 1}
@@ -203,7 +203,7 @@ public class HXObserverCenter {
                 
                 var shouldNotify = false
                 for entry in group.entries {
-                    if entry.immediacy == .coalescing && entry.changeCount > 0 {
+                    if entry.immediacy == .uicoalescing && entry.changeCount > 0 {
                         entry.notifyingChangeCount = entry.changeCount
                         entry.changeCount = 0
                         shouldNotify = true
@@ -219,14 +219,16 @@ public class HXObserverCenter {
                 
                 DispatchQueue.main.async {
                     handler(group)
+                    
                     self.serialize.async {
                         for entry in group.entries {
-                            if entry.immediacy == .coalescing {
+                            if entry.immediacy == .uicoalescing {
                                 entry.notifyingChangeCount = 0
                             }
                         }
                     }
                 }
+                
                 hasRelevantEntries = true
             }
             if !hasRelevantEntries {

@@ -27,9 +27,10 @@ class HXObserverEntryGroup : HXObserverNotification {
     }
         
     // MARK: - HXObserverNotification
+    // This code could screw up if we cross the streams and have more than one UICoalescing notification enqueued at a time. If that happens, best thing to do is to extract the change information out into new objects. But it would be nice to not have to allocate new memory on every notification.
     func contains(observed:AnyObject) -> Bool {
         for entry in self.entries {
-            if entry.observed === observed && entry.notifyingChangeCount > 0 {
+            if entry.observed === observed && entry.immediacy == .uicoalescing && entry.notifyingChangeCount > 0 {
                 return true
             }
         }
