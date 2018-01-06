@@ -130,13 +130,7 @@ public class HXObserverCenter {
             let group = array[i]
             if group.owner == nil {
                 array.remove(at:i)
-                for entry in group.entries {
-                    entry.observed = nil
-                    entry.observer = nil
-                }
-                continue
-            }
-            if group.owner === owner {
+            } else if group.owner === owner {
                 if match != nil {
                     fatalError("Same owner is registered twice")
                 }
