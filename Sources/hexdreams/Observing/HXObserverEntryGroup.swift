@@ -11,7 +11,8 @@ class HXObserverEntryGroup : HXObserverNotification {
     let handler:((HXObserverNotification)->Void)?
 
     var entries = [HXObserverEntry]()
-    
+    var notifying = HXObserver.NotifyingStatus.waiting
+
     // optional closure arguments are automatically considered escaping, although this may cause problems of its own.
     // https://lists.swift.org/pipermail/swift-users/Week-of-Mon-20180101/006830.html
     init (

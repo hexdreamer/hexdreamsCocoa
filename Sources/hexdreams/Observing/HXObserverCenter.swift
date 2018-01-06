@@ -3,6 +3,8 @@
 // Copyright © 2018 Kenny Leung
 // This code is PUBLIC DOMAIN
 
+// NOTE: Need to work on the notifying state thing some more. Do we have all of the states? Let's think about each of the 4 cases individually in terms of lifecycle.
+
 import Foundation
 
 public class HXObserverCenter {
@@ -106,6 +108,9 @@ public class HXObserverCenter {
     
     private func sendNotification(_ entry:HXObserverEntry) {
         self.serialize.async {
+            if entry.notifying == .notifying {
+                return // block
+            }
             guard let _ = entry.observed,
                 let _ = entry.observer else {
                     return // block
@@ -124,12 +129,12 @@ public class HXObserverCenter {
             case .uicoalescing:
                 fatalError()
             }
-            entry.notifying = .notifying
             
             guard let action = entry.action else {
                 fatalError()
             }
             
+            entry.notifying = .notifying
             entry.queue.async {
                 action()
                 let notifyTime = DispatchTime.now()
@@ -200,6 +205,9 @@ public class HXObserverCenter {
                     self.byObserver.remove(at:i)
                     continue
                 }
+                if group.notifying == .notifying {
+                    continue
+                }
                 
                 var shouldNotify = false
                 for entry in group.entries {
@@ -217,10 +225,12 @@ public class HXObserverCenter {
                     fatalError()
                 }
                 
+                group.notifying = .notifying
                 DispatchQueue.main.async {
                     handler(group)
                     
                     self.serialize.async {
+                        group.notifying = .waiting
                         for entry in group.entries {
                             if entry.immediacy == .uicoalescing {
                                 entry.notifyingChangeCount = 0
