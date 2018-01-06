@@ -3,8 +3,6 @@
 // Copyright © 2018 Kenny Leung
 // This code is PUBLIC DOMAIN
 
-// NOTE: Need to work on the notifying state thing some more. Do we have all of the states? Let's think about each of the 4 cases individually in terms of lifecycle.
-
 import Foundation
 
 public class HXObserverCenter {
