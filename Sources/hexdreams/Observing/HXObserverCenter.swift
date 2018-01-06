@@ -9,7 +9,7 @@ public class HXObserverCenter {
         
     public static let shared:HXObserverCenter = HXObserverCenter()
     
-    private let serialize = DispatchQueue(label:"HXObserverCenter_serial", qos:.default, attributes:[], autoreleaseFrequency:.workItem, target:nil)
+    private let serialize = DispatchQueue(label:"HXObserverCenter", qos:.default, attributes:[], autoreleaseFrequency:.workItem, target:nil)
     private var byObserved = [HXObserverEntryGroup]()
     private var byObserver = [HXObserverEntryGroup]()
     private var uiTimer:DispatchSourceTimer?

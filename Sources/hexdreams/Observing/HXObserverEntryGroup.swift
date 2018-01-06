@@ -29,7 +29,7 @@ class HXObserverEntryGroup : HXObserverNotification {
     // MARK: - HXObserverNotification
     func contains(observed:AnyObject) -> Bool {
         for entry in self.entries {
-            if entry.observed === observed {
+            if entry.observed === observed && entry.notifyingChangeCount > 0 {
                 return true
             }
         }
