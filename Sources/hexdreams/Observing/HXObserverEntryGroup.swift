@@ -25,16 +25,7 @@ class HXObserverEntryGroup : HXObserverNotification {
     func append(_ entry:HXObserverEntry) {
         self.entries.append(entry)
     }
-    
-    func hasEntries(immediacy:HXObserver.Immediacy) -> Bool {
-        for entry in self.entries {
-            if entry.immediacy == immediacy {
-                return true
-            }
-        }
-        return false
-    }
-    
+        
     // MARK: - HXObserverNotification
     func contains(observed:AnyObject) -> Bool {
         for entry in self.entries {

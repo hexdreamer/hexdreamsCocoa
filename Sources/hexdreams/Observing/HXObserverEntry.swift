@@ -15,6 +15,7 @@ class HXObserverEntry {
     let timedCoalescingIntervalMS:UInt?
     
     var changeCount:UInt = 0
+    var notifyingChangeCount:UInt = 0
     var notifying = HXObserver.NotifyingStatus.waiting
     var lastNotifyTime = DispatchTime.now()
     

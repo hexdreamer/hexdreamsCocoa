@@ -25,7 +25,7 @@
                 action:action,
                 queue:DispatchQueue.main,
                 immediacy:.uicoalescing,
-                timedCoalescingIntervalMS:HXObserver.UICoalescingIntervalMS
+                timedCoalescingIntervalMS:nil
             )
         }
     }
@@ -45,7 +45,7 @@
                 action:action,
                 queue:DispatchQueue.main,
                 immediacy:.uicoalescing,
-                timedCoalescingIntervalMS:HXObserver.UICoalescingIntervalMS
+                timedCoalescingIntervalMS:nil
             )
         }
     }

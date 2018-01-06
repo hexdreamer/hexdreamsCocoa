@@ -105,58 +105,63 @@ public class HXObserverCenter {
     }
     
     private func sendNotification(_ entry:HXObserverEntry) {
-        entry.queue.async {
-            var notifyTime:DispatchTime? = nil
-            
-            self.serialize.sync {
-                switch entry.immediacy {
-                case .immediate:
-                    entry.changeCount -= 1
-                case .coalescing:
-                    entry.changeCount = 0
-                case .timedcoalescing:
-                    entry.changeCount = 0
-                case .uicoalescing:
-                    fatalError()
-                }
-                entry.notifying = .notifying
+        self.serialize.async {
+            guard let _ = entry.observed,
+                let _ = entry.observer else {
+                    return // block
             }
             
-            if let _ = entry.observed,
-                let _ = entry.observer {
-                guard let action = entry.action else {
-                    fatalError()
-                }
+            switch entry.immediacy {
+            case .immediate:
+                entry.notifyingChangeCount += 1
+                entry.changeCount -= 1
+            case .coalescing:
+                entry.notifyingChangeCount = entry.changeCount
+                entry.changeCount = 0
+            case .timedcoalescing:
+                entry.notifyingChangeCount = entry.changeCount
+                entry.changeCount = 0
+            case .uicoalescing:
+                fatalError()
+            }
+            entry.notifying = .notifying
+            
+            guard let action = entry.action else {
+                fatalError()
+            }
+            
+            entry.queue.async {
                 action()
-                notifyTime = .now()
-            }
-            
-            self.serialize.sync {
-                entry.notifying = .waiting
-                if let notifyTime = notifyTime {
+                let notifyTime = DispatchTime.now()
+                
+                self.serialize.async {
+                    entry.notifying = .waiting
                     entry.lastNotifyTime = notifyTime
-                }
-
-                switch entry.immediacy {
-                case .immediate:  // keep sending until they're gone
-                    break
-                case .coalescing:  // Every change that was enqueued before this notification is wiped out
-                    if entry.changeCount > 0 {
-                        entry.notifying = .scheduled
-                        self.sendNotification(entry)
-                    }
-                case .timedcoalescing:
-                    if entry.changeCount > 0 {
-                        entry.notifying = .scheduled
-                        guard let intervalMS = entry.timedCoalescingIntervalMS else {
-                            fatalError()
-                        }
-                        self.serialize.asyncAfter(deadline:.now() + .milliseconds(Int(intervalMS))) {
+                    
+                    switch entry.immediacy {
+                    case .immediate:        // immediate notifications have already been put on the queue
+                        entry.notifyingChangeCount -= 1
+                        break
+                    case .coalescing:       // Every change that was enqueued before this notification was wiped out
+                        entry.notifyingChangeCount = 0
+                        if entry.changeCount > 0 {
+                            entry.notifying = .scheduled
                             self.sendNotification(entry)
                         }
+                    case .timedcoalescing:  // Every change that was enqueued before this notification was wiped out
+                        entry.notifyingChangeCount = 0
+                        if entry.changeCount > 0 {
+                            entry.notifying = .scheduled
+                            guard let intervalMS = entry.timedCoalescingIntervalMS else {
+                                fatalError()
+                            }
+                            self.serialize.asyncAfter(deadline:.now() + .milliseconds(Int(intervalMS))) {
+                                self.sendNotification(entry)
+                            }
+                        }
+                    case .uicoalescing:     // UICoalescing notifications are handled by the timer
+                        fatalError()
                     }
-                case .uicoalescing:
-                    fatalError()
                 }
             }
         }
@@ -166,7 +171,7 @@ public class HXObserverCenter {
         if self.uiTimer != nil {
             return
         }
-        let timer = DispatchSource.makeTimerSource(flags:[], queue:serialize)
+        let timer = DispatchSource.makeTimerSource(flags:[], queue:DispatchQueue.global())
         timer.schedule(
             deadline:DispatchTime.now(),
             repeating:DispatchTimeInterval.milliseconds(Int(HXObserver.UICoalescingIntervalMS)),
@@ -186,26 +191,47 @@ public class HXObserverCenter {
         }
     }
     
-    // This should be on the serialize queue by virtue of the timer.
     private func processUIObservers() {
-        var hasRelevantEntries = false
-        var i = self.byObserver.count - 1 ; while i >= 0 { defer {i -= 1}
-            let group = self.byObserver[i]
-            if group.owner == nil {
-                self.byObserver.remove(at:i)
-                continue
+        self.serialize.async {
+            var hasRelevantEntries = false
+            var i = self.byObserver.count - 1 ; while i >= 0 { defer {i -= 1}
+                let group = self.byObserver[i]
+                if group.owner == nil {
+                    self.byObserver.remove(at:i)
+                    continue
+                }
+                
+                var shouldNotify = false
+                for entry in group.entries {
+                    if entry.immediacy == .coalescing && entry.changeCount > 0 {
+                        entry.notifyingChangeCount = entry.changeCount
+                        entry.changeCount = 0
+                        shouldNotify = true
+                    }
+                }
+                if !shouldNotify {
+                    continue
+                }
+                
+                guard let handler = group.handler else {
+                    fatalError()
+                }
+                
+                DispatchQueue.main.async {
+                    handler(group)
+                    self.serialize.async {
+                        for entry in group.entries {
+                            if entry.immediacy == .coalescing {
+                                entry.notifyingChangeCount = 0
+                            }
+                        }
+                    }
+                }
+                hasRelevantEntries = true
             }
-            if !group.hasEntries(immediacy:.uicoalescing) {
-                continue
+            if !hasRelevantEntries {
+                self.stopUITimer()
             }
-            guard let handler = group.handler else {
-                fatalError()
-            }
-            handler(group)
-            hasRelevantEntries = true
-        }
-        if !hasRelevantEntries {
-            self.stopUITimer()
         }
     }
     
