@@ -8,25 +8,18 @@
 import Foundation
 
 public class HXObserverCenter {
-        
+    
+    enum NotifyingStatus {
+        case waiting    // doing nothing
+        case scheduled  // we know we're going to send a notification
+        case enqueued   // notification is enqueued on the observer's queueu
+    }
+
     public static let shared:HXObserverCenter = HXObserverCenter()
     
     private let serialize = DispatchQueue(label:"HXObserverCenter", qos:.default, attributes:[], autoreleaseFrequency:.workItem, target:nil)
     private var byObserved = [HXObserverEntryGroup]()
     private var byObserver = [HXObserverEntryGroup]()
-    private var uiTimer:DispatchSourceTimer?
-
-    public func register (
-        observer:AnyObject,
-        handler:@escaping (HXObserverNotification)->Void
-        ) {
-        self.serialize.async {
-            if let _ = self.findGroup(matching: observer, in: &self.byObserver) {
-                fatalError("Can't register the same observer twice")
-            }
-            self.byObserver.append(HXObserverEntryGroup(owner: observer, handler: handler))
-        }
-    }
     
     public func observe<T:AnyObject> (
         target observed:T,
@@ -34,34 +27,47 @@ public class HXObserverCenter {
         observer:AnyObject,
         action:@escaping ()->Void,
         queue:DispatchQueue,
-        immediacy:HXObserver.Immediacy,
-        timedCoalescingIntervalMS:UInt?
+        coalescingInterval:DispatchTimeInterval = .milliseconds(0)
         ) {
-        serialize.async {
-            let entry = HXObserverEntry(observed:observed, keyPath:keyPath, observer:observer, action:action, queue:queue, immediacy:immediacy, timedCoalescingIntervalMS:timedCoalescingIntervalMS)
+        self.serialize.async {
+            let entry = HXObserverEntry(observed:observed, keyPath:keyPath, observer:observer, action:action, queue:queue, interval:coalescingInterval)
             
-            if let group = self.findGroup(matching: observed, in: &self.byObserved) {
-                group.append(entry)
+            if let group = self.findGroup(matching:observed, in:&self.byObserved) {
+                group.entries.append(entry)
             } else {
-                let group = HXObserverEntryGroup(owner:observed, handler:nil)
-                group.append(entry)
+                let group = HXObserverEntryGroup(owner:observed)
                 self.byObserved.append(group)
+                group.entries.append(entry)
             }
             
-            if let group = self.findGroup(matching: observer, in: &self.byObserver) {
-                group.append(entry)
+            if let group = self.findGroup(matching:observer, in:&self.byObserver) {
+                group.entries.append(entry)
             } else {
-                if immediacy == .uicoalescing {
-                    fatalError("Can only observe uicoalescing after you've registered a handler")
-                }
-                let group = HXObserverEntryGroup(owner:observed, handler:nil)
-                group.append(entry)
+                let group = HXObserverEntryGroup(owner:observer)
                 self.byObserver.append(group)
+                group.entries.append(entry)
             }
-            
-            if immediacy == .uicoalescing {
-                if queue != DispatchQueue.main {
-                    fatalError("uicoalescing can only be specified on the main queue")
+        }
+    }
+    
+    public func removeObserver(_ observer:AnyObject) {
+        // We want to do this multithreaded because we want to guarantee that observers DO NOT get called back after they call removeObserver.
+        let observerGroups = self.byObserver // makes a "copy"
+        for group in observerGroups {
+            if group.owner === observer {
+                let entries = group.entries  // makes a "copy"
+                for entry in entries {
+                    entry.observer = nil
+                }
+            }
+        }
+        
+        // Now asynchronously go in and clean up
+        self.serialize.async {
+            var i = self.byObserver.count - 1 ; while i >= 0 { defer {i -= 1}
+                let group = self.byObserver[i]
+                if group.owner == nil || group.owner === observer {
+                    self.byObserver.remove(at:i)
                 }
             }
         }
@@ -83,166 +89,34 @@ public class HXObserverCenter {
                 }
                 
                 entry.changeCount += 1
-                
-                switch entry.immediacy {
-                case .immediate:
+                if entry.notifying == .waiting {
+                    entry.notifying = .scheduled
                     self.sendNotification(entry)
-                case .coalescing:
-                    if entry.notifying == .waiting {
-                        entry.notifying = .scheduled
-                        self.sendNotification(entry)
-                    }
-                case .timedcoalescing:
-                    if entry.notifying == .waiting {
-                        entry.notifying = .scheduled
-                        self.sendNotification(entry)
-                    }
-                case .uicoalescing:
-                    if self.uiTimer == nil {
-                        self.startUITimer()
-                    }
                 }
             }
         }
     }
     
+    // Should only be executed from the serialize queue
     private func sendNotification(_ entry:HXObserverEntry) {
-        self.serialize.async {
-            if entry.notifying == .notifying {
-                return // block
+        entry.changeCount = 0
+        entry.notifying = .enqueued
+        entry.queue.async {
+            if let _ = entry.observed,
+                let _ = entry.observer {
+                entry.action()
             }
-            guard let _ = entry.observed,
-                let _ = entry.observer else {
-                    return // block
-            }
+            let notifyTime = DispatchTime.now()
             
-            switch entry.immediacy {
-            case .immediate:
-                entry.notifyingChangeCount += 1
-                entry.changeCount -= 1
-            case .coalescing:
-                entry.notifyingChangeCount = entry.changeCount
-                entry.changeCount = 0
-            case .timedcoalescing:
-                entry.notifyingChangeCount = entry.changeCount
-                entry.changeCount = 0
-            case .uicoalescing:
-                fatalError()
-            }
-            
-            guard let action = entry.action else {
-                fatalError()
-            }
-            
-            entry.notifying = .notifying
-            entry.queue.async {
-                action()
-                let notifyTime = DispatchTime.now()
-                
-                self.serialize.async {
-                    entry.notifying = .waiting
-                    entry.lastNotifyTime = notifyTime
-                    
-                    switch entry.immediacy {
-                    case .immediate:        // immediate notifications have already been put on the queue
-                        entry.notifyingChangeCount -= 1
-                        break
-                    case .coalescing:       // Every change that was enqueued before this notification was wiped out
-                        entry.notifyingChangeCount = 0
-                        if entry.changeCount > 0 {
-                            entry.notifying = .scheduled
-                            self.sendNotification(entry)
-                        }
-                    case .timedcoalescing:  // Every change that was enqueued before this notification was wiped out
-                        entry.notifyingChangeCount = 0
-                        if entry.changeCount > 0 {
-                            entry.notifying = .scheduled
-                            guard let intervalMS = entry.timedCoalescingIntervalMS else {
-                                fatalError()
-                            }
-                            self.serialize.asyncAfter(deadline:.now() + .milliseconds(Int(intervalMS))) {
-                                self.sendNotification(entry)
-                            }
-                        }
-                    case .uicoalescing:     // UICoalescing notifications are handled by the timer
-                        fatalError()
+            self.serialize.async {
+                entry.notifying = .waiting
+                entry.lastNotifyTime = notifyTime
+                if entry.changeCount > 0 {
+                    entry.notifying = .scheduled
+                    self.serialize.asyncAfter(deadline:.now() + entry.interval) {
+                        self.sendNotification(entry)
                     }
                 }
-            }
-        }
-    }
-    
-    private func startUITimer() {
-        if self.uiTimer != nil {
-            return
-        }
-        let timer = DispatchSource.makeTimerSource(flags:[], queue:DispatchQueue.global())
-        timer.schedule(
-            deadline:DispatchTime.now(),
-            repeating:DispatchTimeInterval.milliseconds(Int(HXObserver.UICoalescingIntervalMS)),
-            leeway:DispatchTimeInterval.milliseconds(Int(HXObserver.UICoalescingLeewayMS))
-        )
-        timer.setEventHandler {
-            self.sendUINotifications()
-        }
-        self.uiTimer = timer
-        timer.resume()
-    }
-    
-    private func stopUITimer() {
-        if let timer = self.uiTimer {
-            timer.cancel()
-            self.uiTimer = nil
-        }
-    }
-    
-    private func sendUINotifications() {
-        self.serialize.async {
-            var hasRelevantEntries = false
-            var i = self.byObserver.count - 1 ; while i >= 0 { defer {i -= 1}
-                let group = self.byObserver[i]
-                if group.owner == nil {
-                    self.byObserver.remove(at:i)
-                    continue
-                }
-                if group.notifying == .notifying {
-                    continue
-                }
-                
-                var shouldNotify = false
-                for entry in group.entries {
-                    if entry.immediacy == .uicoalescing && entry.changeCount > 0 {
-                        entry.notifyingChangeCount = entry.changeCount
-                        entry.changeCount = 0
-                        shouldNotify = true
-                    }
-                }
-                if !shouldNotify {
-                    continue
-                }
-                
-                guard let handler = group.handler else {
-                    fatalError()
-                }
-                
-                group.notifying = .notifying
-                DispatchQueue.main.async {
-                    handler(group)
-                    
-                    self.serialize.async {
-                        group.notifying = .waiting
-                        for entry in group.entries {
-                            if entry.immediacy == .uicoalescing {
-                                entry.notifyingChangeCount = 0
-                            }
-                        }
-                    }
-                }
-                
-                hasRelevantEntries = true
-            }
-            if !hasRelevantEntries {
-                self.stopUITimer()
             }
         }
     }
@@ -258,6 +132,10 @@ public class HXObserverCenter {
             let group = array[i]
             if group.owner == nil {
                 array.remove(at:i)
+                for entry in group.entries {
+                    entry.observed = nil
+                    entry.observer = nil
+                }
                 continue
             }
             if group.owner === owner {

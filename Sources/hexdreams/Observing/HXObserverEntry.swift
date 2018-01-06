@@ -9,14 +9,12 @@ class HXObserverEntry {
     weak var observed:AnyObject?
     let keyPath:AnyKeyPath
     weak var observer:AnyObject?
-    let action:(()->Void)?
+    let action:()->Void
     let queue:DispatchQueue
-    let immediacy:HXObserver.Immediacy
-    let timedCoalescingIntervalMS:UInt?
+    let interval:DispatchTimeInterval
     
     var changeCount:UInt = 0
-    var notifyingChangeCount:UInt = 0
-    var notifying = HXObserver.NotifyingStatus.waiting
+    var notifying = HXObserverCenter.NotifyingStatus.waiting
     var lastNotifyTime = DispatchTime.now()
     
     init (
@@ -25,16 +23,25 @@ class HXObserverEntry {
         observer:AnyObject,
         action:@escaping ()->Void,
         queue:DispatchQueue,
-        immediacy:HXObserver.Immediacy,
-        timedCoalescingIntervalMS:UInt?
+        interval:DispatchTimeInterval
         ) {
         self.observed = observed
         self.keyPath = keyPath
         self.observer = observer
         self.action = action
         self.queue = queue
-        self.immediacy = immediacy
-        self.timedCoalescingIntervalMS = timedCoalescingIntervalMS
+        self.interval = interval
     }
+}
+
+class HXObserverEntryGroup {
     
+    weak var owner:AnyObject?
+    var entries = [HXObserverEntry]()
+    
+    init (
+        owner:AnyObject
+        ) {
+        self.owner = owner
+    }
 }

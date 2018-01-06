@@ -11,9 +11,21 @@
     import UIKit
 #endif
 
+public extension HXObject {
+    func changed(_ keyPath:AnyKeyPath) {
+        HXObserverCenter.shared.changed(self, keyPath:keyPath)
+    }
+}
+
+public extension NSObject {
+    func changed(_ keyPath:AnyKeyPath) {
+        HXObserverCenter.shared.changed(self, keyPath:keyPath)
+    }
+}
+
 #if os(OSX)
-    extension NSViewController {
-        public func observe<T:AnyObject> (
+    public extension NSViewController {
+        func observe<T:AnyObject> (
             _ observed:T,
             keyPath:PartialKeyPath<T>,
             action:@escaping ()->Void
@@ -24,16 +36,15 @@
                 observer:self,
                 action:action,
                 queue:DispatchQueue.main,
-                immediacy:.uicoalescing,
-                timedCoalescingIntervalMS:nil
+                coalescingInterval:.milliseconds(100)
             )
         }
     }
 #endif
 
 #if os(iOS)
-    extension UIViewController {
-        public func observe<T:AnyObject> (
+    public extension UIViewController {
+        func observe<T:AnyObject> (
             _ observed:T,
             keyPath:PartialKeyPath<T>,
             action:@escaping ()->Void
@@ -44,8 +55,7 @@
                 observer:self,
                 action:action,
                 queue:DispatchQueue.main,
-                immediacy:.uicoalescing,
-                timedCoalescingIntervalMS:nil
+                coalescingInterval:.milliseconds(100)
             )
         }
     }

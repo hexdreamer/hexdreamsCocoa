@@ -7,3 +7,7 @@ public enum Errors : Error {
     case InvalidArgumentError(String)       // message
     case ObjectNotFound(Any,String,String)  // our equivalent of NullPointerException args: sender, function, message
 }
+
+public class HXObject {
+    // See HXObservingExtensions.swift for more methods
+}

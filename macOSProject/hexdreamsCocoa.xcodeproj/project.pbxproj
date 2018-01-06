@@ -7,11 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B92AE21A200030AE0040762A /* HXObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE214200030AE0040762A /* HXObserver.swift */; };
 		B92AE21B200030AE0040762A /* HXObserverCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE215200030AE0040762A /* HXObserverCenter.swift */; };
 		B92AE21C200030AE0040762A /* HXObserverEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE216200030AE0040762A /* HXObserverEntry.swift */; };
-		B92AE21D200030AE0040762A /* HXObserverEntryGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE217200030AE0040762A /* HXObserverEntryGroup.swift */; };
-		B92AE21E200030AE0040762A /* HXObserverNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE218200030AE0040762A /* HXObserverNotification.swift */; };
 		B92AE21F200030AE0040762A /* HXObservingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE219200030AE0040762A /* HXObservingExtensions.swift */; };
 		B96D59811FE5E887002AE6CE /* hexdreamsCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B96D59771FE5E887002AE6CE /* hexdreamsCocoa.framework */; };
 		B96D59861FE5E887002AE6CE /* hexdreamsCocoaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96D59851FE5E887002AE6CE /* hexdreamsCocoaTests.swift */; };
@@ -63,11 +60,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B92AE214200030AE0040762A /* HXObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserver.swift; sourceTree = "<group>"; };
 		B92AE215200030AE0040762A /* HXObserverCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserverCenter.swift; sourceTree = "<group>"; };
 		B92AE216200030AE0040762A /* HXObserverEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserverEntry.swift; sourceTree = "<group>"; };
-		B92AE217200030AE0040762A /* HXObserverEntryGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserverEntryGroup.swift; sourceTree = "<group>"; };
-		B92AE218200030AE0040762A /* HXObserverNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserverNotification.swift; sourceTree = "<group>"; };
 		B92AE219200030AE0040762A /* HXObservingExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObservingExtensions.swift; sourceTree = "<group>"; };
 		B96D59771FE5E887002AE6CE /* hexdreamsCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hexdreamsCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B96D597A1FE5E887002AE6CE /* hexdreamsCocoa.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hexdreamsCocoa.h; sourceTree = "<group>"; };
@@ -133,11 +127,8 @@
 		B92AE213200030AE0040762A /* Observing */ = {
 			isa = PBXGroup;
 			children = (
-				B92AE214200030AE0040762A /* HXObserver.swift */,
 				B92AE215200030AE0040762A /* HXObserverCenter.swift */,
 				B92AE216200030AE0040762A /* HXObserverEntry.swift */,
-				B92AE217200030AE0040762A /* HXObserverEntryGroup.swift */,
-				B92AE218200030AE0040762A /* HXObserverNotification.swift */,
 				B92AE219200030AE0040762A /* HXObservingExtensions.swift */,
 			);
 			path = Observing;
@@ -461,10 +452,8 @@
 				B971104E1FE5E98600F50FF4 /* NSManagedObjectContextExtensions.swift in Sources */,
 				B97110561FE5E98600F50FF4 /* hexdreams.swift in Sources */,
 				B92AE21F200030AE0040762A /* HXObservingExtensions.swift in Sources */,
-				B92AE21D200030AE0040762A /* HXObserverEntryGroup.swift in Sources */,
 				B971104B1FE5E98600F50FF4 /* HXManagedObject.swift in Sources */,
 				B971104F1FE5E98600F50FF4 /* CGContextExtensions.swift in Sources */,
-				B92AE21A200030AE0040762A /* HXObserver.swift in Sources */,
 				B92AE21C200030AE0040762A /* HXObserverEntry.swift in Sources */,
 				B97110531FE5E98600F50FF4 /* DateExtensions.swift in Sources */,
 				B97110861FE5EE1A00F50FF4 /* HXApplication.swift in Sources */,
@@ -478,7 +467,6 @@
 				B97110501FE5E98600F50FF4 /* CGPointExtensions.swift in Sources */,
 				B97110811FE5EB0900F50FF4 /* HXDataController.swift in Sources */,
 				B97110571FE5E98600F50FF4 /* HXMatrix.swift in Sources */,
-				B92AE21E200030AE0040762A /* HXObserverNotification.swift in Sources */,
 				B97110481FE5E98600F50FF4 /* C.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
