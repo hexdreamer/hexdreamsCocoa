@@ -175,7 +175,6 @@
 		B971102B1FE5E98600F50FF4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				B971103F1FE5E98600F50FF4 /* hexdreams.swift */,
 				B971103D1FE5E98600F50FF4 /* hexdreams */,
 				B971103A1FE5E98600F50FF4 /* Foundation */,
 				B97110821FE5ECB900F50FF4 /* AppKit */,
@@ -233,6 +232,7 @@
 		B971103D1FE5E98600F50FF4 /* hexdreams */ = {
 			isa = PBXGroup;
 			children = (
+				B971103F1FE5E98600F50FF4 /* hexdreams.swift */,
 				B97110851FE5EE1A00F50FF4 /* HXApplication.swift */,
 				B971103E1FE5E98600F50FF4 /* CommandLineInterface.swift */,
 				B92AE213200030AE0040762A /* Observing */,
