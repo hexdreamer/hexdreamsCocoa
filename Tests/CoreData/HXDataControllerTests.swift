@@ -40,9 +40,7 @@ class HXDataControllerTests: XCTestCase {
             let moc = self.dataController.moc
             moc.performAndWait {
                 do {
-                    guard let persons = try moc.pdfetch(entityName: "HXManagedPerson", predicate: nil, sortString: "personID,up", returnFaults:false) as? Array<HXManagedPerson> else {
-                        throw hexdreamsCocoa.Errors.InvalidArgumentError("Could not fetch person")
-                    }
+                    let persons = try moc.fetch(entity:HXManagedPerson.self, predicate: nil, sortString: "personID,up", returnFaults:false)
                     XCTAssertEqual(persons.count, 2);
 
                     XCTAssertEqual(persons[0].personID, 1)

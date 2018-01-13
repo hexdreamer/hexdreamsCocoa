@@ -24,10 +24,41 @@ public extension NSObject {
 }
 
 #if os(OSX)
-    public extension NSViewController {
+    public extension NSWindowController {
+        func observe<T:AnyObject> (
+            _ observed:T?,
+            _ keyPath:PartialKeyPath<T>,
+            action:@escaping ()->Void
+            ) {
+            guard let nnobserved = observed else {
+                return
+            }
+            HXObserverCenter.shared.observe(
+                target:nnobserved,
+                keyPath:keyPath,
+                observer:self,
+                action:action,
+                queue:DispatchQueue.main,
+                coalescingInterval:.milliseconds(100)
+            )
+        }
+        
+        func unobserve<T:AnyObject> (
+            _ observed:T?
+            ) {
+            guard let nnobserved = observed else {
+                return
+            }
+            HXObserverCenter.shared.removeObserver(self, observed:nnobserved)
+        }
+    }
+#endif
+
+#if os(iOS)
+    public extension UIViewController {
         func observe<T:AnyObject> (
             _ observed:T,
-            keyPath:PartialKeyPath<T>,
+            _ keyPath:PartialKeyPath<T>,
             action:@escaping ()->Void
             ) {
             HXObserverCenter.shared.observe(
@@ -39,24 +70,14 @@ public extension NSObject {
                 coalescingInterval:.milliseconds(100)
             )
         }
-    }
-#endif
-
-#if os(iOS)
-    public extension UIViewController {
-        func observe<T:AnyObject> (
-            _ observed:T,
-            keyPath:PartialKeyPath<T>,
-            action:@escaping ()->Void
+        
+        func unobserve<T:AnyObject> (
+            _ observed:T?
             ) {
-            HXObserverCenter.shared.observe(
-                target:observed,
-                keyPath:keyPath,
-                observer:self,
-                action:action,
-                queue:DispatchQueue.main,
-                coalescingInterval:.milliseconds(100)
-            )
+            guard let nnobserved = observed else {
+                return
+            }
+            HXObserverCenter.shared.removeObserver(self, observed:nnobserved)
         }
     }
 #endif

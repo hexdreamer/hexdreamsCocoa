@@ -14,8 +14,8 @@ class HXObserverEntry {
     let interval:DispatchTimeInterval
     
     var changeCount:UInt = 0
-    var notifying = HXObserverCenter.NotifyingStatus.waiting
-    var lastNotifyTime = DispatchTime.now()
+    var notifying:HXObserverCenter.NotifyingStatus = .waiting
+    var lastNotifyTime:DispatchTime
     
     init (
         observed:AnyObject,
@@ -31,6 +31,8 @@ class HXObserverEntry {
         self.action = action
         self.queue = queue
         self.interval = interval
+        
+        self.lastNotifyTime = .now() - interval
     }
 }
 

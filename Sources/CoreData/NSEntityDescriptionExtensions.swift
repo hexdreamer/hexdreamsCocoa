@@ -8,7 +8,7 @@ import CoreData
 
 public extension NSEntityDescription {
 
-    class func entityForClass(entityClass: AnyClass, inManagedObjectContext context: NSManagedObjectContext) -> NSEntityDescription? {
+    class func entityForClass(entityClass:AnyClass, inManagedObjectContext context:NSManagedObjectContext) -> NSEntityDescription? {
         let entityClassName = NSStringFromClass(entityClass)
 
         guard let psc = context.persistentStoreCoordinator else {

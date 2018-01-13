@@ -10,6 +10,9 @@
 		B92AE21B200030AE0040762A /* HXObserverCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE215200030AE0040762A /* HXObserverCenter.swift */; };
 		B92AE21C200030AE0040762A /* HXObserverEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE216200030AE0040762A /* HXObserverEntry.swift */; };
 		B92AE21F200030AE0040762A /* HXObservingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE219200030AE0040762A /* HXObservingExtensions.swift */; };
+		B9518AE620094B020011F072 /* NSEntityDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9518AE520094B020011F072 /* NSEntityDescriptionTests.swift */; };
+		B9518AE82009536C0011F072 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9518AE72009536C0011F072 /* CoreDataTestCase.swift */; };
+		B9518AEA2009561D0011F072 /* NSManagedObjectContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9518AE92009561D0011F072 /* NSManagedObjectContextTests.swift */; };
 		B96D59811FE5E887002AE6CE /* hexdreamsCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B96D59771FE5E887002AE6CE /* hexdreamsCocoa.framework */; };
 		B96D59861FE5E887002AE6CE /* hexdreamsCocoaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96D59851FE5E887002AE6CE /* hexdreamsCocoaTests.swift */; };
 		B96D59881FE5E887002AE6CE /* hexdreamsCocoa.h in Headers */ = {isa = PBXBuildFile; fileRef = B96D597A1FE5E887002AE6CE /* hexdreamsCocoa.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -63,6 +66,9 @@
 		B92AE215200030AE0040762A /* HXObserverCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserverCenter.swift; sourceTree = "<group>"; };
 		B92AE216200030AE0040762A /* HXObserverEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserverEntry.swift; sourceTree = "<group>"; };
 		B92AE219200030AE0040762A /* HXObservingExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObservingExtensions.swift; sourceTree = "<group>"; };
+		B9518AE520094B020011F072 /* NSEntityDescriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSEntityDescriptionTests.swift; sourceTree = "<group>"; };
+		B9518AE72009536C0011F072 /* CoreDataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
+		B9518AE92009561D0011F072 /* NSManagedObjectContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextTests.swift; sourceTree = "<group>"; };
 		B96D59771FE5E887002AE6CE /* hexdreamsCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hexdreamsCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B96D597A1FE5E887002AE6CE /* hexdreamsCocoa.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hexdreamsCocoa.h; sourceTree = "<group>"; };
 		B96D597B1FE5E887002AE6CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -275,8 +281,11 @@
 		B971105D1FE5E9A500F50FF4 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				B9518AE72009536C0011F072 /* CoreDataTestCase.swift */,
 				B971105E1FE5E9A500F50FF4 /* HXDataControllerTests.swift */,
 				B971105F1FE5E9A500F50FF4 /* NSPredicateTests.swift */,
+				B9518AE520094B020011F072 /* NSEntityDescriptionTests.swift */,
+				B9518AE92009561D0011F072 /* NSManagedObjectContextTests.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -486,9 +495,12 @@
 				B97110731FE5E9A500F50FF4 /* NSPredicateTests.swift in Sources */,
 				B97110761FE5E9A500F50FF4 /* NSSortDescriptorExtensionsTests.swift in Sources */,
 				B971107F1FE5E9A500F50FF4 /* StringExtensionsTests.swift in Sources */,
+				B9518AE82009536C0011F072 /* CoreDataTestCase.swift in Sources */,
 				B971107A1FE5E9A500F50FF4 /* HXManagedPerson.swift in Sources */,
+				B9518AEA2009561D0011F072 /* NSManagedObjectContextTests.swift in Sources */,
 				B97110781FE5E9A500F50FF4 /* hexdreams.xcdatamodeld in Sources */,
 				B9904BD71FF47E2700127A71 /* hexdreamsTests.swift in Sources */,
+				B9518AE620094B020011F072 /* NSEntityDescriptionTests.swift in Sources */,
 				B971107C1FE5E9A500F50FF4 /* HXPerson.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

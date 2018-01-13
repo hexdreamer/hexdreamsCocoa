@@ -50,12 +50,8 @@ class HXTestDataController: HXDataController {
                 guard let entityDescription = NSEntityDescription.entityForClass(entityClass: Entity.self, inManagedObjectContext: moc) else {
                     throw Errors.EntityNotFound(message: "This is really EntityNotFound")
                 }
-                guard let entityName = entityDescription.name else {
-                    throw Errors.EntityNotFound(message:"This is really EntityNotFound")
-                }
                 let predicate = NSPredicate(format: "%@ in %@", argumentArray:[entityPKAttribute, pks])
-                guard let existingMOs = try moc.pdfetch(entityName: entityName, predicate: predicate, sortString: nil, returnFaults: false) as? Array<Entity>
-                    else {throw Errors.General(message: "Error fetching existing objects")}
+                let existingMOs = try moc.fetch(entity:entityClass, predicate: predicate, sortString: nil, returnFaults: false)
                 mosByID = try existingMOs.mapDict(entityPKGetter)
 
                 for entityDict in json {

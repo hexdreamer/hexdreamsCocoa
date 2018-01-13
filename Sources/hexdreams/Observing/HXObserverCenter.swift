@@ -71,6 +71,25 @@ public class HXObserverCenter {
         }
     }
     
+    public func removeObserver(_ observer:AnyObject, observed:AnyObject) {
+        // We want to do this multithreaded because we want to guarantee that observers DO NOT get called back after they call removeObserver.
+        let observerGroups = self.byObserver // makes a "copy"
+        for group in observerGroups {
+            if group.owner === observer {
+                let entries = group.entries  // makes a "copy"
+                for entry in entries {
+                    if entry.observed === observed {
+                        entry.observer = nil
+                        entry.observed = nil
+                    }
+                }
+            }
+        }
+        
+        // Now asynchronously go in and clean up
+        // We'll just let the normal clean-up processes get the stragglers. If we feel strongly about it, we could also clean up here, but it's probably not worth the cycles.
+    }
+    
     public func changed (
         _ observed:AnyObject,
         keyPath:AnyKeyPath
@@ -89,7 +108,9 @@ public class HXObserverCenter {
                 entry.changeCount += 1
                 if entry.notifying == .waiting {
                     entry.notifying = .scheduled
-                    self.sendNotification(entry)
+                    self.serialize.asyncAfter(deadline:entry.lastNotifyTime + entry.interval) {
+                        self.sendNotification(entry)
+                    }
                 }
             }
         }
@@ -111,7 +132,7 @@ public class HXObserverCenter {
                 entry.lastNotifyTime = notifyTime
                 if entry.changeCount > 0 {
                     entry.notifying = .scheduled
-                    self.serialize.asyncAfter(deadline:.now() + entry.interval) {
+                    self.serialize.asyncAfter(deadline:notifyTime + entry.interval) {
                         self.sendNotification(entry)
                     }
                 }
