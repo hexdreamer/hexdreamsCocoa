@@ -16,8 +16,8 @@ public extension NSManagedObjectContext {
         -> [T]
     {
         do {
-            guard let entity = NSEntityDescription.entityForClass(entityClass: T.self, inManagedObjectContext: self),
-                let entityName = entity.name else {
+            let entity = NSEntityDescription.entityForClass(entityClass: T.self, inManagedObjectContext: self)
+            guard let entityName = entity.name else {
                     fatalError()
             }
             let request = NSFetchRequest<T>(entityName:entityName)
@@ -42,8 +42,8 @@ public extension NSManagedObjectContext {
         )
     {
         do {
-            guard let entity = NSEntityDescription.entityForClass(entityClass: T.self, inManagedObjectContext: self),
-                let entityName = entity.name else {
+            let entity = NSEntityDescription.entityForClass(entityClass: T.self, inManagedObjectContext: self)
+            guard let entityName = entity.name else {
                     fatalError()
             }
             let request = NSFetchRequest<T>(entityName: entityName)

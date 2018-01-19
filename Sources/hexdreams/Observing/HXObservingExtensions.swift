@@ -17,6 +17,12 @@ public extension HXObject {
     }
 }
 
+public extension HXThrowingObject {
+    func changed(_ keyPath:AnyKeyPath) {
+        HXObserverCenter.shared.changed(self, keyPath:keyPath)
+    }
+}
+
 public extension NSObject {
     func changed(_ keyPath:AnyKeyPath) {
         HXObserverCenter.shared.changed(self, keyPath:keyPath)
