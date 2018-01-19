@@ -13,6 +13,8 @@
 		B9518AE620094B020011F072 /* NSEntityDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9518AE520094B020011F072 /* NSEntityDescriptionTests.swift */; };
 		B9518AE82009536C0011F072 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9518AE72009536C0011F072 /* CoreDataTestCase.swift */; };
 		B9518AEA2009561D0011F072 /* NSManagedObjectContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9518AE92009561D0011F072 /* NSManagedObjectContextTests.swift */; };
+		B9518AEF2010310A0011F072 /* CString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9518AEE2010310A0011F072 /* CString.swift */; };
+		B9518AF1201039700011F072 /* statfs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9518AF0201039700011F072 /* statfs.swift */; };
 		B96D59811FE5E887002AE6CE /* hexdreamsCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B96D59771FE5E887002AE6CE /* hexdreamsCocoa.framework */; };
 		B96D59861FE5E887002AE6CE /* hexdreamsCocoaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96D59851FE5E887002AE6CE /* hexdreamsCocoaTests.swift */; };
 		B96D59881FE5E887002AE6CE /* hexdreamsCocoa.h in Headers */ = {isa = PBXBuildFile; fileRef = B96D597A1FE5E887002AE6CE /* hexdreamsCocoa.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -69,6 +71,8 @@
 		B9518AE520094B020011F072 /* NSEntityDescriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSEntityDescriptionTests.swift; sourceTree = "<group>"; };
 		B9518AE72009536C0011F072 /* CoreDataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
 		B9518AE92009561D0011F072 /* NSManagedObjectContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextTests.swift; sourceTree = "<group>"; };
+		B9518AEE2010310A0011F072 /* CString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CString.swift; sourceTree = "<group>"; };
+		B9518AF0201039700011F072 /* statfs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = statfs.swift; sourceTree = "<group>"; };
 		B96D59771FE5E887002AE6CE /* hexdreamsCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hexdreamsCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B96D597A1FE5E887002AE6CE /* hexdreamsCocoa.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hexdreamsCocoa.h; sourceTree = "<group>"; };
 		B96D597B1FE5E887002AE6CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -199,6 +203,8 @@
 			children = (
 				B971102D1FE5E98600F50FF4 /* C.swift */,
 				B971102E1FE5E98600F50FF4 /* FD_utilities.swift */,
+				B9518AEE2010310A0011F072 /* CString.swift */,
+				B9518AF0201039700011F072 /* statfs.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -467,11 +473,13 @@
 				B97110531FE5E98600F50FF4 /* DateExtensions.swift in Sources */,
 				B97110861FE5EE1A00F50FF4 /* HXApplication.swift in Sources */,
 				B971104C1FE5E98600F50FF4 /* HXModelController.swift in Sources */,
+				B9518AF1201039700011F072 /* statfs.swift in Sources */,
 				B97110551FE5E98600F50FF4 /* CommandLineInterface.swift in Sources */,
 				B97110581FE5E98600F50FF4 /* ArrayExtensions.swift in Sources */,
 				B92AE21B200030AE0040762A /* HXObserverCenter.swift in Sources */,
 				B97110591FE5E98600F50FF4 /* StringExtensions.swift in Sources */,
 				B97110491FE5E98600F50FF4 /* FD_utilities.swift in Sources */,
+				B9518AEF2010310A0011F072 /* CString.swift in Sources */,
 				B97110511FE5E98600F50FF4 /* CGRectExtensions.swift in Sources */,
 				B97110501FE5E98600F50FF4 /* CGPointExtensions.swift in Sources */,
 				B97110811FE5EB0900F50FF4 /* HXDataController.swift in Sources */,
