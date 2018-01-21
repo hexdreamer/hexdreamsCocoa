@@ -52,6 +52,7 @@
 		B97110811FE5EB0900F50FF4 /* HXDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97110801FE5EB0900F50FF4 /* HXDataController.swift */; };
 		B97110861FE5EE1A00F50FF4 /* HXApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97110851FE5EE1A00F50FF4 /* HXApplication.swift */; };
 		B9904BD71FF47E2700127A71 /* hexdreamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9904BD61FF47E2700127A71 /* hexdreamsTests.swift */; };
+		B9D60F0C2012E9F4009039DE /* OptionalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D60F0B2012E9F4009039DE /* OptionalExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		B97110801FE5EB0900F50FF4 /* HXDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXDataController.swift; sourceTree = "<group>"; };
 		B97110851FE5EE1A00F50FF4 /* HXApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXApplication.swift; sourceTree = "<group>"; };
 		B9904BD61FF47E2700127A71 /* hexdreamsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hexdreamsTests.swift; sourceTree = "<group>"; };
+		B9D60F0B2012E9F4009039DE /* OptionalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +267,7 @@
 			children = (
 				B97110431FE5E98600F50FF4 /* ArrayExtensions.swift */,
 				B97110441FE5E98600F50FF4 /* StringExtensions.swift */,
+				B9D60F0B2012E9F4009039DE /* OptionalExtensions.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				B92AE21B200030AE0040762A /* HXObserverCenter.swift in Sources */,
 				B97110591FE5E98600F50FF4 /* StringExtensions.swift in Sources */,
 				B97110491FE5E98600F50FF4 /* FD_utilities.swift in Sources */,
+				B9D60F0C2012E9F4009039DE /* OptionalExtensions.swift in Sources */,
 				B9518AEF2010310A0011F072 /* CString.swift in Sources */,
 				B97110511FE5E98600F50FF4 /* CGRectExtensions.swift in Sources */,
 				B97110501FE5E98600F50FF4 /* CGPointExtensions.swift in Sources */,
