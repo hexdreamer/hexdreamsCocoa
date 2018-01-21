@@ -66,7 +66,7 @@ public extension Array {
         return try ArrayBridge<Element,CChar>(array:self) {
             guard let item = $0 as? String,
                   let translated = item.cString(using: .utf8) else {
-                throw HXErrors.invalidArgumentError("blah")
+                throw HXErrors.invalidArgument("blah")
             }
             return translated
         }
