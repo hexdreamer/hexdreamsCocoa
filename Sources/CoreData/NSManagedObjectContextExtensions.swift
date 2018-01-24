@@ -52,6 +52,7 @@ public extension NSManagedObjectContext {
                 try request.sortDescriptors = NSSortDescriptor.sortDescriptorsFrom(string: sortString)
             }
             request.returnsObjectsAsFaults = returnFaults
+            request.shouldRefreshRefetchedObjects = true
             let asyncRequest = NSAsynchronousFetchRequest(fetchRequest:request, completionBlock:completion)
             try self.execute(asyncRequest)
         } catch {
