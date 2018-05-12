@@ -44,6 +44,9 @@
 		B9CCA1C21CC8891C0002A24F /* HXTestDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA1B11CC8891C0002A24F /* HXTestDataController.swift */; };
 		B9CCA1C31CC8891C0002A24F /* ArrayExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA1B31CC8891C0002A24F /* ArrayExtensionsTests.swift */; };
 		B9CCA1C41CC8891C0002A24F /* StringExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA1B41CC8891C0002A24F /* StringExtensionsTests.swift */; };
+		B9D284CB20A7A520009B7D85 /* HXObserverCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D284C820A7A51F009B7D85 /* HXObserverCenter.swift */; };
+		B9D284CC20A7A520009B7D85 /* HXObserverEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D284C920A7A51F009B7D85 /* HXObserverEntry.swift */; };
+		B9D284CD20A7A520009B7D85 /* HXObservingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D284CA20A7A51F009B7D85 /* HXObservingExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +100,9 @@
 		B9CCA1B11CC8891C0002A24F /* HXTestDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXTestDataController.swift; sourceTree = "<group>"; };
 		B9CCA1B31CC8891C0002A24F /* ArrayExtensionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensionsTests.swift; sourceTree = "<group>"; };
 		B9CCA1B41CC8891C0002A24F /* StringExtensionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensionsTests.swift; sourceTree = "<group>"; };
+		B9D284C820A7A51F009B7D85 /* HXObserverCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserverCenter.swift; sourceTree = "<group>"; };
+		B9D284C920A7A51F009B7D85 /* HXObserverEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserverEntry.swift; sourceTree = "<group>"; };
+		B9D284CA20A7A51F009B7D85 /* HXObservingExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObservingExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,8 +174,10 @@
 		B9C601B41E01CBD9000FB2BA /* hexdreams */ = {
 			isa = PBXGroup;
 			children = (
+				B9CCA1861CC889060002A24F /* hexdreams.swift */,
 				B97110871FE5EF8700F50FF4 /* HXApplication.swift */,
 				B9C601B51E01CBD9000FB2BA /* CommandLineInterface.swift */,
+				B9D284C720A7A51F009B7D85 /* Observing */,
 			);
 			path = hexdreams;
 			sourceTree = "<group>";
@@ -177,7 +185,6 @@
 		B9CCA17A1CC889060002A24F /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				B9CCA1861CC889060002A24F /* hexdreams.swift */,
 				B9C601B41E01CBD9000FB2BA /* hexdreams */,
 				B9CCA1841CC889060002A24F /* Foundation */,
 				B9CCA18D1CC889060002A24F /* UIKit */,
@@ -318,6 +325,16 @@
 			path = Swift;
 			sourceTree = "<group>";
 		};
+		B9D284C720A7A51F009B7D85 /* Observing */ = {
+			isa = PBXGroup;
+			children = (
+				B9D284C820A7A51F009B7D85 /* HXObserverCenter.swift */,
+				B9D284C920A7A51F009B7D85 /* HXObserverEntry.swift */,
+				B9D284CA20A7A51F009B7D85 /* HXObservingExtensions.swift */,
+			);
+			path = Observing;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -436,12 +453,15 @@
 				B97110881FE5EF8800F50FF4 /* HXApplication.swift in Sources */,
 				B91ADF361E4E81270052E3F4 /* CGContextExtensions.swift in Sources */,
 				B9CCA1951CC889060002A24F /* CGRectExtensions.swift in Sources */,
+				B9D284CD20A7A520009B7D85 /* HXObservingExtensions.swift in Sources */,
 				B9CCA1921CC889060002A24F /* HXModelController.swift in Sources */,
+				B9D284CC20A7A520009B7D85 /* HXObserverEntry.swift in Sources */,
 				B9CCA19A1CC889060002A24F /* ArrayExtensions.swift in Sources */,
 				B9CCA19D1CC889060002A24F /* HXViewController.swift in Sources */,
 				B96CC3BA1DF1F612007DD4AA /* DateExtensions.swift in Sources */,
 				B9CCA1911CC889060002A24F /* HXManagedObject.swift in Sources */,
 				B9CCA1901CC889060002A24F /* HXDataController.swift in Sources */,
+				B9D284CB20A7A520009B7D85 /* HXObserverCenter.swift in Sources */,
 				B9B66E0E1E57EA0A004F5894 /* C.swift in Sources */,
 				B9CCA1941CC889060002A24F /* NSManagedObjectContextExtensions.swift in Sources */,
 				B9CCA1971CC889060002A24F /* NSSortDescriptorExtensions.swift in Sources */,
@@ -601,7 +621,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = hexdreamsCocoa/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hexdreams.hexdreamsCocoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -621,7 +641,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = hexdreamsCocoa/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hexdreams.hexdreamsCocoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
