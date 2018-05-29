@@ -60,15 +60,7 @@ public class HXObserverCenter {
             }
         }
         
-        // Now asynchronously go in and clean up
-        self.serialize.async {
-            var i = self.byObserver.count - 1 ; while i >= 0 { defer {i -= 1}
-                let group = self.byObserver[i]
-                if group.owner == nil || group.owner === observer {
-                    self.byObserver.remove(at:i)
-                }
-            }
-        }
+        // We'll just let the normal clean-up processes get the stragglers. If we feel strongly about it, we could also initiate an asynchronous cleanup here, but it's probably not worth the cycles.
     }
     
     public func removeObserver(_ observer:AnyObject, observed:AnyObject) {
@@ -86,8 +78,7 @@ public class HXObserverCenter {
             }
         }
         
-        // Now asynchronously go in and clean up
-        // We'll just let the normal clean-up processes get the stragglers. If we feel strongly about it, we could also clean up here, but it's probably not worth the cycles.
+        // We'll just let the normal clean-up processes get the stragglers. If we feel strongly about it, we could also initiate an asynchronous cleanup here, but it's probably not worth the cycles.
     }
     
     public func changed (
