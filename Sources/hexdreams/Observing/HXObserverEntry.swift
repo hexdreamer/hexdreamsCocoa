@@ -9,7 +9,7 @@ class HXObserverEntry {
     weak var observed:AnyObject?
     let keyPath:AnyKeyPath
     weak var observer:AnyObject?
-    let action:()->Void
+    let action:(AnyObject,AnyKeyPath)->Void
     let queue:DispatchQueue
     let interval:DispatchTimeInterval
     
@@ -21,7 +21,7 @@ class HXObserverEntry {
         observed:AnyObject,
         keyPath:AnyKeyPath,
         observer:AnyObject,
-        action:@escaping ()->Void,
+        action:@escaping (AnyObject,AnyKeyPath)->Void,
         queue:DispatchQueue,
         interval:DispatchTimeInterval
         ) {

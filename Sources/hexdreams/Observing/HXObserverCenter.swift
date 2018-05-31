@@ -22,8 +22,8 @@ public class HXObserverCenter {
     public func observe<T:AnyObject> (
         target observed:T,
         keyPath:PartialKeyPath<T>,
-        observer:AnyObject,
-        action:@escaping ()->Void,
+        notify observer:AnyObject,
+        action:@escaping (AnyObject,AnyKeyPath)->Void,
         queue:DispatchQueue,
         coalescingInterval:DispatchTimeInterval = .milliseconds(0)
         ) {
@@ -48,6 +48,15 @@ public class HXObserverCenter {
         }
     }
     
+    public func observeSync<T:AnyObject> (
+        target observed:T,
+        keyPath:PartialKeyPath<T>,
+        notify observer:AnyObject,
+        action:@escaping (AnyObject,AnyKeyPath)->Void
+        ) {
+        HXSynchronousObserverCenter.shared.observe(target:observed, keyPath:keyPath, notify:observer, action:action)
+    }
+
     public func removeObserver(_ observer:AnyObject) {
         // We want to do this multithreaded because we want to guarantee that observers DO NOT get called back after they call removeObserver.
         let observerGroups = self.byObserver // makes a "copy"
@@ -61,9 +70,10 @@ public class HXObserverCenter {
         }
         
         // We'll just let the normal clean-up processes get the stragglers. If we feel strongly about it, we could also initiate an asynchronous cleanup here, but it's probably not worth the cycles.
+        HXSynchronousObserverCenter.shared.removeObserver(observer)
     }
     
-    public func removeObserver(_ observer:AnyObject, observed:AnyObject) {
+    public func removeObserver(_ observer:AnyObject, target observed:AnyObject) {
         // We want to do this multithreaded because we want to guarantee that observers DO NOT get called back after they call removeObserver.
         let observerGroups = self.byObserver // makes a "copy"
         for group in observerGroups {
@@ -79,11 +89,12 @@ public class HXObserverCenter {
         }
         
         // We'll just let the normal clean-up processes get the stragglers. If we feel strongly about it, we could also initiate an asynchronous cleanup here, but it's probably not worth the cycles.
+        HXSynchronousObserverCenter.shared.removeObserver(observer, target:observed)
     }
     
     public func changed (
         _ observed:AnyObject,
-        keyPath:AnyKeyPath
+        _ keyPath:AnyKeyPath
         ) {
         self.serialize.async {
             guard let group = self.findGroup(matching: observed, in: &self.byObserved) else {
@@ -105,6 +116,7 @@ public class HXObserverCenter {
                 }
             }
         }
+        HXSynchronousObserverCenter.shared.changed(observed, keyPath)
     }
     
     // Should only be executed from the serialize queue
@@ -112,9 +124,9 @@ public class HXObserverCenter {
         entry.changeCount = 0
         entry.notifying = .enqueued
         entry.queue.async {
-            if let _ = entry.observed,
+            if let observed = entry.observed,
                 let _ = entry.observer {
-                entry.action()
+                entry.action(observed, entry.keyPath)
             }
             let notifyTime = DispatchTime.now()
             

@@ -13,19 +13,19 @@
 
 public extension HXObject {
     func changed(_ keyPath:AnyKeyPath) {
-        HXObserverCenter.shared.changed(self, keyPath:keyPath)
+        HXObserverCenter.shared.changed(self, keyPath)
     }
 }
 
 public extension HXThrowingObject {
     func changed(_ keyPath:AnyKeyPath) {
-        HXObserverCenter.shared.changed(self, keyPath:keyPath)
+        HXObserverCenter.shared.changed(self, keyPath)
     }
 }
 
 public extension NSObject {
     func changed(_ keyPath:AnyKeyPath) {
-        HXObserverCenter.shared.changed(self, keyPath:keyPath)
+        HXObserverCenter.shared.changed(self, keyPath)
     }
 }
 
@@ -65,12 +65,12 @@ public extension NSObject {
         func observe<T:AnyObject> (
             _ observed:T,
             _ keyPath:PartialKeyPath<T>,
-            action:@escaping ()->Void
+            action:@escaping (AnyObject,AnyKeyPath)->Void
             ) {
             HXObserverCenter.shared.observe(
                 target:observed,
                 keyPath:keyPath,
-                observer:self,
+                notify:self,
                 action:action,
                 queue:DispatchQueue.main,
                 coalescingInterval:.milliseconds(100)
@@ -83,7 +83,7 @@ public extension NSObject {
             guard let nnobserved = observed else {
                 return
             }
-            HXObserverCenter.shared.removeObserver(self, observed:nnobserved)
+            HXObserverCenter.shared.removeObserver(self, target:nnobserved)
         }
     }
 #endif
