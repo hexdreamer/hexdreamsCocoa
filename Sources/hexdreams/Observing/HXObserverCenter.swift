@@ -17,7 +17,6 @@ public class HXObserverCenter {
     
     private let serialize = DispatchQueue(label:"HXObserverCenter", qos:.default, attributes:[], autoreleaseFrequency:.workItem, target:nil)
     private var byObserved = [HXObserverEntryGroup]()
-    private var byObserver = [HXObserverEntryGroup]()
     
     public func observe<T:AnyObject> (
         target observed:T,
@@ -30,19 +29,24 @@ public class HXObserverCenter {
         self.serialize.async {
             let entry = HXObserverEntry(observed:observed, keyPath:keyPath, observer:observer, action:action, queue:queue, interval:coalescingInterval)
             
-            if let group = self.findGroup(matching:observed, in:&self.byObserved) {
-                group.entries.append(entry)
-            } else {
+            // Kill two birds with one stone by looking for the matching group while iterating inside removeAll
+            // We only clean up when adding an observer because if you don't add any observers, it doesn't add any more weight to the system.
+            var matchingGroup:HXObserverEntryGroup?
+            self.byObserved.removeAll {
+                if $0.owner == nil {
+                    return true // block
+                }
+                if $0.owner === observed {
+                    assert(matchingGroup == nil)
+                    matchingGroup = $0
+                    $0.entries.append(entry)
+                }
+                // May also want to remove individual entries here
+                return false // block
+            }
+            if matchingGroup == nil {
                 let group = HXObserverEntryGroup(owner:observed)
                 self.byObserved.append(group)
-                group.entries.append(entry)
-            }
-            
-            if let group = self.findGroup(matching:observer, in:&self.byObserver) {
-                group.entries.append(entry)
-            } else {
-                let group = HXObserverEntryGroup(owner:observer)
-                self.byObserver.append(group)
                 group.entries.append(entry)
             }
         }
@@ -59,11 +63,11 @@ public class HXObserverCenter {
 
     public func removeObserver(_ observer:AnyObject) {
         // We want to do this multithreaded because we want to guarantee that observers DO NOT get called back after they call removeObserver.
-        let observerGroups = self.byObserver // makes a "copy"
-        for group in observerGroups {
-            if group.owner === observer {
-                let entries = group.entries  // makes a "copy"
-                for entry in entries {
+        let groups = self.byObserved // makes a "copy"
+        for group in groups {
+            let entries = group.entries  // makes a "copy"
+            for entry in entries {
+                if entry.observer === observer {
                     entry.observer = nil
                 }
             }
@@ -75,19 +79,17 @@ public class HXObserverCenter {
     
     public func removeObserver(_ observer:AnyObject, target observed:AnyObject) {
         // We want to do this multithreaded because we want to guarantee that observers DO NOT get called back after they call removeObserver.
-        let observerGroups = self.byObserver // makes a "copy"
-        for group in observerGroups {
-            if group.owner === observer {
-                let entries = group.entries  // makes a "copy"
-                for entry in entries {
-                    if entry.observed === observed {
-                        entry.observer = nil
-                        entry.observed = nil
-                    }
+        let groups = self.byObserved // makes a "copy"
+        for group in groups {
+            let entries = group.entries  // makes a "copy"
+            for entry in entries {
+                if entry.observer === observer && entry.observed === observed {
+                    entry.observer = nil
+                    entry.observed = nil
                 }
             }
         }
-        
+
         // We'll just let the normal clean-up processes get the stragglers. If we feel strongly about it, we could also initiate an asynchronous cleanup here, but it's probably not worth the cycles.
         HXSynchronousObserverCenter.shared.removeObserver(observer, target:observed)
     }
@@ -97,24 +99,25 @@ public class HXObserverCenter {
         _ keyPath:AnyKeyPath
         ) {
         self.serialize.async {
-            guard let group = self.findGroup(matching: observed, in: &self.byObserved) else {
-                return  // block
-            }
-            
-            for entry in group.entries {
-                if entry.observer == nil ||
-                    entry.keyPath != keyPath {
-                    continue
-                }
-                
-                entry.changeCount += 1
-                if entry.notifying == .waiting {
-                    entry.notifying = .scheduled
-                    self.serialize.asyncAfter(deadline:entry.lastNotifyTime + entry.interval) {
-                        self.sendNotification(entry)
+            for group in self.byObserved {
+                if group.owner === observed {
+                    for entry in group.entries {
+                        if entry.observer == nil ||
+                            entry.keyPath != keyPath {
+                            continue
+                        }
+                        
+                        entry.changeCount += 1
+                        if entry.notifying == .waiting {
+                            entry.notifying = .scheduled
+                            self.serialize.asyncAfter(deadline:entry.lastNotifyTime + entry.interval) {
+                                self.sendNotification(entry)
+                            }
+                        }
                     }
                 }
             }
+            
         }
         HXSynchronousObserverCenter.shared.changed(observed, keyPath)
     }
@@ -143,25 +146,4 @@ public class HXObserverCenter {
         }
     }
     
-    private func findGroup (
-        matching owner:AnyObject,
-        in array:inout [HXObserverEntryGroup]
-        )
-        -> HXObserverEntryGroup?
-    {
-        var match:HXObserverEntryGroup? = nil
-        var i = array.count - 1 ; while i >= 0 { defer {i -= 1}
-            let group = array[i]
-            if group.owner == nil {
-                array.remove(at:i)
-            } else if group.owner === owner {
-                if match != nil {
-                    fatalError("Same owner is registered twice")
-                }
-                match = group
-            }
-        }
-        return match
-    }
-
 }

@@ -33,6 +33,7 @@ public class HXSynchronousObserverCenter {
                 matchingGroup = $0
                 $0.entries.append(entry)
             }
+            // May also want to remove individual entries here
             return false // block
         }
         if matchingGroup == nil {
