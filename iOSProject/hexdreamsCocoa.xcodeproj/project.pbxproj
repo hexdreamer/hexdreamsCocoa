@@ -21,7 +21,6 @@
 		B9C601B61E01CBD9000FB2BA /* CommandLineInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C601B51E01CBD9000FB2BA /* CommandLineInterface.swift */; };
 		B9CCA1901CC889060002A24F /* HXDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA17C1CC889060002A24F /* HXDataController.swift */; };
 		B9CCA1911CC889060002A24F /* HXManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA17D1CC889060002A24F /* HXManagedObject.swift */; };
-		B9CCA1921CC889060002A24F /* HXModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA17E1CC889060002A24F /* HXModelController.swift */; };
 		B9CCA1931CC889060002A24F /* NSEntityDescriptionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA17F1CC889060002A24F /* NSEntityDescriptionExtensions.swift */; };
 		B9CCA1941CC889060002A24F /* NSManagedObjectContextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA1801CC889060002A24F /* NSManagedObjectContextExtensions.swift */; };
 		B9CCA1951CC889060002A24F /* CGRectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA1821CC889060002A24F /* CGRectExtensions.swift */; };
@@ -79,7 +78,6 @@
 		B9C601B51E01CBD9000FB2BA /* CommandLineInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineInterface.swift; sourceTree = "<group>"; };
 		B9CCA17C1CC889060002A24F /* HXDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXDataController.swift; sourceTree = "<group>"; };
 		B9CCA17D1CC889060002A24F /* HXManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXManagedObject.swift; sourceTree = "<group>"; };
-		B9CCA17E1CC889060002A24F /* HXModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXModelController.swift; sourceTree = "<group>"; };
 		B9CCA17F1CC889060002A24F /* NSEntityDescriptionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSEntityDescriptionExtensions.swift; sourceTree = "<group>"; };
 		B9CCA1801CC889060002A24F /* NSManagedObjectContextExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextExtensions.swift; sourceTree = "<group>"; };
 		B9CCA1821CC889060002A24F /* CGRectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtensions.swift; sourceTree = "<group>"; };
@@ -207,7 +205,6 @@
 			children = (
 				B9CCA17C1CC889060002A24F /* HXDataController.swift */,
 				B9CCA17D1CC889060002A24F /* HXManagedObject.swift */,
-				B9CCA17E1CC889060002A24F /* HXModelController.swift */,
 				B9CCA17F1CC889060002A24F /* NSEntityDescriptionExtensions.swift */,
 				B9CCA1801CC889060002A24F /* NSManagedObjectContextExtensions.swift */,
 			);
@@ -398,12 +395,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = hexdreams;
 				TargetAttributes = {
 					B9218AED1CC887A000A97389 = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1000;
 					};
 					B9218AF71CC887A000A97389 = {
 						CreatedOnToolsVersion = 7.3;
@@ -461,7 +458,6 @@
 				B91ADF361E4E81270052E3F4 /* CGContextExtensions.swift in Sources */,
 				B9CCA1951CC889060002A24F /* CGRectExtensions.swift in Sources */,
 				B9D284CD20A7A520009B7D85 /* HXObservingExtensions.swift in Sources */,
-				B9CCA1921CC889060002A24F /* HXModelController.swift in Sources */,
 				B9D284CC20A7A520009B7D85 /* HXObserverEntry.swift in Sources */,
 				B9CCA19A1CC889060002A24F /* ArrayExtensions.swift in Sources */,
 				B9CCA19D1CC889060002A24F /* HXViewController.swift in Sources */,
@@ -525,12 +521,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -582,12 +580,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -634,8 +634,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hexdreams.hexdreamsCocoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -655,8 +654,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
