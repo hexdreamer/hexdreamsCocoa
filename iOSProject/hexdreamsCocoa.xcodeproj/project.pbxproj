@@ -16,6 +16,8 @@
 		B97110881FE5EF8800F50FF4 /* HXApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97110871FE5EF8700F50FF4 /* HXApplication.swift */; };
 		B98E654C20BDDDF300103810 /* HXSynchronousObserverCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E654B20BDDDF300103810 /* HXSynchronousObserverCenter.swift */; };
 		B98E654E20BDDE0F00103810 /* HXSynchronousObserverEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E654D20BDDE0F00103810 /* HXSynchronousObserverEntry.swift */; };
+		B99B7DD920EFD1AC00BA8CD2 /* HXXMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99B7DD720EFD1AC00BA8CD2 /* HXXMLNode.swift */; };
+		B99B7DDA20EFD1AC00BA8CD2 /* HXXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99B7DD820EFD1AC00BA8CD2 /* HXXMLParser.swift */; };
 		B99C12DE20EF127600684F33 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99C12DD20EF127600684F33 /* DictionaryExtensions.swift */; };
 		B9B66E0C1E57E9D4004F5894 /* FD_utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B66E0B1E57E9D4004F5894 /* FD_utilities.swift */; };
 		B9B66E0E1E57EA0A004F5894 /* C.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B66E0D1E57EA0A004F5894 /* C.swift */; };
@@ -74,6 +76,8 @@
 		B97110871FE5EF8700F50FF4 /* HXApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXApplication.swift; sourceTree = "<group>"; };
 		B98E654B20BDDDF300103810 /* HXSynchronousObserverCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXSynchronousObserverCenter.swift; sourceTree = "<group>"; };
 		B98E654D20BDDE0F00103810 /* HXSynchronousObserverEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXSynchronousObserverEntry.swift; sourceTree = "<group>"; };
+		B99B7DD720EFD1AC00BA8CD2 /* HXXMLNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXXMLNode.swift; sourceTree = "<group>"; };
+		B99B7DD820EFD1AC00BA8CD2 /* HXXMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXXMLParser.swift; sourceTree = "<group>"; };
 		B99C12DD20EF127600684F33 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		B9B66E0B1E57E9D4004F5894 /* FD_utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FD_utilities.swift; sourceTree = "<group>"; };
 		B9B66E0D1E57EA0A004F5894 /* C.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = C.swift; sourceTree = "<group>"; };
@@ -166,6 +170,15 @@
 			path = hexdreamsCocoaTests;
 			sourceTree = "<group>";
 		};
+		B99B7DD620EFD1AC00BA8CD2 /* XML */ = {
+			isa = PBXGroup;
+			children = (
+				B99B7DD820EFD1AC00BA8CD2 /* HXXMLParser.swift */,
+				B99B7DD720EFD1AC00BA8CD2 /* HXXMLNode.swift */,
+			);
+			path = XML;
+			sourceTree = "<group>";
+		};
 		B9B66E0A1E57E9D4004F5894 /* C */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +207,7 @@
 				B9CCA18D1CC889060002A24F /* UIKit */,
 				B9CCA1811CC889060002A24F /* CoreGraphics */,
 				B9CCA17B1CC889060002A24F /* CoreData */,
+				B99B7DD620EFD1AC00BA8CD2 /* XML */,
 				B9CCA1871CC889060002A24F /* Math */,
 				B9CCA1891CC889060002A24F /* Swift */,
 				B9B66E0A1E57E9D4004F5894 /* C */,
@@ -458,8 +472,10 @@
 				B98E654E20BDDE0F00103810 /* HXSynchronousObserverEntry.swift in Sources */,
 				B9B66E0C1E57E9D4004F5894 /* FD_utilities.swift in Sources */,
 				B97110881FE5EF8800F50FF4 /* HXApplication.swift in Sources */,
+				B99B7DD920EFD1AC00BA8CD2 /* HXXMLNode.swift in Sources */,
 				B91ADF361E4E81270052E3F4 /* CGContextExtensions.swift in Sources */,
 				B9CCA1951CC889060002A24F /* CGRectExtensions.swift in Sources */,
+				B99B7DDA20EFD1AC00BA8CD2 /* HXXMLParser.swift in Sources */,
 				B9D284CD20A7A520009B7D85 /* HXObservingExtensions.swift in Sources */,
 				B9D284CC20A7A520009B7D85 /* HXObserverEntry.swift in Sources */,
 				B9CCA19A1CC889060002A24F /* ArrayExtensions.swift in Sources */,
