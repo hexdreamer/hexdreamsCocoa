@@ -8,12 +8,12 @@ import CoreData
 
 open class HXManagedObject : NSManagedObject {
 
-    public required override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+    public override required init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
         super.init(entity: entity, insertInto: context)
     }
-
-    open func takeValuesFrom(_ dict :[String:AnyObject]) -> Bool {
-        return true;
+        
+    open func takeValuesFrom(_ dict :[String:AnyObject]) {
+        fatalError("not implemented")
     }
 
 }

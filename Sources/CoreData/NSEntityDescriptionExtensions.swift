@@ -8,6 +8,7 @@ import CoreData
 
 public extension NSEntityDescription {
 
+    // With the ability now to do NSManagedObject.init(context:), this code is probably no longer needed.
     class func entityForClass(entityClass:AnyClass, inManagedObjectContext context:NSManagedObjectContext) -> NSEntityDescription {
         let entityClassName = NSStringFromClass(entityClass)
 

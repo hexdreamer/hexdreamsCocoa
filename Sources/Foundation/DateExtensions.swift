@@ -37,6 +37,15 @@ public extension Date {
         return formatter
     }
     
+    public static func rfc3339Formatter() -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.formatterBehavior = .behavior10_4
+        formatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
+        formatter.timeZone = TimeZone(abbreviation:"GMT")
+        formatter.locale = Locale(identifier:"en_US_POSIX")
+        return formatter
+    }
+    
     // MARK: Creating New Dates
     public static func dateWith(year:Int, month:Int, day:Int, hour:Int, minute:Int, second:Int, timeZone:TimeZone) -> Date? {
         var cal = Calendar(identifier:.gregorian)
