@@ -5,7 +5,7 @@
 
 import UIKit
 
-public class HXViewController : UIViewController, UITextFieldDelegate {
+public class HXViewController : UIViewController,UITextFieldDelegate,HXErrorHandler {
     
     // MARK: UITextFieldDelegate Methods
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -14,6 +14,9 @@ public class HXViewController : UIViewController, UITextFieldDelegate {
         }
         return true;
     }
+
+    // MARK: - HXErrorHandler Conformance
+    public var error:Error?
 
 }
 

@@ -3,13 +3,17 @@
 // Copyright(c) 2018 Kenny Leung
 // This code is PUBLIC DOMAIN
 
+// Should probably implement some subset of XPath/XQuery
 public class HXXMLNode {
     
-    weak var parent :HXXMLNode?
-    public let tag  :String
-    let attributes  :[String:String]
-    var children    :[HXXMLNode]
-    var content     :String?
+    public weak var parent :HXXMLNode?
+    public let tag         :String
+    public let attributes  :[String:String]
+    public var children    :[HXXMLNode]
+    public var content     :String?
+    public var isRoot:Bool {
+        return self.parent == nil
+    }
     
     init(parent:HXXMLNode?, tag:String, attributes:[String:String]) {
         self.parent = parent

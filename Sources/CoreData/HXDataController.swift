@@ -123,15 +123,24 @@ open class HXDataController {
         task.resume()
     }
 
+    open func urlRequest(_ urlString:String) throws -> URLRequest {
+        guard let url = URL(string:urlString) else {
+            throw HXErrors.invalidArgument("could not initialize URL \(urlString)")
+        }
+        let request = URLRequest(url:url, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval:10)
+        return request
+    }
+    
     /*
      Update an entity with the given JSON data from the server
+     Returns an array of the updated objects. The objects come from the specified moc.
      */
     open func updateEntity<E:HXManagedObject,K:Hashable>(
         primaryKeyPath :KeyPath<E,Optional<K>>,
         json           :Data,
         pkGetter       :(_ dictionary :[String:AnyObject]) -> Any?,
         moc            :NSManagedObjectContext,
-        options        :UpdateEntityOptions
+        options        :UpdateEntityOptions = []
         ) throws
         -> [E]
     {
@@ -152,7 +161,7 @@ open class HXDataController {
         moc.performAndWait {
             do {
                 let predicate = NSPredicate(format: "%@ in %@", argumentArray:[primaryKeyPath, pks])
-                let existingMOs = moc.fetch(entity:E.self, predicate:predicate, sortString:nil, returnFaults:false)
+                let existingMOs = moc.hxFetch(entity:E.self, predicate:predicate, sortString:nil, returnFaults:false)
                 mosByID = try existingMOs.mapDict{$0[keyPath:primaryKeyPath]}
                 
                 for entityDict in jobjs {
@@ -179,7 +188,6 @@ open class HXDataController {
         
         return updatedMOs
     }
-    
 }
 
 

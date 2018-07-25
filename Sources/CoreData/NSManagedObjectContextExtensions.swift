@@ -7,7 +7,7 @@ import CoreData
 
 public extension NSManagedObjectContext {
 
-    public func fetch<T:NSManagedObject> (
+    public func hxFetch<T:NSManagedObject> (
         entity:T.Type,
         predicate             :NSPredicate? = nil,
         sortString            :String? = nil,
@@ -18,7 +18,7 @@ public extension NSManagedObjectContext {
         do {
             let entity = NSEntityDescription.entityForClass(entityClass: T.self, inManagedObjectContext: self)
             guard let entityName = entity.name else {
-                    fatalError()
+                fatalError()
             }
             let request = NSFetchRequest<T>(entityName:entityName)
             request.predicate = predicate
@@ -33,7 +33,7 @@ public extension NSManagedObjectContext {
         }
     }
     
-    public func fetch<T:NSManagedObject> (
+    public func hxFetch<T:NSManagedObject> (
         entity:T.Type,
         predicate             :NSPredicate? = nil,
         sortString            :String? = nil,
@@ -61,12 +61,37 @@ public extension NSManagedObjectContext {
     }
     
     // Add this one so we can do trailing closures
-    public func fetch<T:NSManagedObject> (
+    public func hxFetch<T:NSManagedObject> (
         entity:T.Type,
         completionBlock:@escaping (NSAsynchronousFetchResult<T>)->Void
         )
     {
-        self.fetch(entity:entity, predicate:nil, sortString:nil, returnFaults:false, completion:completionBlock)
+        self.hxFetch(entity:entity, predicate:nil, sortString:nil, returnFaults:false, completion:completionBlock)
     }
+    
+    public func hxPerformAndWait(_ block:(NSManagedObjectContext)throws->Void) throws {
+        var blockError:Error? = nil
+        
+        self.performAndWait {
+            do {
+                try block(self)
+            } catch {
+                blockError = error
+            }
+        }
+        
+        if let someError = blockError {
+            throw someError
+        }
+    }
+    
+    public func hxTranslate<T:NSManagedObject>(foreignObject:T) throws -> T {
+        let local = self.object(with:foreignObject.objectID)
+        guard let typedLocal = local as? T else {
+            throw HXErrors.general("Could not cast \(local) to \(T.self)")
+        }
+        return typedLocal
+    }
+
     
 }

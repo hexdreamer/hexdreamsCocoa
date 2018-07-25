@@ -53,6 +53,11 @@ public extension String {
         }
         return nil
     }
+    
+    public func htmlFlattened() -> String {
+        fatalError("Not implemented")
+    }
+    
 }
 
 // MARK: Operator Support

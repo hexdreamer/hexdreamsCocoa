@@ -12,6 +12,7 @@
 		B9218AF21CC887A000A97389 /* hexdreamsCocoa.h in Headers */ = {isa = PBXBuildFile; fileRef = B9218AF11CC887A000A97389 /* hexdreamsCocoa.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B9218AF91CC887A000A97389 /* hexdreamsCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9218AEE1CC887A000A97389 /* hexdreamsCocoa.framework */; };
 		B9218AFE1CC887A000A97389 /* hexdreamsCocoaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9218AFD1CC887A000A97389 /* hexdreamsCocoaTests.swift */; };
+		B92D0BA420EFFF9200359640 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92D0BA320EFFF9200359640 /* UtilityFunctions.swift */; };
 		B96CC3BA1DF1F612007DD4AA /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CC3B91DF1F612007DD4AA /* DateExtensions.swift */; };
 		B97110881FE5EF8800F50FF4 /* HXApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97110871FE5EF8700F50FF4 /* HXApplication.swift */; };
 		B98E654C20BDDDF300103810 /* HXSynchronousObserverCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E654B20BDDDF300103810 /* HXSynchronousObserverCenter.swift */; };
@@ -51,6 +52,8 @@
 		B9D284CB20A7A520009B7D85 /* HXObserverCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D284C820A7A51F009B7D85 /* HXObserverCenter.swift */; };
 		B9D284CC20A7A520009B7D85 /* HXObserverEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D284C920A7A51F009B7D85 /* HXObserverEntry.swift */; };
 		B9D284CD20A7A520009B7D85 /* HXObservingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D284CA20A7A51F009B7D85 /* HXObservingExtensions.swift */; };
+		B9DB96F5210823AD0072FD19 /* HXErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB96F4210823AD0072FD19 /* HXErrors.swift */; };
+		B9DB96F7210829770072FD19 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB96F6210829770072FD19 /* UIViewControllerExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +75,7 @@
 		B9218AF81CC887A000A97389 /* hexdreamsCocoaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hexdreamsCocoaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9218AFD1CC887A000A97389 /* hexdreamsCocoaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hexdreamsCocoaTests.swift; sourceTree = "<group>"; };
 		B9218AFF1CC887A000A97389 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B92D0BA320EFFF9200359640 /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
 		B96CC3B91DF1F612007DD4AA /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		B97110871FE5EF8700F50FF4 /* HXApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXApplication.swift; sourceTree = "<group>"; };
 		B98E654B20BDDDF300103810 /* HXSynchronousObserverCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXSynchronousObserverCenter.swift; sourceTree = "<group>"; };
@@ -111,6 +115,8 @@
 		B9D284C820A7A51F009B7D85 /* HXObserverCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserverCenter.swift; sourceTree = "<group>"; };
 		B9D284C920A7A51F009B7D85 /* HXObserverEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserverEntry.swift; sourceTree = "<group>"; };
 		B9D284CA20A7A51F009B7D85 /* HXObservingExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObservingExtensions.swift; sourceTree = "<group>"; };
+		B9DB96F4210823AD0072FD19 /* HXErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXErrors.swift; sourceTree = "<group>"; };
+		B9DB96F6210829770072FD19 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				B9CCA1861CC889060002A24F /* hexdreams.swift */,
+				B9DB96F4210823AD0072FD19 /* HXErrors.swift */,
 				B97110871FE5EF8700F50FF4 /* HXApplication.swift */,
 				B9C601B51E01CBD9000FB2BA /* CommandLineInterface.swift */,
 				B9D284C720A7A51F009B7D85 /* Observing */,
@@ -261,6 +268,7 @@
 			children = (
 				B9CCA18A1CC889060002A24F /* ArrayExtensions.swift */,
 				B9CCA18C1CC889060002A24F /* StringExtensions.swift */,
+				B92D0BA320EFFF9200359640 /* UtilityFunctions.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -269,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				B9CCA18E1CC889060002A24F /* HXViewController.swift */,
+				B9DB96F6210829770072FD19 /* UIViewControllerExtensions.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -473,6 +482,7 @@
 				B9B66E0C1E57E9D4004F5894 /* FD_utilities.swift in Sources */,
 				B97110881FE5EF8800F50FF4 /* HXApplication.swift in Sources */,
 				B99B7DD920EFD1AC00BA8CD2 /* HXXMLNode.swift in Sources */,
+				B9DB96F5210823AD0072FD19 /* HXErrors.swift in Sources */,
 				B91ADF361E4E81270052E3F4 /* CGContextExtensions.swift in Sources */,
 				B9CCA1951CC889060002A24F /* CGRectExtensions.swift in Sources */,
 				B99B7DDA20EFD1AC00BA8CD2 /* HXXMLParser.swift in Sources */,
@@ -480,6 +490,7 @@
 				B9D284CC20A7A520009B7D85 /* HXObserverEntry.swift in Sources */,
 				B9CCA19A1CC889060002A24F /* ArrayExtensions.swift in Sources */,
 				B9CCA19D1CC889060002A24F /* HXViewController.swift in Sources */,
+				B9DB96F7210829770072FD19 /* UIViewControllerExtensions.swift in Sources */,
 				B96CC3BA1DF1F612007DD4AA /* DateExtensions.swift in Sources */,
 				B9CCA1911CC889060002A24F /* HXManagedObject.swift in Sources */,
 				B9CCA1901CC889060002A24F /* HXDataController.swift in Sources */,
@@ -492,6 +503,7 @@
 				B9C601B61E01CBD9000FB2BA /* CommandLineInterface.swift in Sources */,
 				B9CCA1961CC889060002A24F /* CGSizeExtensions.swift in Sources */,
 				B91ADF381E4E8B160052E3F4 /* CGPointExtensions.swift in Sources */,
+				B92D0BA420EFFF9200359640 /* UtilityFunctions.swift in Sources */,
 				B9CCA19C1CC889060002A24F /* StringExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
