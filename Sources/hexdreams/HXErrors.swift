@@ -10,10 +10,11 @@ public enum HXErrors : Error {
     case unimplemented
     case general(String)
     case invalidArgument(String)       // message
-    case objectNotFound(Any,String,String)  // our equivalent of NullPointerException args: sender, function, message
+    case hxnil(String)
+    case objectNotFound(Any,String,String)  // args: sender, function, message
     case internalInconsistency(String)
     case network(String)
-    case fatal(String)
+    case cocoa(String)
 }
 
 public protocol HXErrorHandler:AnyObject {

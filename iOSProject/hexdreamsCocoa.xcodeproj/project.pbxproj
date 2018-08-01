@@ -22,6 +22,7 @@
 		B99C12DE20EF127600684F33 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99C12DD20EF127600684F33 /* DictionaryExtensions.swift */; };
 		B9B66E0C1E57E9D4004F5894 /* FD_utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B66E0B1E57E9D4004F5894 /* FD_utilities.swift */; };
 		B9B66E0E1E57EA0A004F5894 /* C.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B66E0D1E57EA0A004F5894 /* C.swift */; };
+		B9BD6B6D210EBD1600BFE05C /* HXResourceDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BD6B6C210EBD1600BFE05C /* HXResourceDomain.swift */; };
 		B9C601B61E01CBD9000FB2BA /* CommandLineInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C601B51E01CBD9000FB2BA /* CommandLineInterface.swift */; };
 		B9CCA1901CC889060002A24F /* HXDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA17C1CC889060002A24F /* HXDataController.swift */; };
 		B9CCA1911CC889060002A24F /* HXManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA17D1CC889060002A24F /* HXManagedObject.swift */; };
@@ -54,6 +55,15 @@
 		B9D284CD20A7A520009B7D85 /* HXObservingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D284CA20A7A51F009B7D85 /* HXObservingExtensions.swift */; };
 		B9DB96F5210823AD0072FD19 /* HXErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB96F4210823AD0072FD19 /* HXErrors.swift */; };
 		B9DB96F7210829770072FD19 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB96F6210829770072FD19 /* UIViewControllerExtensions.swift */; };
+		B9DB971521099C490072FD19 /* HXCachingWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB971421099C490072FD19 /* HXCachingWrapper.swift */; };
+		B9DB97172109A1C80072FD19 /* HXRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB97162109A1C80072FD19 /* HXRepresentation.swift */; };
+		B9DB9720210A3F240072FD19 /* HXImageManagerJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB971B210A3F240072FD19 /* HXImageManagerJob.swift */; };
+		B9DB9721210A3F240072FD19 /* HXImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB971C210A3F240072FD19 /* HXImageManager.swift */; };
+		B9DB9722210A3F240072FD19 /* HXImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB971D210A3F240072FD19 /* HXImageView.swift */; };
+		B9DB9723210A3F240072FD19 /* HXImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB971E210A3F240072FD19 /* HXImageButton.swift */; };
+		B9DB9724210A3F240072FD19 /* HXImageManagerSizingDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB971F210A3F240072FD19 /* HXImageManagerSizingDescriptor.swift */; };
+		B9DB9727210A3F2D0072FD19 /* HXResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB9726210A3F2D0072FD19 /* HXResourceManager.swift */; };
+		B9DB972A210A5B730072FD19 /* HXResourceManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B9DB9728210A5B730072FD19 /* HXResourceManager.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +95,7 @@
 		B99C12DD20EF127600684F33 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		B9B66E0B1E57E9D4004F5894 /* FD_utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FD_utilities.swift; sourceTree = "<group>"; };
 		B9B66E0D1E57EA0A004F5894 /* C.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = C.swift; sourceTree = "<group>"; };
+		B9BD6B6C210EBD1600BFE05C /* HXResourceDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXResourceDomain.swift; sourceTree = "<group>"; };
 		B9C601B51E01CBD9000FB2BA /* CommandLineInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineInterface.swift; sourceTree = "<group>"; };
 		B9CCA17C1CC889060002A24F /* HXDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXDataController.swift; sourceTree = "<group>"; };
 		B9CCA17D1CC889060002A24F /* HXManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXManagedObject.swift; sourceTree = "<group>"; };
@@ -117,6 +128,15 @@
 		B9D284CA20A7A51F009B7D85 /* HXObservingExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObservingExtensions.swift; sourceTree = "<group>"; };
 		B9DB96F4210823AD0072FD19 /* HXErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXErrors.swift; sourceTree = "<group>"; };
 		B9DB96F6210829770072FD19 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		B9DB971421099C490072FD19 /* HXCachingWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXCachingWrapper.swift; sourceTree = "<group>"; };
+		B9DB97162109A1C80072FD19 /* HXRepresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXRepresentation.swift; sourceTree = "<group>"; };
+		B9DB971B210A3F240072FD19 /* HXImageManagerJob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXImageManagerJob.swift; sourceTree = "<group>"; };
+		B9DB971C210A3F240072FD19 /* HXImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXImageManager.swift; sourceTree = "<group>"; };
+		B9DB971D210A3F240072FD19 /* HXImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXImageView.swift; sourceTree = "<group>"; };
+		B9DB971E210A3F240072FD19 /* HXImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXImageButton.swift; sourceTree = "<group>"; };
+		B9DB971F210A3F240072FD19 /* HXImageManagerSizingDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXImageManagerSizingDescriptor.swift; sourceTree = "<group>"; };
+		B9DB9726210A3F2D0072FD19 /* HXResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXResourceManager.swift; sourceTree = "<group>"; };
+		B9DB9729210A5B730072FD19 /* HXResourceManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HXResourceManager.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,7 +221,11 @@
 				B9DB96F4210823AD0072FD19 /* HXErrors.swift */,
 				B97110871FE5EF8700F50FF4 /* HXApplication.swift */,
 				B9C601B51E01CBD9000FB2BA /* CommandLineInterface.swift */,
+				B9DB971421099C490072FD19 /* HXCachingWrapper.swift */,
+				B9DB97162109A1C80072FD19 /* HXRepresentation.swift */,
 				B9D284C720A7A51F009B7D85 /* Observing */,
+				B9DB9725210A3F2D0072FD19 /* ResourceManager */,
+				B9DB971A210A3F240072FD19 /* ImageManager */,
 			);
 			path = hexdreams;
 			sourceTree = "<group>";
@@ -364,6 +388,28 @@
 			path = Observing;
 			sourceTree = "<group>";
 		};
+		B9DB971A210A3F240072FD19 /* ImageManager */ = {
+			isa = PBXGroup;
+			children = (
+				B9DB971C210A3F240072FD19 /* HXImageManager.swift */,
+				B9DB971B210A3F240072FD19 /* HXImageManagerJob.swift */,
+				B9DB971D210A3F240072FD19 /* HXImageView.swift */,
+				B9DB971E210A3F240072FD19 /* HXImageButton.swift */,
+				B9DB971F210A3F240072FD19 /* HXImageManagerSizingDescriptor.swift */,
+			);
+			path = ImageManager;
+			sourceTree = "<group>";
+		};
+		B9DB9725210A3F2D0072FD19 /* ResourceManager */ = {
+			isa = PBXGroup;
+			children = (
+				B9DB9726210A3F2D0072FD19 /* HXResourceManager.swift */,
+				B9DB9728210A5B730072FD19 /* HXResourceManager.xcdatamodeld */,
+				B9BD6B6C210EBD1600BFE05C /* HXResourceDomain.swift */,
+			);
+			path = ResourceManager;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -476,11 +522,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9CCA1931CC889060002A24F /* NSEntityDescriptionExtensions.swift in Sources */,
+				B9BD6B6D210EBD1600BFE05C /* HXResourceDomain.swift in Sources */,
 				B9CCA1981CC889060002A24F /* hexdreams.swift in Sources */,
 				B9CCA1991CC889060002A24F /* HXMatrix.swift in Sources */,
 				B98E654E20BDDE0F00103810 /* HXSynchronousObserverEntry.swift in Sources */,
+				B9DB97172109A1C80072FD19 /* HXRepresentation.swift in Sources */,
+				B9DB9723210A3F240072FD19 /* HXImageButton.swift in Sources */,
 				B9B66E0C1E57E9D4004F5894 /* FD_utilities.swift in Sources */,
 				B97110881FE5EF8800F50FF4 /* HXApplication.swift in Sources */,
+				B9DB9721210A3F240072FD19 /* HXImageManager.swift in Sources */,
 				B99B7DD920EFD1AC00BA8CD2 /* HXXMLNode.swift in Sources */,
 				B9DB96F5210823AD0072FD19 /* HXErrors.swift in Sources */,
 				B91ADF361E4E81270052E3F4 /* CGContextExtensions.swift in Sources */,
@@ -489,14 +539,17 @@
 				B9D284CD20A7A520009B7D85 /* HXObservingExtensions.swift in Sources */,
 				B9D284CC20A7A520009B7D85 /* HXObserverEntry.swift in Sources */,
 				B9CCA19A1CC889060002A24F /* ArrayExtensions.swift in Sources */,
+				B9DB9727210A3F2D0072FD19 /* HXResourceManager.swift in Sources */,
 				B9CCA19D1CC889060002A24F /* HXViewController.swift in Sources */,
 				B9DB96F7210829770072FD19 /* UIViewControllerExtensions.swift in Sources */,
 				B96CC3BA1DF1F612007DD4AA /* DateExtensions.swift in Sources */,
 				B9CCA1911CC889060002A24F /* HXManagedObject.swift in Sources */,
+				B9DB9720210A3F240072FD19 /* HXImageManagerJob.swift in Sources */,
 				B9CCA1901CC889060002A24F /* HXDataController.swift in Sources */,
 				B9D284CB20A7A520009B7D85 /* HXObserverCenter.swift in Sources */,
 				B98E654C20BDDDF300103810 /* HXSynchronousObserverCenter.swift in Sources */,
 				B9B66E0E1E57EA0A004F5894 /* C.swift in Sources */,
+				B9DB971521099C490072FD19 /* HXCachingWrapper.swift in Sources */,
 				B9CCA1941CC889060002A24F /* NSManagedObjectContextExtensions.swift in Sources */,
 				B9CCA1971CC889060002A24F /* NSSortDescriptorExtensions.swift in Sources */,
 				B99C12DE20EF127600684F33 /* DictionaryExtensions.swift in Sources */,
@@ -505,6 +558,9 @@
 				B91ADF381E4E8B160052E3F4 /* CGPointExtensions.swift in Sources */,
 				B92D0BA420EFFF9200359640 /* UtilityFunctions.swift in Sources */,
 				B9CCA19C1CC889060002A24F /* StringExtensions.swift in Sources */,
+				B9DB9722210A3F240072FD19 /* HXImageView.swift in Sources */,
+				B9DB9724210A3F240072FD19 /* HXImageManagerSizingDescriptor.swift in Sources */,
+				B9DB972A210A5B730072FD19 /* HXResourceManager.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -755,6 +811,16 @@
 			);
 			currentVersion = B9CCA1AC1CC8891C0002A24F /* hexdreams.xcdatamodel */;
 			path = hexdreams.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		B9DB9728210A5B730072FD19 /* HXResourceManager.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B9DB9729210A5B730072FD19 /* HXResourceManager.xcdatamodel */,
+			);
+			currentVersion = B9DB9729210A5B730072FD19 /* HXResourceManager.xcdatamodel */;
+			path = HXResourceManager.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

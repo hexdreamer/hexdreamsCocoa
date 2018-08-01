@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14308.2" systemVersion="18A336e" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="HXResource" representedClassName=".HXResource" syncable="YES" codeGenerationType="class">
+        <attribute name="accessDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="createDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="path" attributeType="String" syncable="YES"/>
+        <attribute name="purgeable" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="purgeDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="size" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="updateDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="urlString" attributeType="String" syncable="YES"/>
+        <attribute name="uuid" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="domain" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HXResourceDomain" syncable="YES"/>
+    </entity>
+    <entity name="HXResourceDomain" representedClassName=".HXResourceDomain" syncable="YES" codeGenerationType="class">
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="quota" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="size" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="children" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="HXResourceDomain" inverseName="parent" inverseEntity="HXResourceDomain" syncable="YES"/>
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="HXResourceDomain" inverseName="children" inverseEntity="HXResourceDomain" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="HXResourceDomain" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="HXResource" positionX="-45" positionY="45" width="128" height="195"/>
+    </elements>
+</model>
