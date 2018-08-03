@@ -24,7 +24,7 @@ public class HXXMLParser: NSObject, XMLParserDelegate {
             self.currentNode = self.rootNode
         } else {
             guard let tailNode = self.currentNode else {
-                return  // error!
+                return  // error
             }
             let node = HXXMLNode(parent: tailNode, tag: elementName, attributes: attributeDict)
             tailNode.children.append(node)
@@ -34,7 +34,7 @@ public class HXXMLParser: NSObject, XMLParserDelegate {
 
     public func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         guard let tailNode = self.currentNode else {
-            return  // error!
+            return  // error
         }
         if let content = tailNode.content,
             !content.isEmpty {
@@ -45,7 +45,7 @@ public class HXXMLParser: NSObject, XMLParserDelegate {
 
     public func parser(_ parser: XMLParser, foundCharacters string: String) {
         guard let tailNode = self.currentNode else {
-            return // error!
+            return // error
         }
         if let content = tailNode.content {
             tailNode.content = content + string

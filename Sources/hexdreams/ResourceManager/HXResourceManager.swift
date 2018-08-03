@@ -2,10 +2,12 @@
 import Foundation
 import CoreData
 
-public class HXResourceManager : NSObject, URLSessionDelegate {
+public class HXResourceManager : NSObject {
     
     public static let shared = HXResourceManager()
     
+    private let serialize = DispatchQueue(label:"HXObserverCenter", qos:.default, attributes:[], autoreleaseFrequency:.workItem, target:nil)
+
     lazy var resourceManagerRootDirectory:URL = {
         HXApplication.cachesDirectory().appendingPathComponent("HXResourceManager")
     }()
@@ -34,6 +36,10 @@ public class HXResourceManager : NSObject, URLSessionDelegate {
         return persistentContainer
     }()
 
+    var viewContext:NSManagedObjectContext {
+        return self.persistentContainer.viewContext
+    }
+    
     lazy var moc:NSManagedObjectContext = {
         self.persistentContainer.newBackgroundContext()
     }()
@@ -41,17 +47,17 @@ public class HXResourceManager : NSObject, URLSessionDelegate {
     var domainsByIdentifier:[String:HXResourceDomain]
     
     private func cacheDomains() {
-        self.moc.performAndWait {
-            do {
-                let domains = self.moc.hxFetch(entity:HXResourceDomain.self, predicate:nil, sortString:nil, returnFaults:false)
-                self.domainsByIdentifier = try domains.mapDict({$0.identifier})
-            } catch {
-                fatalError("Error caching domains: \(error)")
+        do {
+            try self.viewContext.hxPerformAndWait {
+                let domains = $0.hxFetch(entity:HXResourceDomain.self, predicate:nil, sortString:nil, returnFaults:false)
+                try self.domainsByIdentifier = domains.mapDict({$0.identifier})
             }
+        } catch {
+            fatalError("Could not cache domains")
         }
     }
-    
-    private func domainFor(identifier:String) throws -> HXResourceDomain {
+
+    public func domainFor(identifier:String) throws -> HXResourceDomain {
          return try self.domainsByIdentifier[identifier] ?? {
             throw HXErrors.invalidArgument("No domain with identifier \(identifier)")
         }
@@ -65,208 +71,149 @@ public class HXResourceManager : NSObject, URLSessionDelegate {
         path.appendPathComponent("\(uuid.uuidString)-\(filename)")
         return path
     }
-    
-    public lazy var operationQueue:OperationQueue = {
-        let queue = OperationQueue()
-        queue.qualityOfService = .background
-        queue.maxConcurrentOperationCount = 1
-        return queue
-    }()
-    
-    public lazy var cellularSession:URLSession = {
-        let config = URLSessionConfiguration.background(withIdentifier:"HXResourceManagerCellular")
-        config.allowsCellularAccess = true
-        let session = URLSession(configuration:config, delegate:self, delegateQueue:self.operationQueue)
-        return session
-    }()
-    
-    public lazy var wifiOnlySession:URLSession = {
-        let config = URLSessionConfiguration.background(withIdentifier:"HXResourceManagerCellular")
-        config.allowsCellularAccess = true
-        let session = URLSession(configuration:config, delegate:self, delegateQueue:self.operationQueue)
-        return session
-    }()
-
-    public var serialize:DispatchQueue {
-        return self.operationQueue.underlyingQueue ?? {
-            fatalError("Cannot get the serialize queue: The operation queue's underlyingQueue is nil")
-        }
-    }
-    
-    var runningTasks = [URLSessionDownloadTask]()
-    
+            
     override init() {
         self.domainsByIdentifier = [String:HXResourceDomain]()
         super.init()
         self.cacheDomains()
     }
     
-    public func resourceFor(domainIdentifier:String, request:URLRequest, overCellular:Bool, purgeable:Bool,
-                            completionHandler:@escaping (URL?, URLResponse?, Error?) -> Void) {
-        self.resourceFor(domainIdentifier:domainIdentifier,
-                         session:overCellular ? self.cellularSession : self.wifiOnlySession,
-                         request:request, purgeable:purgeable, completionHandler:completionHandler)
+    public func resourceFor(
+        domainIdentifier:String,
+        uuid:UUID?,
+        urlString:String?,
+        version:String?,
+        completionHandler:@escaping (String?, [HXResource]?, Error?) -> Void
+        )
+    {
+        self.serialize.hxAsync( {
+            let privateResults:[HXResource] = try self.moc.hxPerformAndWait {
+                let domain = try $0.hxTranslate(foreignObject:self.domainFor(identifier:domainIdentifier))
+                return try self.fetchResourcesFor(domain:domain, uuid:uuid, urlString:urlString, version:version, moc:$0)
+            }
+            
+            DispatchQueue.main.hxAsync ( {
+                let results = try self.viewContext.hxTranslate(foreignObjects:privateResults)
+                switch results.count {
+                case 0:
+                    completionHandler(nil, nil, nil)
+                case 1:
+                    completionHandler(results[0].path, results, nil)
+                default:
+                    completionHandler(nil, results, HXErrors.invalidArgument("More than one resource found for domain:\(domainIdentifier), uuid:\(String(describing:uuid)), url:\(urlString ?? "nil"), version:\(version ?? "nil")"))
+                }
+            }, hxCatch: {
+                completionHandler(nil, nil, $0)
+            })
+            
+        }, hxCatch: {
+            completionHandler(nil, nil, $0)
+        })
     }
-
-    private func resourceFor(domainIdentifier:String, session:URLSession, request:URLRequest, purgeable:Bool,
-                             completionHandler:@escaping (URL?, URLResponse?, Error?) -> Void) {
-        self.serialize.async {
-            do {
-                let url = try request.url ?? {throw HXErrors.hxnil("Request url")}
-                let domain = try self.domainFor(identifier:domainIdentifier)
-                let predicate = NSPredicate(format:"domain = %@ AND urlString = %@", argumentArray:[domain, url.absoluteString])
+    
+    public func register(
+        resource downloadedURL:URL,
+        forDomainIdentifier domainIdentifier:String,
+        uuid:UUID?,
+        urlString:String?,
+        version:String?,
+        purgePriority:Int16,
+        completionHandler:@escaping (String?, [HXResource]?, Error?) -> Void
+        )
+    {
+        self.serialize.hxAsync({
+            let domain = try self.moc.hxPerformAndWait {
+                try $0.hxTranslate(foreignObject:self.domainFor(identifier:domainIdentifier))
+            }
+            
+            var oldSize:Int64? = nil
+            var newSize:Int64? = nil
+            let existingResource:HXResource? = try self.moc.hxPerformAndWait({
+                let results = try self.fetchResourcesFor(domain:domain, uuid:uuid, urlString:urlString, version:version, moc:$0)
+                switch results.count {
+                case 0:
+                    return nil
+                case 1:
+                    return results[0]
+                default:
+                    throw HXErrors.invalidArgument("More than one resource found for domain:\(domainIdentifier), uuid:\(String(describing:uuid)), url:\(urlString ?? "nil"), version:\(version ?? "nil")")
+                }
+            })
+            
+            try self.moc.hxPerformAndWait { moc in
+                let domain = try moc.hxTranslate(foreignObject:self.domainFor(identifier:domainIdentifier))
+                let results = try self.fetchResourcesFor(domain:domain, uuid:uuid, urlString:urlString, version:version, moc:moc)
+                var existingResource:HXResource? = nil
+                switch results.count {
+                case 0:
+                    break;
+                case 1:
+                    existingResource = results[0]
+                default:
+                    completionHandler(nil, results, HXErrors.invalidArgument("More than one resource found for domain:\(domainIdentifier), uuid:\(String(describing:uuid)), url:\(urlString ?? "nil"), version:\(version ?? "nil")"))
+                    return
+                }
                 
-                self.moc.perform {
-                    do {
-                        let results = self.moc.hxFetch(entity:HXResource.self, predicate:predicate, sortString:nil, returnFaults:false)
-                        switch results.count {
-                        case 0:
-                            self.retrieveResourceFor(domain:domain, session:session , request:request, purgeable:purgeable, completionHandler:completionHandler)
-                        case 1:
-                            let resource = results[0]
-                            let path = try resource.path ?? {throw HXErrors.hxnil("resource.path for \(url)")}
-                            completionHandler(URL(fileURLWithPath:path), nil, nil)
-                        default:
-                            throw HXErrors.internalInconsistency("More than one resource found for domain \(domainIdentifier) and url \(url)")
-                        }
-                    } catch { // self.moc.perform
-                        completionHandler(nil, nil, error)
-                    }
+                let now = Date()
+                let resource = existingResource ?? {
+                    let uuid = uuid ?? UUID()
+                    let newResource = HXResource(context:moc)
+                    
+                    newResource.createDate = now
+                    newResource.accessDate = now
+                    newResource.path = self.generateResourceURL(domain:domain, uuid:uuid, filename:"blah").path
+                    newResource.purgePriority = purgePriority
+                    newResource.sourceURLString = urlString
+                    newResource.uuid = uuid
+                    newResource.version = version
+                    newResource.domain = domain
+                    return newResource  // block
                 }
-            } catch { // self.serialize.async
-                completionHandler(nil, nil, error)
+                resource.purgeDate = nil
+                resource.updateDate = now
+                domain.adjustSize(delta:-resource.size)
+                let size = try FileManager.default.attributesOfItem(atPath:downloadedURL.path)[.size] as? Int64 ?? {throw HXErrors.cocoa("Could not get size of downloaded file at \(downloadedURL)")}
+                resource.size = size
+                domain.adjustSize(delta:resource.size)
+                
+                let destPath = try resource.path ?? {throw HXErrors.hxnil("resource.path")}
+                try FileManager.default.moveItem(at:downloadedURL, to:URL(fileURLWithPath:destPath))
+                
+                try moc.save()
             }
-        }
+        }, hxCatch: { (error) in
+            completionHandler(nil, nil, error)
+        })
     }
     
-    private func retrieveResourceFor(domain:HXResourceDomain, session:URLSession, request:URLRequest, purgeable:Bool,
-                                     completionHandler:@escaping (URL?, URLResponse?, Error?) -> Void
-        ) {
-        self.serialize.async {
-            do {
-                let requestURL = try request.url ?? {throw HXErrors.hxnil("request.url")}
-                let task = session.downloadTask(with:request) { (burl,bresponse,berror) in
-                    do {
-                        try rethrow(berror)
-                        let burl = try burl ?? {throw HXErrors.hxnil("no url available for downloaded file")}
-                        let now = Date()
-                        let uuid = UUID()
-                        let resourceURL = self.generateResourceURL(domain:domain, uuid:uuid, filename:burl.lastPathComponent)
-                        let attributes = try FileManager.default.attributesOfItem(atPath:burl.path)
-                        let size = try attributes[.size] as? Int64 ?? {throw HXErrors.cocoa("Could not get size of resource file")}
-                        try FileManager.default.copyItem(at:burl, to:resourceURL)
-                        self.moc.perform {
-                            do {
-                                let resource = HXResource(context:self.moc)
-                                resource.accessDate = now
-                                resource.createDate = now
-                                resource.path = resourceURL.path
-                                resource.purgeable = purgeable
-                                resource.purgeDate = nil
-                                resource.size = size
-                                resource.updateDate = now
-                                resource.urlString = requestURL.absoluteString
-                                resource.uuid = uuid
-                                resource.domain = domain
-                                resource.domain?.adjustSize(delta:size)
-                                try self.moc.save()
-                                completionHandler(resourceURL, bresponse, nil)
-                                self.clearCompletedTasks()
-                            } catch { // self.moc.perform
-                                do {
-                                    try FileManager.default.removeItem(at:resourceURL)
-                                } catch {
-                                    completionHandler(nil, nil, error)
-                                }
-                                completionHandler(nil, nil, error)
-                            }
-                        }
-                    } catch { // let task = session.downloadTask
-                        completionHandler(nil, nil, error)
-                    }
-                }
-                self.runningTasks.append(task)
-                task.resume()
-            } catch { // self.serialize.async
-                completionHandler(nil, nil, error)
-            }
-        }
-    }
-
-    private func refresh(resource:HXResource, session:URLSession, url:URL, purgeable:Bool,
-                         completionHandler:@escaping (URL?, URLResponse?, Error?) -> Void
-        ) {
-        self.serialize.async {
-            do {
-                let urlString = try resource.urlString ?? {throw HXErrors.hxnil("resource.urlString")}
-                let requestURL = try URL(string:urlString) ?? {throw HXErrors.invalidArgument("could not initialize URL with \(urlString)")}
-                let task = session.downloadTask(with:URLRequest(url:requestURL)) { (burl,bresponse,berror) in
-                    do {
-                        try rethrow(berror)
-                        let burl = try burl ?? {throw HXErrors.hxnil("no url available for downloaded file")}
-                        let resourcePath = try resource.path ?? {throw HXErrors.hxnil("resource.path")}
-                        let now = Date()
-                        let resourceURL = URL(fileURLWithPath:resourcePath)
-                        let attributes = try FileManager.default.attributesOfItem(atPath:burl.path)
-                        let size = try attributes[.size] as? Int64 ?? {throw HXErrors.cocoa("Could not get size of resource file")}
-                        try FileManager.default.copyItem(at:burl, to:resourceURL)
-                        self.moc.perform {
-                            do {
-                                let domain = try resource.domain ?? {throw HXErrors.hxnil("resource.domain")}
-                                domain.adjustSize(delta:-resource.size)
-                                domain.adjustSize(delta:size)
-                                resource.size = size
-                                resource.updateDate = now
-                                try self.moc.save()
-                                completionHandler(resourceURL, bresponse, nil)
-                                self.clearCompletedTasks()
-                            } catch { // self.moc.perform
-                                do {
-                                    try FileManager.default.removeItem(at:resourceURL)
-                                } catch {
-                                    completionHandler(nil, nil, error)
-                                }
-                                completionHandler(nil, nil, error)
-                            }
-                        }
-                    } catch { // let task = session.downloadTask
-                        completionHandler(nil, nil, error)
-                    }
-                }
-                self.registerTask(task)
-                task.resume()
-            } catch { // self.serialize.async
-                completionHandler(nil, nil, error)
-            }
-        }
-    }
-    
-    public func registerTask(_ task:URLSessionDownloadTask) {
-        self.serialize.async {
-            self.runningTasks.append(task)
-            self.changed(\HXResourceManager.runningTasks)
-        }
-    }
-    
-    public func clearCompletedTasks() {
-        self.serialize.async {
-            self.runningTasks.removeAll {
-                $0.state == .completed
-            }
-            self.changed(\HXResourceManager.runningTasks)
-        }
-    }
-    
-    public func clearErroredTasks() {
-        self.serialize.async {
-            self.runningTasks.removeAll {
-                $0.error != nil
-            }
-            self.changed(\HXResourceManager.runningTasks)
-        }
-    }
-    
+    // Higher valued purge priorities go first. 0 means never purge
     public func clearQuotaOverages() {
         
     }
+    
+    private func fetchResourcesFor(
+        domain:HXResourceDomain,
+        uuid:UUID?,
+        urlString:String?,
+        version:String?,
+        moc:NSManagedObjectContext
+        ) throws
+        -> [HXResource]
+    {
+        var predicates = [NSPredicate]()
+        
+        predicates.append(NSPredicate(format:"domain = %@", argumentArray:[domain]))
+        if let uuid = uuid {
+            predicates.append(NSPredicate(format:"uuid = %@", argumentArray:[uuid]))
+        }
+        if let urlString = urlString {
+            predicates.append(NSPredicate(format:"urlString = %@", argumentArray:[urlString]))
+        }
+        if let version = version {
+            predicates.append(NSPredicate(format:"version = %@", argumentArray:[version]))
+        }
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates:predicates)
+        return moc.hxFetch(entity:HXResource.self, predicate:predicate, sortString:nil, returnFaults:false)
+    }
+
 }
