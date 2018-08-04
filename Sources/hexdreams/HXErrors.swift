@@ -12,6 +12,7 @@ public enum HXErrors : Error {
     case invalidArgument(String)       // message
     case hxnil(String)
     case objectNotFound(Any,String,String)  // args: sender, function, message
+    case moreThanOneObjectFound(Any,String,String,[Any]) // sender, function, message, array of all found
     case internalInconsistency(String)
     case network(String)
     case cocoa(String)

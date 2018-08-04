@@ -4,6 +4,10 @@ import CoreData
 
 public class HXResourceManager : NSObject {
     
+    public enum Errors : Error {
+        case capacityReached
+    }
+    
     public static let shared = HXResourceManager()
     
     private let serialize = DispatchQueue(label:"HXObserverCenter", qos:.default, attributes:[], autoreleaseFrequency:.workItem, target:nil)
@@ -118,77 +122,63 @@ public class HXResourceManager : NSObject {
         urlString:String?,
         version:String?,
         purgePriority:Int16,
-        completionHandler:@escaping (String?, [HXResource]?, Error?) -> Void
+        completionHandler:@escaping (HXResource?, Error?) -> Void
         )
     {
         self.serialize.hxAsync({
-            let domain = try self.moc.hxPerformAndWait {
-                try $0.hxTranslate(foreignObject:self.domainFor(identifier:domainIdentifier))
-            }
-            
-            var oldSize:Int64? = nil
-            var newSize:Int64? = nil
-            let existingResource:HXResource? = try self.moc.hxPerformAndWait({
+            let registeredResource:HXResource = try self.moc.hxPerformAndWait {
+                let now = Date()
+                let domain = try $0.hxTranslate(foreignObject:self.domainFor(identifier:domainIdentifier))
                 let results = try self.fetchResourcesFor(domain:domain, uuid:uuid, urlString:urlString, version:version, moc:$0)
-                switch results.count {
-                case 0:
-                    return nil
-                case 1:
-                    return results[0]
-                default:
-                    throw HXErrors.invalidArgument("More than one resource found for domain:\(domainIdentifier), uuid:\(String(describing:uuid)), url:\(urlString ?? "nil"), version:\(version ?? "nil")")
+                if results.count > 1 {
+                    let message = "More than one resource found for domain:\(domainIdentifier), uuid:\(String(describing:uuid)), url:\(urlString ?? "nil"), version:\(version ?? "nil")"
+                    throw HXErrors.moreThanOneObjectFound(self, #function, message, results)
                 }
-            })
-            
-            try self.moc.hxPerformAndWait { moc in
-                let domain = try moc.hxTranslate(foreignObject:self.domainFor(identifier:domainIdentifier))
-                let results = try self.fetchResourcesFor(domain:domain, uuid:uuid, urlString:urlString, version:version, moc:moc)
-                var existingResource:HXResource? = nil
-                switch results.count {
-                case 0:
-                    break;
-                case 1:
-                    existingResource = results[0]
-                default:
-                    completionHandler(nil, results, HXErrors.invalidArgument("More than one resource found for domain:\(domainIdentifier), uuid:\(String(describing:uuid)), url:\(urlString ?? "nil"), version:\(version ?? "nil")"))
-                    return
+                let existingResource = results.last
+                let oldSize = existingResource?.size
+                let newSize = try FileManager.default.attributesOfItem(atPath:downloadedURL.path)[.size] as? Int64 ?? {throw HXErrors.cocoa("Could not get size of downloaded file at \(downloadedURL)")}
+                let delta = newSize - (oldSize ?? 0)
+                
+                if try self.makeRoomFor(bytes:delta, moc:$0) == false {
+                    throw HXResourceManager.Errors.capacityReached
                 }
                 
-                let now = Date()
-                let resource = existingResource ?? {
+                let resource = existingResource ?? HXResource(context:$0)
+                if resource.isInserted {
                     let uuid = uuid ?? UUID()
-                    let newResource = HXResource(context:moc)
-                    
-                    newResource.createDate = now
-                    newResource.accessDate = now
-                    newResource.path = self.generateResourceURL(domain:domain, uuid:uuid, filename:"blah").path
-                    newResource.purgePriority = purgePriority
-                    newResource.sourceURLString = urlString
-                    newResource.uuid = uuid
-                    newResource.version = version
-                    newResource.domain = domain
-                    return newResource  // block
+                    resource.createDate = now
+                    resource.accessDate = now
+                    resource.path = self.generateResourceURL(domain:domain, uuid:uuid, filename:"blah").path
+                    resource.purgePriority = purgePriority
+                    resource.sourceURLString = urlString
+                    resource.uuid = uuid
+                    resource.version = version
+                    resource.domain = domain
                 }
                 resource.purgeDate = nil
                 resource.updateDate = now
-                domain.adjustSize(delta:-resource.size)
-                let size = try FileManager.default.attributesOfItem(atPath:downloadedURL.path)[.size] as? Int64 ?? {throw HXErrors.cocoa("Could not get size of downloaded file at \(downloadedURL)")}
-                resource.size = size
-                domain.adjustSize(delta:resource.size)
+                domain.adjustSize(delta:delta)
                 
                 let destPath = try resource.path ?? {throw HXErrors.hxnil("resource.path")}
                 try FileManager.default.moveItem(at:downloadedURL, to:URL(fileURLWithPath:destPath))
                 
-                try moc.save()
+                try $0.save()
+                return resource
+            }
+            
+            try DispatchQueue.main.hxSync {
+                let mainResource = try self.moc.hxTranslate(foreignObject:registeredResource)
+                completionHandler(mainResource, nil)
             }
         }, hxCatch: { (error) in
-            completionHandler(nil, nil, error)
+            completionHandler(nil, error)
         })
     }
     
     // Higher valued purge priorities go first. 0 means never purge
-    public func clearQuotaOverages() {
-        
+    // return true means success, false means no more space
+    public func makeRoomFor(bytes:Int64, moc:NSManagedObjectContext) throws -> Bool {
+        fatalError("Not Implemented")
     }
     
     private func fetchResourcesFor(

@@ -5,6 +5,8 @@
 
 import CoreData
 
+// General convention: if you are passed a MOC to perform operations in, you will assume that you are already in a perform block. This will prevent deadlocks of performs within performs.
+
 public extension NSManagedObjectContext {
 
     public func hxFetch<T:NSManagedObject> (
@@ -74,6 +76,7 @@ public extension NSManagedObjectContext {
             do {
                 try block(self)
             } catch {
+                self.rollback()
                 hxCatch(error)
             }
         }
@@ -91,7 +94,10 @@ public extension NSManagedObjectContext {
             }
         }
         
-        try rethrow(blockError)
+        if let error = blockError {
+            self.rollback()
+            throw error
+        }
         
         if let val = retVal {
             return val
