@@ -82,30 +82,41 @@ public extension NSManagedObjectContext {
         }
     }
     
-    @inlinable public func hxPerformAndWait<T>(_ block:(NSManagedObjectContext)throws->T) throws -> T {
-        var blockError:Error? = nil
-        var retVal:T? = nil
-        
-        self.performAndWait {
-            do {
-                retVal = try block(self)
-            } catch {
-                blockError = error
-            }
-        }
-        
-        if let error = blockError {
-            self.rollback()
-            throw error
-        }
-        
-        if let val = retVal {
-            return val
-        }
-        
-        fatalError("executed block returns nil. This should never happen")
+    // https://oleb.net/blog/2018/02/performandwait/
+    func hxPerformAndWait<T>(_ block: (NSManagedObjectContext) throws -> T) rethrows -> T {
+        return try _performAndWaitHelper(
+            fn: performAndWait, execute: block, rescue: { throw $0 }
+        )
     }
     
+    /// Helper function for convincing the type checker that
+    /// the rethrows invariant holds for performAndWait.
+    ///
+    /// Source: https://github.com/apple/swift/blob/bb157a070ec6534e4b534456d208b03adc07704b/stdlib/public/SDK/Dispatch/Queue.swift#L228-L249
+    private func _performAndWaitHelper<T>(
+        fn: (() -> Void) -> Void,
+        execute work: (NSManagedObjectContext) throws -> T,
+        rescue: ((Error) throws -> (T))) rethrows -> T
+    {
+        var result: T?
+        var error: Error?
+        withoutActuallyEscaping(work) { _work in
+            fn {
+                do {
+                    result = try _work(self)
+                } catch let e {
+                    self.rollback()
+                    error = e
+                }
+            }
+        }
+        if let e = error {
+            return try rescue(e)
+        } else {
+            return result!
+        }
+    }
+
     @inlinable public func hxTranslate<T:NSManagedObject>(foreignObject:T) throws -> T {
         let local = self.object(with:foreignObject.objectID)
         guard let typedLocal = local as? T else {

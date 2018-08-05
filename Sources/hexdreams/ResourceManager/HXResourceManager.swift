@@ -85,7 +85,7 @@ public class HXResourceManager : NSObject {
     public func resourceFor(
         domainIdentifier:String,
         uuid:UUID?,
-        urlString:String?,
+        url:URL?,
         version:String?,
         completionHandler:@escaping (String?, [HXResource]?, Error?) -> Void
         )
@@ -93,10 +93,10 @@ public class HXResourceManager : NSObject {
         self.serialize.hxAsync( {
             let privateResults:[HXResource] = try self.moc.hxPerformAndWait {
                 let domain = try $0.hxTranslate(foreignObject:self.domainFor(identifier:domainIdentifier))
-                return try self.fetchResourcesFor(domain:domain, uuid:uuid, urlString:urlString, version:version, moc:$0)
+                return try self.fetchResourcesFor(domain:domain, uuid:uuid, url:url, version:version, moc:$0)
             }
             
-            DispatchQueue.main.hxAsync ( {
+            try DispatchQueue.main.sync {
                 let results = try self.viewContext.hxTranslate(foreignObjects:privateResults)
                 switch results.count {
                 case 0:
@@ -104,12 +104,9 @@ public class HXResourceManager : NSObject {
                 case 1:
                     completionHandler(results[0].path, results, nil)
                 default:
-                    completionHandler(nil, results, HXErrors.invalidArgument("More than one resource found for domain:\(domainIdentifier), uuid:\(String(describing:uuid)), url:\(urlString ?? "nil"), version:\(version ?? "nil")"))
+                    completionHandler(nil, results, HXErrors.invalidArgument("More than one resource found for domain:\(domainIdentifier), uuid:\(String(describing:uuid)), url:\(url?.absoluteString ?? "nil"), version:\(version ?? "nil")"))
                 }
-            }, hxCatch: {
-                completionHandler(nil, nil, $0)
-            })
-            
+            }
         }, hxCatch: {
             completionHandler(nil, nil, $0)
         })
@@ -119,7 +116,7 @@ public class HXResourceManager : NSObject {
         resource downloadedURL:URL,
         forDomainIdentifier domainIdentifier:String,
         uuid:UUID?,
-        urlString:String?,
+        url:URL?,
         version:String?,
         purgePriority:Int16,
         completionHandler:@escaping (HXResource?, Error?) -> Void
@@ -129,9 +126,9 @@ public class HXResourceManager : NSObject {
             let registeredResource:HXResource = try self.moc.hxPerformAndWait {
                 let now = Date()
                 let domain = try $0.hxTranslate(foreignObject:self.domainFor(identifier:domainIdentifier))
-                let results = try self.fetchResourcesFor(domain:domain, uuid:uuid, urlString:urlString, version:version, moc:$0)
+                let results = try self.fetchResourcesFor(domain:domain, uuid:uuid, url:url, version:version, moc:$0)
                 if results.count > 1 {
-                    let message = "More than one resource found for domain:\(domainIdentifier), uuid:\(String(describing:uuid)), url:\(urlString ?? "nil"), version:\(version ?? "nil")"
+                    let message = "More than one resource found for domain:\(domainIdentifier), uuid:\(String(describing:uuid)), url:\(url?.absoluteString ?? "nil"), version:\(version ?? "nil")"
                     throw HXErrors.moreThanOneObjectFound(self, #function, message, results)
                 }
                 let existingResource = results.last
@@ -148,9 +145,13 @@ public class HXResourceManager : NSObject {
                     let uuid = uuid ?? UUID()
                     resource.createDate = now
                     resource.accessDate = now
-                    resource.path = self.generateResourceURL(domain:domain, uuid:uuid, filename:"blah").path
+                    if let url = url {
+                        resource.sourceURLString = url.absoluteString
+                        resource.path = self.generateResourceURL(domain:domain, uuid:uuid, filename:HXSafeFilename(url.lastPathComponent, fixLength:10)).path
+                    } else {
+                        resource.path = self.generateResourceURL(domain:domain, uuid:uuid, filename:"noname").path
+                    }
                     resource.purgePriority = purgePriority
-                    resource.sourceURLString = urlString
                     resource.uuid = uuid
                     resource.version = version
                     resource.domain = domain
@@ -166,7 +167,7 @@ public class HXResourceManager : NSObject {
                 return resource
             }
             
-            try DispatchQueue.main.hxSync {
+            try DispatchQueue.main.sync {
                 let mainResource = try self.moc.hxTranslate(foreignObject:registeredResource)
                 completionHandler(mainResource, nil)
             }
@@ -184,7 +185,7 @@ public class HXResourceManager : NSObject {
     private func fetchResourcesFor(
         domain:HXResourceDomain,
         uuid:UUID?,
-        urlString:String?,
+        url:URL?,
         version:String?,
         moc:NSManagedObjectContext
         ) throws
@@ -196,7 +197,7 @@ public class HXResourceManager : NSObject {
         if let uuid = uuid {
             predicates.append(NSPredicate(format:"uuid = %@", argumentArray:[uuid]))
         }
-        if let urlString = urlString {
+        if let urlString = url?.absoluteString {
             predicates.append(NSPredicate(format:"urlString = %@", argumentArray:[urlString]))
         }
         if let version = version {
