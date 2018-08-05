@@ -15,7 +15,7 @@ public class HXDownloadManager : NSObject, URLSessionDelegate {
         }
     }
     
-    var runningTasks = [URLSessionDownloadTask]()
+    var tasks = [HXDownloadTask]()
 
     
     public lazy var operationQueue:OperationQueue = {
@@ -45,51 +45,54 @@ public class HXDownloadManager : NSObject, URLSessionDelegate {
         }
     }
     
-    public func registerTask(_ task:URLSessionDownloadTask) {
-        self.serialize.async {
-            self.runningTasks.append(task)
-            self.changed(\HXDownloadManager.runningTasks)
-        }
-    }
-    
     public func clearCompletedTasks() {
         self.serialize.async {
-            self.runningTasks.removeAll {
-                $0.state == .completed
+            self.tasks.removeAll {
+                $0.completed == true && $0.task?.error == nil
             }
-            self.changed(\HXDownloadManager.runningTasks)
+            self.changed(\HXDownloadManager.tasks)
         }
     }
     
     public func clearErroredTasks() {
         self.serialize.async {
-            self.runningTasks.removeAll {
-                $0.error != nil
+            self.tasks.removeAll {
+                $0.completed == true && $0.task?.error != nil
             }
-            self.changed(\HXDownloadManager.runningTasks)
+            self.changed(\HXDownloadManager.tasks)
         }
     }
 
     public func downloadResource(
-        at:URL,
+        at url:URL,
         options:DownloadOptions = [.wifiOnly],
         completionHandler:@escaping (URL?,URLResponse?,Error?)->Void
-        ) throws -> URLSessionDownloadTask
+        ) throws
     {
         if options.contains(.cellularAllowed) && options.contains(.wifiOnly) {
             throw HXErrors.invalidArgument("incompatible options .cellularAllowed and .wifiOnly")
         }
-        let session = options.contains(.cellularAllowed) ? self.cellularSession : self.wifiOnlySession
-        let request = URLRequest(url:at)
-        let task = session.downloadTask(with:request) { (burl, bresponse, berror) in
-            completionHandler(burl, bresponse, berror)
-            DispatchQueue.main.async {
+        
+        self.serialize.async {
+            
+            if let existingTask = self.tasks.first(where:{$0.matches(url:url, options:options)}) {
+                existingTask.appendCompletionHandler(completionHandler)
+                return
+            }
+            
+            let session = options.contains(.cellularAllowed) ? self.cellularSession : self.wifiOnlySession
+            let request = URLRequest(url:url)
+            let downloadTask = HXDownloadTask(options:options, completionHandler:completionHandler)
+            let urlSessionTask = session.downloadTask(with:request) { (burl, bresponse, berror) in
+                for handler in downloadTask.completionHandlers {
+                    handler(burl, bresponse, berror)
+                }
                 self.clearCompletedTasks()
             }
+            downloadTask.task = urlSessionTask
+            self.tasks.append(downloadTask)
+            urlSessionTask.resume()
         }
-        self.registerTask(task)
-        task.resume()
-        return task
     }
-
+    
 }
