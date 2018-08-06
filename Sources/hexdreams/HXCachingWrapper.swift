@@ -23,47 +23,24 @@ fileprivate let serialize = DispatchQueue(label:"HXCachingWrapper", qos:.default
 
 public class HXCachingWrapper : HXObject {
     
-    // Should be pretty obvious, but see HXCacheStateDiagram.graffle
+    // Follows URLSessionTask.State
     public enum State {
-        case initial
         case running
-        case succeeded
-        case failed
-        case cancellationRequested
-        case cancelled
-        case end
-        
-        var isTerminal:Bool {
-            switch self {
-            case .initial:
-                return true
-            case .running:
-                return false
-            case .succeeded:
-                return true
-            case .failed:
-                return true
-            case .cancellationRequested:
-                return false
-            case .cancelled:
-                return true
-            case .end:
-                return true
-            }
-        }
+        case suspended
+        case canceling
+        case completed
     }
    
     // MARK: - Properties
     var loadBlock:(HXCachingWrapper)throws->[AnyObject]?
     var loadError:Error?
-    public var loadState:State = .initial {
+    public var loadState:State = .suspended {
         didSet {changed(\HXCachingWrapper.loadState)}
     }
-    var needsReload = false
 
     var refreshBlock:(HXCachingWrapper)throws->([AnyObject]?,Bool)
     var refreshError:Error?
-    public var refreshState:State = .initial {
+    public var refreshState:State = .suspended {
         didSet {changed(\HXCachingWrapper.refreshState)}
     }
     var refreshDate:Date?
@@ -113,20 +90,13 @@ public class HXCachingWrapper : HXObject {
     
     // Return nil from the load block if it is asynchronous. Throw an error if unsuccessful.
     public func load() {
-        serialize.sync {
-            if !self.loadState.isTerminal {
-                self.needsReload = true
-                return
-            }
-            self.loadState = .running
-        }
-        do {
+        serialize.hxAsync({
             if let newData = try self.loadBlock(self) {
                 self._loadSucceeded(newData)
             } // else we assume load is asynchronous, and we'll get hit later in the loadCallback
-        } catch {
-            self._loadFailed(error)
-        }
+        }, hxCatch:{
+            self._loadFailed($0)
+        })
     }
     
     // You can call loadCallback multiple times. A return of a value from the completion block signals the end. Otherwise, you're still loading.
@@ -148,7 +118,7 @@ public class HXCachingWrapper : HXObject {
         serialize.async {
             self._data = newData
             serialize.async {
-                self.loadState = .succeeded
+                self.loadState = .completed
                 serialize.async {
                     self.loadState = .end
                     if self.needsReload {
