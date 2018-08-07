@@ -90,13 +90,13 @@ public class HXResourceManager : NSObject {
         completionHandler:@escaping (String?, [HXResource]?, Error?) -> Void
         )
     {
-        self.serialize.hxAsync( {
+        self.serialize.hxAsync({
             let privateResults:[HXResource] = try self.moc.hxPerformAndWait {
                 let domain = try $0.hxTranslate(foreignObject:self.domainFor(identifier:domainIdentifier))
                 return try self.fetchResourcesFor(domain:domain, uuid:uuid, url:url, version:version, moc:$0)
             }
             
-            try DispatchQueue.main.sync {
+            DispatchQueue.main.hxAsync({
                 let results = try self.viewContext.hxTranslate(foreignObjects:privateResults)
                 switch results.count {
                 case 0:
@@ -106,7 +106,10 @@ public class HXResourceManager : NSObject {
                 default:
                     completionHandler(nil, results, HXErrors.invalidArgument("More than one resource found for domain:\(domainIdentifier), uuid:\(String(describing:uuid)), url:\(url?.absoluteString ?? "nil"), version:\(version ?? "nil")"))
                 }
-            }
+            }, hxCatch: {
+                completionHandler(nil, nil, $0)
+            })
+            
         }, hxCatch: {
             completionHandler(nil, nil, $0)
         })
@@ -167,12 +170,15 @@ public class HXResourceManager : NSObject {
                 return resource
             }
             
-            try DispatchQueue.main.sync {
+            DispatchQueue.main.hxAsync({
                 let mainResource = try self.moc.hxTranslate(foreignObject:registeredResource)
                 completionHandler(mainResource, nil)
-            }
-        }, hxCatch: { (error) in
-            completionHandler(nil, error)
+            }, hxCatch: {
+                completionHandler(nil, $0)
+            })
+            
+        }, hxCatch: {
+            completionHandler(nil, $0)
         })
     }
     

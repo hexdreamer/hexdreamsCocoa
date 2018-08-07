@@ -71,9 +71,8 @@ public extension NSObject {
                 target:observed,
                 keyPath:keyPath,
                 notify:self,
-                action:action,
-                queue:DispatchQueue.main,
-                coalescingInterval:.milliseconds(100)
+                coalescingInterval:.milliseconds(100),
+                action:action
             )
         }
         

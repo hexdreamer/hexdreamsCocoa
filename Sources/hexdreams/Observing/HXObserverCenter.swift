@@ -22,12 +22,11 @@ public class HXObserverCenter {
         target observed:T,
         keyPath:PartialKeyPath<T>,
         notify observer:AnyObject,
-        action:@escaping (AnyObject,AnyKeyPath)->Void,
-        queue:DispatchQueue,
-        coalescingInterval:DispatchTimeInterval = .milliseconds(0)
+        coalescingInterval:DispatchTimeInterval = .milliseconds(0),
+        action:@escaping (AnyObject,AnyKeyPath)->Void
         ) {
         self.serialize.async {
-            let entry = HXObserverEntry(observed:observed, keyPath:keyPath, observer:observer, action:action, queue:queue, interval:coalescingInterval)
+            let entry = HXObserverEntry(observed:observed, keyPath:keyPath, observer:observer, interval:coalescingInterval, action:action)
             
             // Kill two birds with one stone by looking for the matching group while iterating inside removeAll
             // We only clean up when adding an observer because if you don't add any observers, it doesn't add any more weight to the system.
@@ -126,7 +125,7 @@ public class HXObserverCenter {
     private func sendNotification(_ entry:HXObserverEntry) {
         entry.changeCount = 0
         entry.notifying = .enqueued
-        entry.queue.async {
+        DispatchQueue.main.async {
             if let observed = entry.observed,
                 let _ = entry.observer {
                 entry.action(observed, entry.keyPath)

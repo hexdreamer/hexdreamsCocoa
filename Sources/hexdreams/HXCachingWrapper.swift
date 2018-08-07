@@ -34,15 +34,17 @@ public class HXCachingWrapper : HXObject {
     // MARK: - Properties
     var loadBlock:(HXCachingWrapper)throws->[AnyObject]?
     var loadError:Error?
-    public var loadState:State = .suspended {
+    public var loadState:State = .completed {
         didSet {changed(\HXCachingWrapper.loadState)}
     }
+    var reloadNeeded = false
 
     var refreshBlock:(HXCachingWrapper)throws->([AnyObject]?,Bool)
     var refreshError:Error?
-    public var refreshState:State = .suspended {
+    public var refreshState:State = .completed {
         didSet {changed(\HXCachingWrapper.refreshState)}
     }
+    var refreshNeeded = false
     var refreshDate:Date?
     var refreshTimeout:TimeInterval
     
@@ -74,7 +76,7 @@ public class HXCachingWrapper : HXObject {
         super.init()
         
         #if os(iOS)
-        NotificationCenter.default.addObserver(forName:UIApplication.didReceiveMemoryWarningNotification, object:nil, queue:nil) { [weak self] (note) in
+        NotificationCenter.default.addObserver(forName:.UIApplicationDidReceiveMemoryWarning, object:nil, queue:nil) { [weak self] (note) in
             self?.invalidate()
         }
         #endif
@@ -88,24 +90,31 @@ public class HXCachingWrapper : HXObject {
     
     // MARK: - Load and callback methods
     
-    // Return nil from the load block if it is asynchronous. Throw an error if unsuccessful.
+    // As always, callbacks are executed on the main queue
+    // Return nil from the load block if it is asynchronous.
     public func load() {
-        serialize.hxAsync({
-            if let newData = try self.loadBlock(self) {
-                self._loadSucceeded(newData)
-            } // else we assume load is asynchronous, and we'll get hit later in the loadCallback
-        }, hxCatch:{
-            self._loadFailed($0)
-        })
+        serialize.async {
+            if self.loadState != .completed {
+                self.reloadNeeded = true
+                return
+            }
+            self.loadState = .running
+            self.reloadNeeded = false
+
+            DispatchQueue.main.hxAsync({
+                if let newData = try self.loadBlock(self) {
+                    self._loadSucceeded(newData)
+                } // else asynchronous, and client needs to finish in loadingContinuance
+            }, hxCatch: {
+                self._loadFailed($0)
+            })
+        }
     }
     
-    // You can call loadCallback multiple times. A return of a value from the completion block signals the end. Otherwise, you're still loading.
+    // You can call loadingContinuance multiple times from any thread. A return of a value from the completion block signals the end. Otherwise, you're still loading.
     public func loadingContinuance(propagateError:Error? = nil, performBlock:@escaping ()throws->[AnyObject]?) {
-        if let error = propagateError {
-            self._loadFailed(error)
-            return
-        }
         do {
+            try rethrow(propagateError)
             if let newData = try performBlock() {
                 self._loadSucceeded(newData)
             }
@@ -117,16 +126,9 @@ public class HXCachingWrapper : HXObject {
     fileprivate func _loadSucceeded(_ newData:[AnyObject]) {
         serialize.async {
             self._data = newData
-            serialize.async {
-                self.loadState = .completed
-                serialize.async {
-                    self.loadState = .end
-                    if self.needsReload {
-                        DispatchQueue.main.async {
-                            self.load()
-                        }
-                    }
-                }
+            self.loadState = .completed
+            if self.reloadNeeded == true {
+                self.load()
             }
         }
     }
@@ -134,11 +136,9 @@ public class HXCachingWrapper : HXObject {
     fileprivate func _loadFailed(_ error:Error) {
         serialize.async {
             self.loadError = error
-            self.loadState = .failed
-            if self.needsReload {
-                DispatchQueue.main.async {
-                    self.load()
-                }
+            self.loadState = .completed
+            if self.reloadNeeded == true {
+                self.load()
             }
         }
     }
@@ -146,27 +146,33 @@ public class HXCachingWrapper : HXObject {
     // Return nil from the refresh block if it is asynchronous.
     // Return of either valid data or "true" for the reload flag signals that you're done.
     public func refresh() {
-        serialize.sync {
-            assert(self.refreshState == .initial || self.refreshState == .end)
-            self.refreshState = .running
-        }
-        do {
-            let (newData,reload) = try self.refreshBlock(self)
-            if let newData = newData {
-                self._refreshSucceeded(newData, reload)
+        serialize.async {
+            if self.refreshState != .completed {
+                self.refreshNeeded = true
+                return
             }
-        } catch {
-            self._refreshFailed(error)
+            self.refreshState = .running
+            self.refreshNeeded = false
+            
+            DispatchQueue.main.hxAsync({
+                let (reloadData,reload) = try self.refreshBlock(self)
+                if let newData = reloadData {
+                    self._refreshSucceeded(newData, reload)
+                }
+            }, hxCatch: {
+                self._refreshFailed($0)
+            })
         }
     }
     
-    // Call the refreshCallback as many times as you need to.
+    // You can call refreshingContinuance multiple times from any thread
     // Return of either valid data or "true" for the reload flag signals that you're done.
     public func refreshingContinuance(propagateError:Error? = nil, performBlock:@escaping ()throws->([AnyObject]?,Bool)) {
         do {
-            let (newData,reload) = try performBlock()
-            if newData != nil || reload {
-                self._refreshSucceeded(newData, reload)
+            try rethrow(propagateError)
+            let (reloadData,reload) = try performBlock()
+            if reloadData != nil || reload {
+                self._refreshSucceeded(reloadData, reload)
             }
         } catch {
             self._refreshFailed(error)
@@ -174,26 +180,27 @@ public class HXCachingWrapper : HXObject {
     }
     
     fileprivate func _refreshSucceeded(_ newData:[AnyObject]?, _ reload:Bool) {
-        DispatchQueue.main.async {
+        serialize.async {
             if newData != nil {
                 self._data = newData
             }
-            DispatchQueue.main.async {
-                self.refreshState = .succeeded
-                DispatchQueue.main.async {
-                    self.refreshState = .end
-                    if reload {
-                        self.load()
-                    }
-                }
+            self.refreshState = .completed
+            if reload {
+                self.load()
+            }
+            if self.refreshNeeded {
+                self.refresh()
             }
         }
     }
     
     fileprivate func _refreshFailed(_ error: Error) {
-        DispatchQueue.main.async {
+        serialize.async {
             self.refreshError = error
-            self.refreshState = .failed
+            self.refreshState = .completed
+            if self.refreshNeeded {
+                self.refresh()
+            }
         }
     }
     

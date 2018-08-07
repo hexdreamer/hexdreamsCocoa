@@ -9,9 +9,8 @@ class HXObserverEntry {
     weak var observed:AnyObject?
     let keyPath:AnyKeyPath
     weak var observer:AnyObject?
-    let action:(AnyObject,AnyKeyPath)->Void
-    let queue:DispatchQueue
     let interval:DispatchTimeInterval
+    let action:(AnyObject,AnyKeyPath)->Void
     
     var changeCount:UInt = 0
     var notifying:HXObserverCenter.NotifyingStatus = .waiting
@@ -21,16 +20,14 @@ class HXObserverEntry {
         observed:AnyObject,
         keyPath:AnyKeyPath,
         observer:AnyObject,
-        action:@escaping (AnyObject,AnyKeyPath)->Void,
-        queue:DispatchQueue,
-        interval:DispatchTimeInterval
+        interval:DispatchTimeInterval,
+        action:@escaping (AnyObject,AnyKeyPath)->Void
         ) {
         self.observed = observed
         self.keyPath = keyPath
         self.observer = observer
-        self.action = action
-        self.queue = queue
         self.interval = interval
+        self.action = action
         
         self.lastNotifyTime = .now() - interval
     }
