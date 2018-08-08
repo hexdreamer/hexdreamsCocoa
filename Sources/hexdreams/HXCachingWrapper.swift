@@ -15,10 +15,6 @@
  Observe data directly to monitor for new data (so you can refresh the UI, for instance)
  */
 
-#if os(iOS)
-import UIKit
-#endif
-
 fileprivate let serialize = DispatchQueue(label:"HXCachingWrapper", qos:.default, attributes:[], autoreleaseFrequency:.workItem, target:nil)
 
 public class HXCachingWrapper : HXObject {
@@ -32,14 +28,14 @@ public class HXCachingWrapper : HXObject {
     }
    
     // MARK: - Properties
-    var loadBlock:(HXCachingWrapper)throws->[AnyObject]?
+    var loadBlock:(HXCachingWrapper)throws->Any?
     var loadError:Error?
     public var loadState:State = .completed {
         didSet {changed(\HXCachingWrapper.loadState)}
     }
     var reloadNeeded = false
 
-    var refreshBlock:(HXCachingWrapper)throws->([AnyObject]?,Bool)
+    var refreshBlock:(HXCachingWrapper)throws->(Any?,Bool)
     var refreshError:Error?
     public var refreshState:State = .completed {
         didSet {changed(\HXCachingWrapper.refreshState)}
@@ -48,10 +44,11 @@ public class HXCachingWrapper : HXObject {
     var refreshDate:Date?
     var refreshTimeout:TimeInterval
     
-    private var _data:[AnyObject]? {
+    private var _data:Any? {
         didSet {changed(\HXCachingWrapper.data)}
     }
-    public var data:[AnyObject]? {
+    
+    public var data:Any? {
         if self._data == nil {
             self.load()
         }
@@ -65,9 +62,13 @@ public class HXCachingWrapper : HXObject {
         return self._data;
     }
     
+    public var dataArray:[AnyObject]? {
+        return self.data as? [AnyObject]
+    }
+    
     // MARK: - Constructors/Destructors
-    public init(load:@escaping (HXCachingWrapper)throws->[AnyObject]?,
-        refresh:@escaping (HXCachingWrapper)throws->([AnyObject]?,Bool),
+    public init(load:@escaping (HXCachingWrapper)throws->Any?,
+        refresh:@escaping (HXCachingWrapper)throws->(Any?,Bool),
         timeOut:TimeInterval = 600)
     {
         self.loadBlock = load
@@ -123,7 +124,7 @@ public class HXCachingWrapper : HXObject {
         }
     }
     
-    fileprivate func _loadSucceeded(_ newData:[AnyObject]) {
+    fileprivate func _loadSucceeded(_ newData:Any) {
         serialize.async {
             self._data = newData
             self.loadState = .completed
@@ -167,7 +168,7 @@ public class HXCachingWrapper : HXObject {
     
     // You can call refreshingContinuance multiple times from any thread
     // Return of either valid data or "true" for the reload flag signals that you're done.
-    public func refreshingContinuance(propagateError:Error? = nil, performBlock:@escaping ()throws->([AnyObject]?,Bool)) {
+    public func refreshingContinuance(propagateError:Error? = nil, performBlock:@escaping ()throws->(Any?,Bool)) {
         do {
             try rethrow(propagateError)
             let (reloadData,reload) = try performBlock()
@@ -179,7 +180,7 @@ public class HXCachingWrapper : HXObject {
         }
     }
     
-    fileprivate func _refreshSucceeded(_ newData:[AnyObject]?, _ reload:Bool) {
+    fileprivate func _refreshSucceeded(_ newData:Any?, _ reload:Bool) {
         serialize.async {
             if newData != nil {
                 self._data = newData
