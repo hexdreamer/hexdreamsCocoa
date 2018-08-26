@@ -35,11 +35,11 @@ open class HXDataController {
         fatalError("You must return serverURL from \(self).serverURL")
     }
     
-    open func storeName() -> String {
+    open var storeName:String {
         fatalError("Needs to be overridden")
     }
     
-    open func modelURL() -> URL {
+    open var modelURL:URL {
         fatalError("Needs to be overridden")
     }
     
@@ -63,11 +63,18 @@ open class HXDataController {
     }()
     
     public lazy var persistentContainer:NSPersistentContainer = {
-        let url = self.modelURL()
+        let url = self.modelURL
         guard let model = NSManagedObjectModel(contentsOf:url) else {
             fatalError("Could not load model at \(url)")
         }
-        return NSPersistentContainer(name:self.storeName(), managedObjectModel:model)
+        let cont = NSPersistentContainer(name:self.storeName, managedObjectModel:model)
+        cont.loadPersistentStores(completionHandler:{ (description, error) in
+            print("Loaded persistent stores:\(description)")
+            if let e = error {
+                fatalError("\(e)")
+            }
+        })
+        return cont
     }()
     
     public var viewContext :NSManagedObjectContext {
