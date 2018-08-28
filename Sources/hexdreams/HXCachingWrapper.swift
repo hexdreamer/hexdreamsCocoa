@@ -64,16 +64,6 @@ public class HXCachingWrapper : HXObject {
     }
     
     public var data:Any? {
-        if self._data == nil {
-            self.load()
-        }
-        if let rdate = self.refreshDate {
-            if -rdate.timeIntervalSinceNow > self.refreshTimeout {
-                self.refresh()
-            }
-        } else {
-            self.refresh()
-        }
         return self._data;
     }
     

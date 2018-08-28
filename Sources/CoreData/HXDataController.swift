@@ -172,43 +172,30 @@ open class HXDataController {
             }
             return pk  // block
         }
-        
-        print("Here")
-        
-        var mosByID = [K:E]()
-        var updatedMOs = [E]()
-        var blockError:Error?
-        moc.performAndWait {
-            do {
-                let predicate = NSPredicate(format: "%@ in %@", argumentArray:[primaryKeyPath, pks])
-                let existingMOs = moc.hxFetch(entity:E.self, predicate:predicate, sortString:nil, returnFaults:false)
-                mosByID = try existingMOs.mapDict{$0[keyPath:primaryKeyPath]}
                 
-                for entityDict in jsonObjs {
-                    guard let pk = pkGetter(entityDict) as? K else {
-                        throw Errors.MissingPrimaryKey(dictionary:entityDict)
-                    }
-                    let existingMO = mosByID[pk]
-                    let mo = existingMO ?? E(context:moc)
-                    if ( !mo.takeValuesFrom(entityDict) ) {
-                        throw Errors.General(message:"takeValuesFrom failed")
-                    }
-                    if existingMO == nil {
-                        mosByID[pk] = mo
-                    }
-                    updatedMOs.append(mo)
+        return try moc.hxPerformAndWait {
+            let predicate = NSPredicate(format: "\(primaryKeyName) in %@", argumentArray:[pks])
+            let existingMOs = $0.hxFetch(entity:E.self, predicate:predicate)
+            var mosByID = try existingMOs.mapDict{$0[keyPath:primaryKeyPath]}
+            var updatedMOs = [E]()
+            
+            for entityDict in jsonObjs {
+                guard let pk = pkGetter(entityDict) as? K else {
+                    throw Errors.MissingPrimaryKey(dictionary:entityDict)
                 }
-                try moc.save();
-            } catch {
-                blockError = error
+                let existingMO = mosByID[pk]
+                let mo = existingMO ?? E(context:$0)
+                if ( !mo.takeValuesFrom(entityDict) ) {
+                    throw Errors.General(message:"takeValuesFrom failed")
+                }
+                if existingMO == nil {
+                    mosByID[pk] = mo
+                }
+                updatedMOs.append(mo)
             }
+            try $0.save();
+            return updatedMOs // block
         }
-        
-        if let err = blockError {
-            throw err
-        }
-        
-        return updatedMOs
     }
 }
 

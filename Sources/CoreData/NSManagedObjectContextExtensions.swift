@@ -18,7 +18,7 @@ public extension NSManagedObjectContext {
         -> [T]
     {
         do {
-            let entity = NSEntityDescription.entityForClass(entityClass: T.self, inManagedObjectContext: self)
+            let entity = NSEntityDescription.entityForClass(entityClass:T.self, inManagedObjectContext:self)
             guard let entityName = entity.name else {
                 fatalError()
             }

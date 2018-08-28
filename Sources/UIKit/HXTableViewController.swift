@@ -55,13 +55,10 @@ open class HXTableViewController : UITableViewController,UIViewControllerExtensi
         }
         
         if let dataArray = rawData as? [AnyObject] {
-            print("Array Data: \(type(of:rawData)) [\(dataArray.count)]")
             return dataArray.count
         } else {
             return 0
         }
-        
-        //return self.dataCache?.dataArray?.count ?? 0;
     }
     
     override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
