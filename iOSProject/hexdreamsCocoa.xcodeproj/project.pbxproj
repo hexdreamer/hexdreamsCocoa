@@ -14,6 +14,11 @@
 		B9218AFE1CC887A000A97389 /* hexdreamsCocoaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9218AFD1CC887A000A97389 /* hexdreamsCocoaTests.swift */; };
 		B92BE83221152E5200DE2D03 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92BE83121152E5200DE2D03 /* Utilities.swift */; };
 		B92D0BA420EFFF9200359640 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92D0BA320EFFF9200359640 /* UtilityFunctions.swift */; };
+		B96931222135CB8100BF164B /* HXTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B969311D2135CB8100BF164B /* HXTableViewController.swift */; };
+		B96931232135CB8100BF164B /* HXCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B969311E2135CB8100BF164B /* HXCollectionViewController.swift */; };
+		B96931242135CB8100BF164B /* HXTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B969311F2135CB8100BF164B /* HXTableViewCell.swift */; };
+		B96931252135CB8100BF164B /* HXCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96931202135CB8100BF164B /* HXCollectionViewCell.swift */; };
+		B96931262135CB8100BF164B /* HXModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96931212135CB8100BF164B /* HXModelObject.swift */; };
 		B96CC3BA1DF1F612007DD4AA /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CC3B91DF1F612007DD4AA /* DateExtensions.swift */; };
 		B97110881FE5EF8800F50FF4 /* HXApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97110871FE5EF8700F50FF4 /* HXApplication.swift */; };
 		B977729E2112382D00D9E1D8 /* HXDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B977729D2112382D00D9E1D8 /* HXDownloadManager.swift */; };
@@ -91,6 +96,11 @@
 		B9218AFF1CC887A000A97389 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B92BE83121152E5200DE2D03 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		B92D0BA320EFFF9200359640 /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
+		B969311D2135CB8100BF164B /* HXTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXTableViewController.swift; sourceTree = "<group>"; };
+		B969311E2135CB8100BF164B /* HXCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXCollectionViewController.swift; sourceTree = "<group>"; };
+		B969311F2135CB8100BF164B /* HXTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXTableViewCell.swift; sourceTree = "<group>"; };
+		B96931202135CB8100BF164B /* HXCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXCollectionViewCell.swift; sourceTree = "<group>"; };
+		B96931212135CB8100BF164B /* HXModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXModelObject.swift; sourceTree = "<group>"; };
 		B96CC3B91DF1F612007DD4AA /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		B97110871FE5EF8700F50FF4 /* HXApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXApplication.swift; sourceTree = "<group>"; };
 		B977729D2112382D00D9E1D8 /* HXDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXDownloadManager.swift; sourceTree = "<group>"; };
@@ -328,8 +338,13 @@
 		B9CCA18D1CC889060002A24F /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				B9CCA18E1CC889060002A24F /* HXViewController.swift */,
 				B9DB96F6210829770072FD19 /* UIViewControllerExtensions.swift */,
+				B9CCA18E1CC889060002A24F /* HXViewController.swift */,
+				B969311D2135CB8100BF164B /* HXTableViewController.swift */,
+				B969311F2135CB8100BF164B /* HXTableViewCell.swift */,
+				B969311E2135CB8100BF164B /* HXCollectionViewController.swift */,
+				B96931202135CB8100BF164B /* HXCollectionViewCell.swift */,
+				B96931212135CB8100BF164B /* HXModelObject.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -504,7 +519,7 @@
 					};
 					B9218AF71CC887A000A97389 = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -551,6 +566,7 @@
 			files = (
 				B9CCA1931CC889060002A24F /* NSEntityDescriptionExtensions.swift in Sources */,
 				B9BD6B6D210EBD1600BFE05C /* HXResourceDomain.swift in Sources */,
+				B96931262135CB8100BF164B /* HXModelObject.swift in Sources */,
 				B9CCA1981CC889060002A24F /* hexdreams.swift in Sources */,
 				B9CCA1991CC889060002A24F /* HXMatrix.swift in Sources */,
 				B98E654E20BDDE0F00103810 /* HXSynchronousObserverEntry.swift in Sources */,
@@ -559,11 +575,14 @@
 				B9B66E0C1E57E9D4004F5894 /* FD_utilities.swift in Sources */,
 				B97110881FE5EF8800F50FF4 /* HXApplication.swift in Sources */,
 				B9DB9721210A3F240072FD19 /* HXImageManager.swift in Sources */,
+				B96931242135CB8100BF164B /* HXTableViewCell.swift in Sources */,
 				B99B7DD920EFD1AC00BA8CD2 /* HXXMLNode.swift in Sources */,
 				B9DB96F5210823AD0072FD19 /* HXErrors.swift in Sources */,
 				B91ADF361E4E81270052E3F4 /* CGContextExtensions.swift in Sources */,
 				B9CCA1951CC889060002A24F /* CGRectExtensions.swift in Sources */,
+				B96931222135CB8100BF164B /* HXTableViewController.swift in Sources */,
 				B99B7DDA20EFD1AC00BA8CD2 /* HXXMLParser.swift in Sources */,
+				B96931232135CB8100BF164B /* HXCollectionViewController.swift in Sources */,
 				B9D284CD20A7A520009B7D85 /* HXObservingExtensions.swift in Sources */,
 				B9D284CC20A7A520009B7D85 /* HXObserverEntry.swift in Sources */,
 				B9CCA19A1CC889060002A24F /* ArrayExtensions.swift in Sources */,
@@ -590,6 +609,7 @@
 				B92D0BA420EFFF9200359640 /* UtilityFunctions.swift in Sources */,
 				B9CCA19C1CC889060002A24F /* StringExtensions.swift in Sources */,
 				B9DB9722210A3F240072FD19 /* HXImageView.swift in Sources */,
+				B96931252135CB8100BF164B /* HXCollectionViewCell.swift in Sources */,
 				B97772A121136D2600D9E1D8 /* DispatchQueueExtensions.swift in Sources */,
 				B9DB9724210A3F240072FD19 /* HXImageManagerSizingDescriptor.swift in Sources */,
 				B9DB972A210A5B730072FD19 /* HXResourceManager.xcdatamodeld in Sources */,
@@ -787,8 +807,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hexdreams.hexdreamsCocoaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -800,8 +819,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hexdreams.hexdreamsCocoaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

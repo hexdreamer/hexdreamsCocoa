@@ -93,6 +93,23 @@ public class HXObserverCenter {
         HXSynchronousObserverCenter.shared.removeObserver(observer, target:observed)
     }
     
+    public func removeObserver(_ observer:AnyObject, target observed:AnyObject, keyPath:AnyKeyPath) {
+        // We want to do this multithreaded because we want to guarantee that observers DO NOT get called back after they call removeObserver.
+        let groups = self.byObserved // makes a "copy"
+        for group in groups {
+            let entries = group.entries  // makes a "copy"
+            for entry in entries {
+                if entry.observer === observer && entry.observed === observed && entry.keyPath == keyPath {
+                    entry.observer = nil
+                    entry.observed = nil
+                }
+            }
+        }
+        
+        // We'll just let the normal clean-up processes get the stragglers. If we feel strongly about it, we could also initiate an asynchronous cleanup here, but it's probably not worth the cycles.
+        HXSynchronousObserverCenter.shared.removeObserver(observer, target:observed, keyPath:keyPath)
+    }
+
     public func changed (
         _ observed:AnyObject,
         _ keyPath:AnyKeyPath

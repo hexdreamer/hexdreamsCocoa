@@ -81,7 +81,7 @@ class ArrayExtensionsTests: XCTestCase {
             self.array.last?.lastName = nil
             let _ = try self.array.mapDict {$0.lastName}
             XCTFail()
-        } catch Errors.ObjectNotFound {
+        } catch HXErrors.objectNotFound {
             errorEncountered = true
         } catch {
             XCTFail("\(error)")

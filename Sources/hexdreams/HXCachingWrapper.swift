@@ -28,15 +28,30 @@ public class HXCachingWrapper : HXObject {
     }
    
     // MARK: - Properties
-    var loadBlock:(HXCachingWrapper)throws->Any?
-    var loadError:Error?
+    let name:String
+    let loadBlock:(HXCachingWrapper)throws->Any?
+    var loadError:Error?  {
+        didSet {
+            if let error = loadError {
+                print("🛑 HXCachingWrapper(\(self.name)).loadError: \(error.consoleDescription)")
+            }
+            changed(\HXCachingWrapper.loadError)
+        }
+    }
     public var loadState:State = .completed {
         didSet {changed(\HXCachingWrapper.loadState)}
     }
     var reloadNeeded = false
 
-    var refreshBlock:(HXCachingWrapper)throws->(Any?,Bool)
-    var refreshError:Error?
+    let refreshBlock:(HXCachingWrapper)throws->(Any?,Bool)
+    var refreshError:Error? {
+        didSet {
+            if let error = refreshError {
+                print("🛑 HXCachingWrapper(\(self.name)).refreshError: \(error.consoleDescription)")
+            }
+            changed(\HXCachingWrapper.refreshError)
+        }
+    }
     public var refreshState:State = .completed {
         didSet {changed(\HXCachingWrapper.refreshState)}
     }
@@ -67,20 +82,29 @@ public class HXCachingWrapper : HXObject {
     }
     
     // MARK: - Constructors/Destructors
-    public init(load:@escaping (HXCachingWrapper)throws->Any?,
+    public init(
+        name:String,
+        load:@escaping (HXCachingWrapper)throws->Any?,
         refresh:@escaping (HXCachingWrapper)throws->(Any?,Bool),
         timeOut:TimeInterval = 600)
     {
+        self.name = name
         self.loadBlock = load
         self.refreshBlock = refresh
         self.refreshTimeout = timeOut
         super.init()
         
         #if os(iOS)
-        NotificationCenter.default.addObserver(forName:.UIApplicationDidReceiveMemoryWarning, object:nil, queue:nil) { [weak self] (note) in
+        #if swift(>=4.2)
+        NotificationCenter.default.addObserver(forName:UIApplication.didReceiveMemoryWarningNotification, object:nil, queue:nil) { [weak self] (note) in
             self?.invalidate()
         }
-        #endif
+        #else
+        NotificationCenter.default.addObserver(forName:.UIApplicationDidReceiveMemoryWarning, object:nil, queue:nil) { [weak self] (note) in
+        self?.invalidate()
+        }
+        #endif // swift(>=4.2)
+        #endif // iOS
     }
     
     #if os(iOS)
@@ -186,6 +210,7 @@ public class HXCachingWrapper : HXObject {
                 self._data = newData
             }
             self.refreshState = .completed
+            self.refreshDate = Date()
             if reload {
                 self.load()
             }

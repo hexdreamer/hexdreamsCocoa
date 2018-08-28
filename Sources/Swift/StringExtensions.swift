@@ -7,13 +7,31 @@ public extension String {
     
     public func split(pattern :String) -> [Substring] {
         var results = [Substring]()
-        var remainingRange = self.startIndex..<self.endIndex;
-        while let matchRange = self.range(of:pattern, options: .regularExpression, range: remainingRange) {
+        var remainingRange = self.startIndex..<self.endIndex
+        while let matchRange = self.range(of:pattern, options:.regularExpression, range:remainingRange) {
             results.append(self[remainingRange.lowerBound..<matchRange.lowerBound])
             remainingRange = matchRange.upperBound..<self.endIndex
         }
         results.append(self[remainingRange])
         return results
+    }
+    
+    public func head(_ count:Int) -> Substring {
+        var headRange = self.startIndex..<self.endIndex
+        var remainingRange = self.startIndex..<self.endIndex
+        var lines = 0
+        while let matchRange = self.range(of:"\n", options:.literal, range:remainingRange) {
+            headRange = self.startIndex..<matchRange.upperBound
+            remainingRange = matchRange.upperBound..<self.endIndex
+            lines += 1
+            if lines >= count {
+                break
+            }
+        }
+        if lines < count {
+            headRange = self.startIndex..<self.endIndex
+        }
+        return self[headRange]
     }
     
     /**

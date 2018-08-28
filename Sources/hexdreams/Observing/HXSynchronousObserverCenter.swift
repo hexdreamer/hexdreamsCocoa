@@ -66,6 +66,18 @@ public class HXSynchronousObserverCenter {
         // We'll just let the normal clean-up processes get the stragglers. If we feel strongly about it, we could also initiate cleanup here, but it's probably not worth the cycles.
     }
     
+    public func removeObserver(_ observer:AnyObject, target observed:AnyObject, keyPath:AnyKeyPath) {
+        for group in self.byObserved {
+            for entry in group.entries {
+                if entry.observer === observer && entry.observed === observed && entry.keyPath == keyPath {
+                    entry.observer = nil
+                    entry.observed = nil
+                }
+            }
+        }
+        // We'll just let the normal clean-up processes get the stragglers. If we feel strongly about it, we could also initiate cleanup here, but it's probably not worth the cycles.
+    }
+
     public func changed (
         _ observed:AnyObject,
         _ keyPath:AnyKeyPath

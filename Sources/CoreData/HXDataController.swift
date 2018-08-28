@@ -42,7 +42,7 @@ open class HXDataController {
     open var modelURL:URL {
         fatalError("Needs to be overridden")
     }
-    
+        
     // MARK: - Properties
     public lazy var queue:OperationQueue = {
         let q = OperationQueue()
@@ -115,6 +115,7 @@ open class HXDataController {
             }
             do {
                 let mos = try this.updateEntity(primaryKeyPath :primaryKeyPath,
+                                                primaryKeyName :"id",
                                                 json           :nndata,
                                                 pkGetter       :pkGetter,
                                                 moc            :moc ?? this.writeContext,
@@ -132,7 +133,7 @@ open class HXDataController {
 
     open func urlRequest(_ urlString:String) throws -> URLRequest {
         guard let url = URL(string:urlString) else {
-            throw HXErrors.invalidArgument("could not initialize URL \(urlString)")
+            throw HXErrors.invalidArgument(.info(self,"could not initialize URL \(urlString)"))
         }
         let request = URLRequest(url:url, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval:10)
         return request
@@ -144,6 +145,7 @@ open class HXDataController {
      */
     open func updateEntity<E:HXManagedObject,K:Hashable>(
         primaryKeyPath :KeyPath<E,Optional<K>>,
+        primaryKeyName :String,
         json           :Data,
         pkGetter       :(_ dictionary :[String:AnyObject]) -> Any?,
         moc            :NSManagedObjectContext,
@@ -152,15 +154,26 @@ open class HXDataController {
         -> [E]
     {
         // We probably want to stick to NSJSONSerialization because all the types will already be CoreData compatible.
-        guard let jobjs = try JSONSerialization.jsonObject(with:json, options: []) as? [[String:AnyObject]] else {
-            throw Errors.BadJSON(message:"Could not parse JSON")
+        var parsedjson:Any? = nil
+        do {
+            parsedjson = try JSONSerialization.jsonObject(with:json, options: [])
+        } catch {
+            let jsonString = String(data:json, encoding:.utf8) ?? "null"
+            throw HXErrors.cocoa(.info(self,"Error parsing JSON:\n\(jsonString.head(20))", causingErrors:[error]))
         }
-        let pks:[K] = try jobjs.map {
+        
+        guard let jsonObjs = parsedjson as? [[String:AnyObject]] else {
+            let jsonString = String(data:json, encoding:.utf8) ?? "null"
+            throw Errors.BadJSON(message:"Error parsing JSON: \(jsonString)")
+        }
+        let pks:[K] = try jsonObjs.map {
             guard let pk = pkGetter($0) as? K else {
-                throw HXErrors.objectNotFound(self, "updateEntity", "Primary key not found in \($0)")
+                throw HXErrors.objectNotFound(.info(self,"Primary key not found in \($0)"))
             }
             return pk  // block
         }
+        
+        print("Here")
         
         var mosByID = [K:E]()
         var updatedMOs = [E]()
@@ -171,13 +184,15 @@ open class HXDataController {
                 let existingMOs = moc.hxFetch(entity:E.self, predicate:predicate, sortString:nil, returnFaults:false)
                 mosByID = try existingMOs.mapDict{$0[keyPath:primaryKeyPath]}
                 
-                for entityDict in jobjs {
+                for entityDict in jsonObjs {
                     guard let pk = pkGetter(entityDict) as? K else {
                         throw Errors.MissingPrimaryKey(dictionary:entityDict)
                     }
                     let existingMO = mosByID[pk]
                     let mo = existingMO ?? E(context:moc)
-                    mo.takeValuesFrom(entityDict)
+                    if ( !mo.takeValuesFrom(entityDict) ) {
+                        throw Errors.General(message:"takeValuesFrom failed")
+                    }
                     if existingMO == nil {
                         mosByID[pk] = mo
                     }

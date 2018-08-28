@@ -120,7 +120,7 @@ public extension NSManagedObjectContext {
     @inlinable public func hxTranslate<T:NSManagedObject>(foreignObject:T) throws -> T {
         let local = self.object(with:foreignObject.objectID)
         guard let typedLocal = local as? T else {
-            throw HXErrors.general("Could not cast \(local) to \(T.self)")
+            throw HXErrors.general(.info(self,"Could not cast \(local) to \(T.self)"))
         }
         return typedLocal
     }
@@ -132,7 +132,7 @@ public extension NSManagedObjectContext {
     @inlinable public func hxTranslate<T:NSManagedObject>(objectID:NSManagedObjectID, entity:T.Type) throws -> T {
         let local = self.object(with:objectID)
         guard let typedLocal = local as? T else {
-            throw HXErrors.general("Could not cast \(local) to \(T.self)")
+            throw HXErrors.general(.info(self,"Could not cast \(local) to \(T.self)"))
         }
         return typedLocal
     }

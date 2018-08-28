@@ -16,16 +16,23 @@ class HXDataControllerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        let storeURL = self.dataController.storeURL()
-        let storePath = storeURL.path
-        if FileManager.default.fileExists(atPath: storePath) {
-            do {
-                try FileManager.default.removeItem(at: storeURL as URL)
-            } catch {
-                XCTFail("\(error)")
+        
+        for description in self.dataController.persistentContainer.persistentStoreDescriptions {
+            guard let storeURL = description.url else {
+                XCTFail("no store url for \(description)")
+                return
+            }
+            let storePath = storeURL.path
+            if FileManager.default.fileExists(atPath: storePath) {
+                do {
+                    try FileManager.default.removeItem(at: storeURL as URL)
+                } catch {
+                    XCTFail("\(error)")
+                }
             }
         }
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        // Have to replace the dataController with a new one because of lazy initialization, and we blew away the underlying stores.
+        self.dataController = HXTestDataController()
     }
 
     override func tearDown() {
@@ -37,22 +44,18 @@ class HXDataControllerTests: XCTestCase {
         do {
             try self.dataController.updatePersons()
             self.dataController.queue.waitUntilAllOperationsAreFinished()
-            let moc = self.dataController.moc
+            let moc = self.dataController.viewContext
             moc.performAndWait {
-                do {
-                    let persons = try moc.fetch(entity:HXManagedPerson.self, predicate: nil, sortString: "personID,up", returnFaults:false)
-                    XCTAssertEqual(persons.count, 2);
-
-                    XCTAssertEqual(persons[0].personID, 1)
-                    XCTAssertEqual(persons[0].firstName, "Charlie")
-                    XCTAssertEqual(persons[0].lastName, "Brown")
-
-                    XCTAssertEqual(persons[1].personID, 2)
-                    XCTAssertEqual(persons[1].firstName, "Peppermint")
-                    XCTAssertEqual(persons[1].lastName, "Patty")
-                } catch {
-                    XCTFail("\(error)")
-                }
+                let persons = moc.hxFetch(entity:HXManagedPerson.self, predicate:nil, sortString:"personID,up", returnFaults:false)
+                XCTAssertEqual(persons.count, 2);
+                
+                XCTAssertEqual(persons[0].personID, 1)
+                XCTAssertEqual(persons[0].firstName, "Charlie")
+                XCTAssertEqual(persons[0].lastName, "Brown")
+                
+                XCTAssertEqual(persons[1].personID, 2)
+                XCTAssertEqual(persons[1].firstName, "Peppermint")
+                XCTAssertEqual(persons[1].lastName, "Patty")
             }
         } catch {
             XCTFail("\(error)")

@@ -42,21 +42,21 @@ public class CommandLineInterface {
                 let optionName = optionarg[...equalRange.lowerBound]
                 let optionValue = optionarg[equalRange.upperBound...]
                 guard let specification = self.specificationFor(name:String(optionName)) else {
-                    throw HXErrors.invalidArgument("Unknown option \(optionName)")
+                    throw HXErrors.invalidArgument(.info(self,"Unknown option \(optionName)"))
                 }
                 if !specification.hasValue {
-                    throw HXErrors.invalidArgument("Option \(optionName) uses no value, but \(optionValue) was provided")
+                    throw HXErrors.invalidArgument(.info(self,"Option \(optionName) uses no value, but \(optionValue) was provided"))
                 }
                 self.options.append(Option(specification:specification, value:String(optionValue)))
             } else {
                 let optionName = optionarg
                 var optionValue :String?
                 guard let specification = self.specificationFor(name:String(optionName)) else {
-                    throw HXErrors.invalidArgument("Unknown option \(optionName)")
+                    throw HXErrors.invalidArgument(.info(self,"Unknown option \(optionName)"))
                 }
                 if specification.hasValue {
                     if i + 1 >= cmdline.endIndex {
-                        throw HXErrors.invalidArgument("Option \(optionName) requires a value, but none was provided")
+                        throw HXErrors.invalidArgument(.info(self,"Option \(optionName) requires a value, but none was provided"))
                     } else {
                         optionValue = cmdline[i]
                         i += 1

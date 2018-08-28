@@ -19,7 +19,7 @@ open class HXManagedObject : NSManagedObject {
         return moc
     }
     
-    open func takeValuesFrom(_ dict :[String:AnyObject]) {
+    open func takeValuesFrom(_ dict :[String:AnyObject]) -> Bool {
         fatalError("not implemented")
     }
 

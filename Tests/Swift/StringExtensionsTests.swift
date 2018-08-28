@@ -30,4 +30,10 @@ class StringExtensionsTest: XCTestCase {
         XCTAssertEqual(parts[5], "6:25pm", "")
     }
 
+    func testHead() {
+        let testString = "1\n2\n3\n4\n5\n6\n7\n8"
+        
+        XCTAssertEqual(testString.head(5), "1\n2\n3\n4\n5\n")
+        XCTAssertEqual(String(testString.head(10)), testString)
+    }
 }

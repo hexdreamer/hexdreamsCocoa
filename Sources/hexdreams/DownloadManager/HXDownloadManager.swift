@@ -70,7 +70,7 @@ public class HXDownloadManager : NSObject, URLSessionDelegate {
         ) throws
     {
         if options.contains(.cellularAllowed) && options.contains(.wifiOnly) {
-            throw HXErrors.invalidArgument("incompatible options .cellularAllowed and .wifiOnly")
+            throw HXErrors.invalidArgument(.info(self,"incompatible options .cellularAllowed and .wifiOnly"))
         }
         
         self.serialize.async {

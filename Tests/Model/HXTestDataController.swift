@@ -8,12 +8,16 @@ import hexdreamsCocoa
 
 class HXTestDataController: HXDataController {
 
-    override func modelURL() -> URL {
+    override var modelURL:URL {
         //guard let url = Bundle(for: type(of: self)).urlForResource("hexdreams", withExtension: "momd") else {
         guard let url = Bundle(for: type(of: self)).url(forResource:"hexdreams", withExtension: "momd") else {
             fatalError("Could not find hexdreams model")
         }
         return url;
+    }
+    
+    override var storeName:String {
+        return "HXTestDataController"
     }
 
     // We can't eliminate the entityPKGetter because we need it for the PKClass. Otherwise, we can't properly declare variables like pks or mosByID
@@ -38,7 +42,7 @@ class HXTestDataController: HXDataController {
         // This doesn't save us any code over the "manual way" of just doing it ourselves. We need a better map method that ensures we get back non-optionals. Is that even possible? I want a generic function that returns something slightly different than it's input T vs T?
         let pks = try json.map { (dict :[String:AnyObject]) -> PKClass in
             guard let pk = jsonPKGetter(dict) else {
-                throw hexdreamsCocoa.Errors.ObjectNotFound(self, "updateEntity", "Primary key not found in \(dict)")
+                throw hexdreamsCocoa.HXErrors.objectNotFound(.info(self,"Primary key not found in \(dict)"))
             }
             return pk
         }
@@ -47,11 +51,9 @@ class HXTestDataController: HXDataController {
         var blockError :Error? = nil
         moc.performAndWait {
             do {
-                guard let entityDescription = NSEntityDescription.entityForClass(entityClass: Entity.self, inManagedObjectContext: moc) else {
-                    throw Errors.EntityNotFound(message: "This is really EntityNotFound")
-                }
+                let entityDescription = NSEntityDescription.entityForClass(entityClass: Entity.self, inManagedObjectContext: moc)
                 let predicate = NSPredicate(format: "%@ in %@", argumentArray:[entityPKAttribute, pks])
-                let existingMOs = try moc.fetch(entity:entityClass, predicate: predicate, sortString: nil, returnFaults: false)
+                let existingMOs = moc.hxFetch(entity:entityClass, predicate:predicate, sortString:nil, returnFaults:false)
                 mosByID = try existingMOs.mapDict(entityPKGetter)
 
                 for entityDict in json {
@@ -93,7 +95,7 @@ class HXTestDataController: HXDataController {
             entityPKGetter: {return $0.personID},
             jsonData: jsonData,
             jsonPKGetter: {guard let pk = $0["id"] as? Int else {return nil}; return NSNumber(value:pk)},
-            moc: self.writemoc,
+            moc:self.writeContext,
             options: []
         )
     }
