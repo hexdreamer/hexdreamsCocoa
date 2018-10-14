@@ -99,12 +99,10 @@ open class HXDataController {
         moc            :NSManagedObjectContext? = nil,
         options        :UpdateEntityOptions = [],
         additionalProcessing: ((_ managedObjects:[E])->Void)? = nil
-        )
+        ) throws
     {
-        guard let url = URL(string:self.serverURL + urlFragment) else {
-            fatalError("could not initialize URL \(self.serverURL)\(urlFragment)")
-        }
-        let request = URLRequest(url:url, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval:10)
+        let url = self.serverURL + urlFragment
+        let request = try self.urlRequest(url)
         let task = URLSession.shared.dataTask(with:request) { [weak self] (data, response, error) in
             guard let this = self else {
                 return // block
@@ -124,8 +122,9 @@ open class HXDataController {
                 if let processing = additionalProcessing {
                     processing(mos)
                 }
+                print("Loaded: [\(mos.count)] \(url)")
             } catch {
-                
+                print("Unexpected error loading \(url): \(error)")
             }
         }
         task.resume()
@@ -198,5 +197,3 @@ open class HXDataController {
         }
     }
 }
-
-
