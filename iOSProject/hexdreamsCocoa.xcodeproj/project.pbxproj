@@ -9,11 +9,13 @@
 /* Begin PBXBuildFile section */
 		B91ADF361E4E81270052E3F4 /* CGContextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91ADF351E4E81270052E3F4 /* CGContextExtensions.swift */; };
 		B91ADF381E4E8B160052E3F4 /* CGPointExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91ADF371E4E8B160052E3F4 /* CGPointExtensions.swift */; };
+		B91CAB9C21C1EDD9000E43F4 /* DownloadManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91CAB9B21C1EDD9000E43F4 /* DownloadManagerTests.swift */; };
 		B9218AF21CC887A000A97389 /* hexdreamsCocoa.h in Headers */ = {isa = PBXBuildFile; fileRef = B9218AF11CC887A000A97389 /* hexdreamsCocoa.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B9218AF91CC887A000A97389 /* hexdreamsCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9218AEE1CC887A000A97389 /* hexdreamsCocoa.framework */; };
 		B9218AFE1CC887A000A97389 /* hexdreamsCocoaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9218AFD1CC887A000A97389 /* hexdreamsCocoaTests.swift */; };
 		B92BE83221152E5200DE2D03 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92BE83121152E5200DE2D03 /* Utilities.swift */; };
 		B92D0BA420EFFF9200359640 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92D0BA320EFFF9200359640 /* UtilityFunctions.swift */; };
+		B964A99C21BB90DA00647C85 /* HXDownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B964A99B21BB90DA00647C85 /* HXDownloadTask.swift */; };
 		B96931222135CB8100BF164B /* HXTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B969311D2135CB8100BF164B /* HXTableViewController.swift */; };
 		B96931232135CB8100BF164B /* HXCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B969311E2135CB8100BF164B /* HXCollectionViewController.swift */; };
 		B96931242135CB8100BF164B /* HXTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B969311F2135CB8100BF164B /* HXTableViewCell.swift */; };
@@ -23,7 +25,7 @@
 		B97110881FE5EF8800F50FF4 /* HXApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97110871FE5EF8700F50FF4 /* HXApplication.swift */; };
 		B977729E2112382D00D9E1D8 /* HXDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B977729D2112382D00D9E1D8 /* HXDownloadManager.swift */; };
 		B97772A121136D2600D9E1D8 /* DispatchQueueExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97772A021136D2600D9E1D8 /* DispatchQueueExtensions.swift */; };
-		B97772A52116BA3600D9E1D8 /* HXDownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97772A42116BA3600D9E1D8 /* HXDownloadTask.swift */; };
+		B97772A52116BA3600D9E1D8 /* HXDownloadJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97772A42116BA3600D9E1D8 /* HXDownloadJob.swift */; };
 		B98E654C20BDDDF300103810 /* HXSynchronousObserverCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E654B20BDDDF300103810 /* HXSynchronousObserverCenter.swift */; };
 		B98E654E20BDDE0F00103810 /* HXSynchronousObserverEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E654D20BDDE0F00103810 /* HXSynchronousObserverEntry.swift */; };
 		B99B7DD920EFD1AC00BA8CD2 /* HXXMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99B7DD720EFD1AC00BA8CD2 /* HXXMLNode.swift */; };
@@ -31,7 +33,7 @@
 		B99C12DE20EF127600684F33 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99C12DD20EF127600684F33 /* DictionaryExtensions.swift */; };
 		B9B66E0C1E57E9D4004F5894 /* FD_utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B66E0B1E57E9D4004F5894 /* FD_utilities.swift */; };
 		B9B66E0E1E57EA0A004F5894 /* C.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B66E0D1E57EA0A004F5894 /* C.swift */; };
-		B9BD6B6D210EBD1600BFE05C /* HXResourceDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BD6B6C210EBD1600BFE05C /* HXResourceDomain.swift */; };
+		B9BD6B6D210EBD1600BFE05C /* HXStorageDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BD6B6C210EBD1600BFE05C /* HXStorageDomain.swift */; };
 		B9C601B61E01CBD9000FB2BA /* CommandLineInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C601B51E01CBD9000FB2BA /* CommandLineInterface.swift */; };
 		B9CCA1901CC889060002A24F /* HXDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA17C1CC889060002A24F /* HXDataController.swift */; };
 		B9CCA1911CC889060002A24F /* HXManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CCA17D1CC889060002A24F /* HXManagedObject.swift */; };
@@ -71,8 +73,8 @@
 		B9DB9722210A3F240072FD19 /* HXImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB971D210A3F240072FD19 /* HXImageView.swift */; };
 		B9DB9723210A3F240072FD19 /* HXImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB971E210A3F240072FD19 /* HXImageButton.swift */; };
 		B9DB9724210A3F240072FD19 /* HXImageManagerSizingDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB971F210A3F240072FD19 /* HXImageManagerSizingDescriptor.swift */; };
-		B9DB9727210A3F2D0072FD19 /* HXResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB9726210A3F2D0072FD19 /* HXResourceManager.swift */; };
-		B9DB972A210A5B730072FD19 /* HXResourceManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B9DB9728210A5B730072FD19 /* HXResourceManager.xcdatamodeld */; };
+		B9DB9727210A3F2D0072FD19 /* HXStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DB9726210A3F2D0072FD19 /* HXStorageManager.swift */; };
+		B9DB972A210A5B730072FD19 /* HXStorageManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B9DB9728210A5B730072FD19 /* HXStorageManager.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +90,7 @@
 /* Begin PBXFileReference section */
 		B91ADF351E4E81270052E3F4 /* CGContextExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGContextExtensions.swift; sourceTree = "<group>"; };
 		B91ADF371E4E8B160052E3F4 /* CGPointExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointExtensions.swift; sourceTree = "<group>"; };
+		B91CAB9B21C1EDD9000E43F4 /* DownloadManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManagerTests.swift; sourceTree = "<group>"; };
 		B9218AEE1CC887A000A97389 /* hexdreamsCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = hexdreamsCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9218AF11CC887A000A97389 /* hexdreamsCocoa.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hexdreamsCocoa.h; sourceTree = "<group>"; };
 		B9218AF31CC887A000A97389 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -96,6 +99,7 @@
 		B9218AFF1CC887A000A97389 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B92BE83121152E5200DE2D03 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		B92D0BA320EFFF9200359640 /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
+		B964A99B21BB90DA00647C85 /* HXDownloadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXDownloadTask.swift; sourceTree = "<group>"; };
 		B969311D2135CB8100BF164B /* HXTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXTableViewController.swift; sourceTree = "<group>"; };
 		B969311E2135CB8100BF164B /* HXCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXCollectionViewController.swift; sourceTree = "<group>"; };
 		B969311F2135CB8100BF164B /* HXTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXTableViewCell.swift; sourceTree = "<group>"; };
@@ -105,7 +109,7 @@
 		B97110871FE5EF8700F50FF4 /* HXApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXApplication.swift; sourceTree = "<group>"; };
 		B977729D2112382D00D9E1D8 /* HXDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXDownloadManager.swift; sourceTree = "<group>"; };
 		B97772A021136D2600D9E1D8 /* DispatchQueueExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueueExtensions.swift; sourceTree = "<group>"; };
-		B97772A42116BA3600D9E1D8 /* HXDownloadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXDownloadTask.swift; sourceTree = "<group>"; };
+		B97772A42116BA3600D9E1D8 /* HXDownloadJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXDownloadJob.swift; sourceTree = "<group>"; };
 		B98E654B20BDDDF300103810 /* HXSynchronousObserverCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXSynchronousObserverCenter.swift; sourceTree = "<group>"; };
 		B98E654D20BDDE0F00103810 /* HXSynchronousObserverEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXSynchronousObserverEntry.swift; sourceTree = "<group>"; };
 		B99B7DD720EFD1AC00BA8CD2 /* HXXMLNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXXMLNode.swift; sourceTree = "<group>"; };
@@ -113,7 +117,7 @@
 		B99C12DD20EF127600684F33 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		B9B66E0B1E57E9D4004F5894 /* FD_utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FD_utilities.swift; sourceTree = "<group>"; };
 		B9B66E0D1E57EA0A004F5894 /* C.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = C.swift; sourceTree = "<group>"; };
-		B9BD6B6C210EBD1600BFE05C /* HXResourceDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXResourceDomain.swift; sourceTree = "<group>"; };
+		B9BD6B6C210EBD1600BFE05C /* HXStorageDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXStorageDomain.swift; sourceTree = "<group>"; };
 		B9C601B51E01CBD9000FB2BA /* CommandLineInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineInterface.swift; sourceTree = "<group>"; };
 		B9CCA17C1CC889060002A24F /* HXDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXDataController.swift; sourceTree = "<group>"; };
 		B9CCA17D1CC889060002A24F /* HXManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXManagedObject.swift; sourceTree = "<group>"; };
@@ -153,7 +157,7 @@
 		B9DB971D210A3F240072FD19 /* HXImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXImageView.swift; sourceTree = "<group>"; };
 		B9DB971E210A3F240072FD19 /* HXImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXImageButton.swift; sourceTree = "<group>"; };
 		B9DB971F210A3F240072FD19 /* HXImageManagerSizingDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXImageManagerSizingDescriptor.swift; sourceTree = "<group>"; };
-		B9DB9726210A3F2D0072FD19 /* HXResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXResourceManager.swift; sourceTree = "<group>"; };
+		B9DB9726210A3F2D0072FD19 /* HXStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXStorageManager.swift; sourceTree = "<group>"; };
 		B9DB9729210A5B730072FD19 /* HXResourceManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HXResourceManager.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,6 +180,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B91CAB9A21C1EDD9000E43F4 /* hexdreams */ = {
+			isa = PBXGroup;
+			children = (
+				B91CAB9B21C1EDD9000E43F4 /* DownloadManagerTests.swift */,
+			);
+			path = hexdreams;
+			sourceTree = "<group>";
+		};
 		B9218AE41CC887A000A97389 = {
 			isa = PBXGroup;
 			children = (
@@ -218,7 +230,8 @@
 			isa = PBXGroup;
 			children = (
 				B977729D2112382D00D9E1D8 /* HXDownloadManager.swift */,
-				B97772A42116BA3600D9E1D8 /* HXDownloadTask.swift */,
+				B964A99B21BB90DA00647C85 /* HXDownloadTask.swift */,
+				B97772A42116BA3600D9E1D8 /* HXDownloadJob.swift */,
 			);
 			path = DownloadManager;
 			sourceTree = "<group>";
@@ -260,7 +273,7 @@
 				B9DB971421099C490072FD19 /* HXCachingWrapper.swift */,
 				B9DB97162109A1C80072FD19 /* HXRepresentation.swift */,
 				B9D284C720A7A51F009B7D85 /* Observing */,
-				B9DB9725210A3F2D0072FD19 /* ResourceManager */,
+				B9DB9725210A3F2D0072FD19 /* StorageManager */,
 				B977729C2112382D00D9E1D8 /* DownloadManager */,
 				B9DB971A210A3F240072FD19 /* ImageManager */,
 			);
@@ -352,6 +365,7 @@
 		B9CCA19F1CC8891C0002A24F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				B91CAB9A21C1EDD9000E43F4 /* hexdreams */,
 				B9CCA1A61CC8891C0002A24F /* Foundation */,
 				B9CCA1A31CC8891C0002A24F /* CoreGraphics */,
 				B9CCA1A01CC8891C0002A24F /* CoreData */,
@@ -443,14 +457,14 @@
 			path = ImageManager;
 			sourceTree = "<group>";
 		};
-		B9DB9725210A3F2D0072FD19 /* ResourceManager */ = {
+		B9DB9725210A3F2D0072FD19 /* StorageManager */ = {
 			isa = PBXGroup;
 			children = (
-				B9DB9726210A3F2D0072FD19 /* HXResourceManager.swift */,
-				B9DB9728210A5B730072FD19 /* HXResourceManager.xcdatamodeld */,
-				B9BD6B6C210EBD1600BFE05C /* HXResourceDomain.swift */,
+				B9DB9726210A3F2D0072FD19 /* HXStorageManager.swift */,
+				B9DB9728210A5B730072FD19 /* HXStorageManager.xcdatamodeld */,
+				B9BD6B6C210EBD1600BFE05C /* HXStorageDomain.swift */,
 			);
-			path = ResourceManager;
+			path = StorageManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -565,7 +579,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9CCA1931CC889060002A24F /* NSEntityDescriptionExtensions.swift in Sources */,
-				B9BD6B6D210EBD1600BFE05C /* HXResourceDomain.swift in Sources */,
+				B9BD6B6D210EBD1600BFE05C /* HXStorageDomain.swift in Sources */,
 				B96931262135CB8100BF164B /* HXModelObject.swift in Sources */,
 				B9CCA1981CC889060002A24F /* hexdreams.swift in Sources */,
 				B9CCA1991CC889060002A24F /* HXMatrix.swift in Sources */,
@@ -586,7 +600,7 @@
 				B9D284CD20A7A520009B7D85 /* HXObservingExtensions.swift in Sources */,
 				B9D284CC20A7A520009B7D85 /* HXObserverEntry.swift in Sources */,
 				B9CCA19A1CC889060002A24F /* ArrayExtensions.swift in Sources */,
-				B9DB9727210A3F2D0072FD19 /* HXResourceManager.swift in Sources */,
+				B9DB9727210A3F2D0072FD19 /* HXStorageManager.swift in Sources */,
 				B9CCA19D1CC889060002A24F /* HXViewController.swift in Sources */,
 				B9DB96F7210829770072FD19 /* UIViewControllerExtensions.swift in Sources */,
 				B96CC3BA1DF1F612007DD4AA /* DateExtensions.swift in Sources */,
@@ -594,11 +608,12 @@
 				B9DB9720210A3F240072FD19 /* HXImageManagerJob.swift in Sources */,
 				B9CCA1901CC889060002A24F /* HXDataController.swift in Sources */,
 				B9D284CB20A7A520009B7D85 /* HXObserverCenter.swift in Sources */,
+				B964A99C21BB90DA00647C85 /* HXDownloadTask.swift in Sources */,
 				B98E654C20BDDDF300103810 /* HXSynchronousObserverCenter.swift in Sources */,
 				B9B66E0E1E57EA0A004F5894 /* C.swift in Sources */,
 				B9DB971521099C490072FD19 /* HXCachingWrapper.swift in Sources */,
 				B9CCA1941CC889060002A24F /* NSManagedObjectContextExtensions.swift in Sources */,
-				B97772A52116BA3600D9E1D8 /* HXDownloadTask.swift in Sources */,
+				B97772A52116BA3600D9E1D8 /* HXDownloadJob.swift in Sources */,
 				B9CCA1971CC889060002A24F /* NSSortDescriptorExtensions.swift in Sources */,
 				B99C12DE20EF127600684F33 /* DictionaryExtensions.swift in Sources */,
 				B977729E2112382D00D9E1D8 /* HXDownloadManager.swift in Sources */,
@@ -612,7 +627,7 @@
 				B96931252135CB8100BF164B /* HXCollectionViewCell.swift in Sources */,
 				B97772A121136D2600D9E1D8 /* DispatchQueueExtensions.swift in Sources */,
 				B9DB9724210A3F240072FD19 /* HXImageManagerSizingDescriptor.swift in Sources */,
-				B9DB972A210A5B730072FD19 /* HXResourceManager.xcdatamodeld in Sources */,
+				B9DB972A210A5B730072FD19 /* HXStorageManager.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,6 +638,7 @@
 				B9218AFE1CC887A000A97389 /* hexdreamsCocoaTests.swift in Sources */,
 				B9CCA1BE1CC8891C0002A24F /* HXManagedPerson+CoreDataProperties.swift in Sources */,
 				B9CCA1B91CC8891C0002A24F /* CGRectExtensionsTests.swift in Sources */,
+				B91CAB9C21C1EDD9000E43F4 /* DownloadManagerTests.swift in Sources */,
 				B9CCA1C21CC8891C0002A24F /* HXTestDataController.swift in Sources */,
 				B9CCA1BC1CC8891C0002A24F /* HXMatrixTests.swift in Sources */,
 				B9CCA1BA1CC8891C0002A24F /* CGSizeExtensionsTests.swift in Sources */,
@@ -866,13 +882,13 @@
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
-		B9DB9728210A5B730072FD19 /* HXResourceManager.xcdatamodeld */ = {
+		B9DB9728210A5B730072FD19 /* HXStorageManager.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				B9DB9729210A5B730072FD19 /* HXResourceManager.xcdatamodel */,
 			);
 			currentVersion = B9DB9729210A5B730072FD19 /* HXResourceManager.xcdatamodel */;
-			path = HXResourceManager.xcdatamodeld;
+			path = HXStorageManager.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

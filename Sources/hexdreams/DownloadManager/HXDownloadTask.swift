@@ -2,38 +2,99 @@
 //  HXDownloadTask.swift
 //  hexdreamsCocoa
 //
-//  Created by Kenny Leung on 8/4/18.
+//  Created by Kenny Leung on 12/7/18.
 //  Copyright © 2018 hexdreams. All rights reserved.
 //
 
 import Foundation
 
-class HXDownloadTask {
-    // Have to let this one be nillable on init because we need to use this object in the URLSessionDownloadTask's creation in the completionHandler.
-    var task:URLSessionDownloadTask?
-    let options:HXDownloadManager.DownloadOptions
-    var completionHandlers:[(URL?,URLResponse?,Error?)->Void]
-    var completed:Bool
-    
-    init(options:HXDownloadManager.DownloadOptions,
-         completionHandler:@escaping (URL?,URLResponse?,Error?)->Void
-        ) {
-        self.options = options
-        self.completionHandlers = [(URL?,URLResponse?,Error?)->Void]()
-        self.completed = false
-        
-        self.appendCompletionHandler(completionHandler)
+public class HXDownloadTask : Equatable {
+
+    enum State {
+        case idle
+        case running
+        case paused
+        case ready
+        case completed
     }
     
-    func appendCompletionHandler(_ completionHandler:@escaping (URL?,URLResponse?,Error?)->Void) {
-        self.completionHandlers.append(completionHandler)
-    }
+    let url:URL
+    let destinationURL:URL?
+    var state:State = .idle
+    var dataTask:URLSessionDataTask?
+    var downloadTask:URLSessionDownloadTask?
+    var downloadedURL:URL?
     
-    func matches(url:URL, options:HXDownloadManager.DownloadOptions) -> Bool {
-        guard let myurl = self.task?.originalRequest?.url else {
-            print("This should never happen. Either task or request was nil")
-            return false
+    var options:HXDownloadManager.DownloadOptions {
+        var aggregate = HXDownloadManager.DownloadOptions()
+        for job in jobs {
+            if job.options.contains(.cellularAllowed) {
+                aggregate.insert(.cellularAllowed)
+            }
+            if job.options.contains(.immediate) {
+                aggregate.insert(.immediate)
+            }
         }
-        return (myurl == url && self.options == options)
+        return aggregate
     }
+    
+    var downloadedData:Data? {
+        if self.state != .ready && self.state != .completed {
+            return nil
+        }
+        if let data = self.accumulatingData {
+            return data as Data
+        }
+        if let url = self.downloadedURL {
+            do {
+                return try NSData(contentsOf:url, options:.mappedIfSafe) as Data
+            } catch {
+                print("Can't create NSData from \(url)")
+            }
+        }
+        return nil
+    }
+
+    var jobs = [HXDownloadJob]()
+    var error:Error?
+    
+    private var accumulatingData:NSMutableData?
+    
+    init(url:URL, destinationURL:URL?) {
+        self.url = url
+        self.destinationURL = destinationURL
+    }
+    
+    func matches(job:HXDownloadJob) -> Bool {
+        return self.url == job.url
+    }
+    
+    func matches(urlSessionTask:URLSessionTask) -> Bool {
+        return self.dataTask === urlSessionTask || self.downloadTask === urlSessionTask
+    }
+    
+    func addJob(_ job:HXDownloadJob) {
+        self.jobs.append(job)
+    }
+    
+    func appendData(_ data:Data) {
+        let accumulator = self.accumulatingData ?? {
+            let newData = NSMutableData()
+            self.accumulatingData = newData
+            return newData
+        }
+        accumulator.append(data)
+    }
+    
+    func sendDataReady(defaultQueue:DispatchQueue) {
+        for job in self.jobs {
+            job.sendDataReady(defaultQueue:defaultQueue, error:self.error)
+        }
+    }
+    
+    // MARK: - Equatable
+    public static func == (lhs: HXDownloadTask, rhs: HXDownloadTask) -> Bool {
+        return lhs === rhs
+    }
+
 }
