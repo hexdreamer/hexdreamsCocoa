@@ -1,17 +1,14 @@
-//
-//  HXResourceDomain.swift
-//  hexdreamsCocoa
-//
-//  Created by Kenny Leung on 7/29/18.
-//  Copyright © 2018 hexdreams. All rights reserved.
-//
+// hexdreamsCocoa
+// HXStorageDomain.swift
+// Copyright © 2018 Kenny Leung
+// This code is PUBLIC DOMAIN
 
 import Foundation
 
-extension HXResourceDomain {
+extension HXStorageDomain{
     
-    var path:[HXResourceDomain] {
-        var stack = [HXResourceDomain]()
+    var path:[HXStorageDomain] {
+        var stack = [HXStorageDomain]()
         var domain = self
         while true {
             stack.insert(domain, at:0)

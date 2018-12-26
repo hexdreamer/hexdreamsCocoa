@@ -15,6 +15,8 @@
 		B9218AFE1CC887A000A97389 /* hexdreamsCocoaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9218AFD1CC887A000A97389 /* hexdreamsCocoaTests.swift */; };
 		B92BE83221152E5200DE2D03 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92BE83121152E5200DE2D03 /* Utilities.swift */; };
 		B92D0BA420EFFF9200359640 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92D0BA320EFFF9200359640 /* UtilityFunctions.swift */; };
+		B9560E2A21D2C8720006A458 /* HXFlowingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9560E2921D2C8720006A458 /* HXFlowingTextView.swift */; };
+		B9560E3121D31C820006A458 /* NSAttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9560E3021D31C820006A458 /* NSAttributedStringExtensions.swift */; };
 		B964A99C21BB90DA00647C85 /* HXDownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B964A99B21BB90DA00647C85 /* HXDownloadTask.swift */; };
 		B96931222135CB8100BF164B /* HXTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B969311D2135CB8100BF164B /* HXTableViewController.swift */; };
 		B96931232135CB8100BF164B /* HXCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B969311E2135CB8100BF164B /* HXCollectionViewController.swift */; };
@@ -26,6 +28,7 @@
 		B977729E2112382D00D9E1D8 /* HXDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B977729D2112382D00D9E1D8 /* HXDownloadManager.swift */; };
 		B97772A121136D2600D9E1D8 /* DispatchQueueExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97772A021136D2600D9E1D8 /* DispatchQueueExtensions.swift */; };
 		B97772A52116BA3600D9E1D8 /* HXDownloadJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97772A42116BA3600D9E1D8 /* HXDownloadJob.swift */; };
+		B97F03E221D2A60600926262 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97F03E121D2A60600926262 /* UIViewExtensions.swift */; };
 		B98E654C20BDDDF300103810 /* HXSynchronousObserverCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E654B20BDDDF300103810 /* HXSynchronousObserverCenter.swift */; };
 		B98E654E20BDDE0F00103810 /* HXSynchronousObserverEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E654D20BDDE0F00103810 /* HXSynchronousObserverEntry.swift */; };
 		B99B7DD920EFD1AC00BA8CD2 /* HXXMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99B7DD720EFD1AC00BA8CD2 /* HXXMLNode.swift */; };
@@ -99,6 +102,8 @@
 		B9218AFF1CC887A000A97389 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B92BE83121152E5200DE2D03 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		B92D0BA320EFFF9200359640 /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
+		B9560E2921D2C8720006A458 /* HXFlowingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXFlowingTextView.swift; sourceTree = "<group>"; };
+		B9560E3021D31C820006A458 /* NSAttributedStringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtensions.swift; sourceTree = "<group>"; };
 		B964A99B21BB90DA00647C85 /* HXDownloadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXDownloadTask.swift; sourceTree = "<group>"; };
 		B969311D2135CB8100BF164B /* HXTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXTableViewController.swift; sourceTree = "<group>"; };
 		B969311E2135CB8100BF164B /* HXCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXCollectionViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +115,7 @@
 		B977729D2112382D00D9E1D8 /* HXDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXDownloadManager.swift; sourceTree = "<group>"; };
 		B97772A021136D2600D9E1D8 /* DispatchQueueExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueueExtensions.swift; sourceTree = "<group>"; };
 		B97772A42116BA3600D9E1D8 /* HXDownloadJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXDownloadJob.swift; sourceTree = "<group>"; };
+		B97F03E121D2A60600926262 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		B98E654B20BDDDF300103810 /* HXSynchronousObserverCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXSynchronousObserverCenter.swift; sourceTree = "<group>"; };
 		B98E654D20BDDE0F00103810 /* HXSynchronousObserverEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXSynchronousObserverEntry.swift; sourceTree = "<group>"; };
 		B99B7DD720EFD1AC00BA8CD2 /* HXXMLNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXXMLNode.swift; sourceTree = "<group>"; };
@@ -326,6 +332,7 @@
 				B96CC3B91DF1F612007DD4AA /* DateExtensions.swift */,
 				B9CCA1851CC889060002A24F /* NSSortDescriptorExtensions.swift */,
 				B99C12DD20EF127600684F33 /* DictionaryExtensions.swift */,
+				B9560E3021D31C820006A458 /* NSAttributedStringExtensions.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -351,6 +358,7 @@
 		B9CCA18D1CC889060002A24F /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				B97F03E121D2A60600926262 /* UIViewExtensions.swift */,
 				B9DB96F6210829770072FD19 /* UIViewControllerExtensions.swift */,
 				B9CCA18E1CC889060002A24F /* HXViewController.swift */,
 				B969311D2135CB8100BF164B /* HXTableViewController.swift */,
@@ -358,6 +366,7 @@
 				B969311E2135CB8100BF164B /* HXCollectionViewController.swift */,
 				B96931202135CB8100BF164B /* HXCollectionViewCell.swift */,
 				B96931212135CB8100BF164B /* HXModelObject.swift */,
+				B9560E2921D2C8720006A458 /* HXFlowingTextView.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -593,6 +602,7 @@
 				B99B7DD920EFD1AC00BA8CD2 /* HXXMLNode.swift in Sources */,
 				B9DB96F5210823AD0072FD19 /* HXErrors.swift in Sources */,
 				B91ADF361E4E81270052E3F4 /* CGContextExtensions.swift in Sources */,
+				B9560E3121D31C820006A458 /* NSAttributedStringExtensions.swift in Sources */,
 				B9CCA1951CC889060002A24F /* CGRectExtensions.swift in Sources */,
 				B96931222135CB8100BF164B /* HXTableViewController.swift in Sources */,
 				B99B7DDA20EFD1AC00BA8CD2 /* HXXMLParser.swift in Sources */,
@@ -609,6 +619,8 @@
 				B9CCA1901CC889060002A24F /* HXDataController.swift in Sources */,
 				B9D284CB20A7A520009B7D85 /* HXObserverCenter.swift in Sources */,
 				B964A99C21BB90DA00647C85 /* HXDownloadTask.swift in Sources */,
+				B97F03E221D2A60600926262 /* UIViewExtensions.swift in Sources */,
+				B9560E2A21D2C8720006A458 /* HXFlowingTextView.swift in Sources */,
 				B98E654C20BDDDF300103810 /* HXSynchronousObserverCenter.swift in Sources */,
 				B9B66E0E1E57EA0A004F5894 /* C.swift in Sources */,
 				B9DB971521099C490072FD19 /* HXCachingWrapper.swift in Sources */,

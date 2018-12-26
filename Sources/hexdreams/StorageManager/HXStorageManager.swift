@@ -1,3 +1,7 @@
+// hexdreamsCocoa
+// HXStorageManager.swift
+// Copyright © 2018 Kenny Leung
+// This code is PUBLIC DOMAIN
 
 import Foundation
 import CoreData
@@ -48,12 +52,12 @@ public class HXResourceManager : NSObject {
         self.persistentContainer.newBackgroundContext()
     }()
     
-    var domainsByIdentifier:[String:HXResourceDomain]
+    var domainsByIdentifier:[String:HXStorageDomain]
     
     private func cacheDomains() {
         do {
             try self.viewContext.hxPerformAndWait {
-                let domains = $0.hxFetch(entity:HXResourceDomain.self, predicate:nil, sortString:nil, returnFaults:false)
+                let domains = $0.hxFetch(entity:HXStorageDomain.self, predicate:nil, sortString:nil, returnFaults:false)
                 try self.domainsByIdentifier = domains.mapDict({$0.identifier})
             }
         } catch {
@@ -61,13 +65,13 @@ public class HXResourceManager : NSObject {
         }
     }
 
-    public func domainFor(identifier:String) throws -> HXResourceDomain {
+    public func domainFor(identifier:String) throws -> HXStorageDomain {
          return try self.domainsByIdentifier[identifier] ?? {
             throw HXErrors.invalidArgument(.info(self,"No domain with identifier \(identifier)"))
         }
     }
     
-    private func generateResourceURL(domain:HXResourceDomain, uuid:UUID, filename:String) -> URL {
+    private func generateResourceURL(domain:HXStorageDomain, uuid:UUID, filename:String) -> URL {
         var path = self.storageRootDirectory
         for d in domain.path {
             path.appendPathComponent(d.name ?? "_")
@@ -77,7 +81,7 @@ public class HXResourceManager : NSObject {
     }
             
     override init() {
-        self.domainsByIdentifier = [String:HXResourceDomain]()
+        self.domainsByIdentifier = [String:HXStorageDomain]()
         super.init()
         self.cacheDomains()
     }
@@ -189,7 +193,7 @@ public class HXResourceManager : NSObject {
     }
     
     private func fetchResourcesFor(
-        domain:HXResourceDomain,
+        domain:HXStorageDomain,
         uuid:UUID?,
         url:URL?,
         version:String?,
