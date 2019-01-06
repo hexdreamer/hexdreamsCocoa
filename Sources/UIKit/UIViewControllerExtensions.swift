@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import CoreData
 
+public protocol UIViewControllerExtensions {}
+
+extension UIViewController:UIViewControllerExtensions {}
+
 /*
  This little trick allows us to basically add ivars and methods to HXViewController, HXTableViewController, HXCollectionViewController without duplicating the code. They just need to conform to the data-bearing protocols like HXErrorHandler, and the code here can use their ivars.
  */
@@ -23,9 +27,6 @@ public protocol UIViewControllerExtensionData:AnyObject {
     var successCallback:((UIViewController)->Void)? {get set}
     var failureCallback:((UIViewController)->Void)? {get set}
     var cancelCallback :((UIViewController)->Void)? {get set}
-}
-
-public protocol UIViewControllerExtensions {
 }
 
 public extension UIViewControllerExtensions where Self:UIViewController, Self:UIViewControllerExtensionData, Self:HXErrorHandler {
@@ -104,5 +105,3 @@ public extension UIViewControllerExtensions where Self:UIViewController, Self:UI
 }
 
 
-extension UIViewController:UIViewControllerExtensions {
-}

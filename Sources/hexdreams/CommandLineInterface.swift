@@ -25,15 +25,13 @@ public class CommandLineInterface {
         
         while true {
             let arg = cmdline[i]
-            var remainder :Substring?
+            var remainder:Substring
             
             i += 1
             
-            remainder = arg.strippedOf(prefix:"--")
-            if remainder == nil {
-                remainder = arg.strippedOf(prefix:"-")
-            }
-            guard let optionarg = remainder else {
+            remainder = arg.hxexcluding(prefix:"-")
+            let optionarg = remainder.hxexcluding(prefix:"-")
+            if optionarg.count == arg.count {
                 self.arguments.append(arg)
                 return
             }

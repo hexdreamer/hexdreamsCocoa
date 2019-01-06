@@ -20,6 +20,7 @@ public class HXDownloadJob {
     
     public var downloadedData:Data? {return self.task?.downloadedData}
     public var downloadedURL:URL?   {return self.task?.downloadedURL}
+    public var cancelled = false
 
     init(url:URL, options:HXDownloadManager.DownloadOptions, dataReady:@escaping (HXDownloadJob,Error?)->Void, onQueue:DispatchQueue?) {
         self.url = url

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class HXDownloadTask : Equatable {
+public class HXDownloadTask : HXObject, Equatable {
 
     enum State {
         case idle
@@ -49,7 +49,7 @@ public class HXDownloadTask : Equatable {
             do {
                 return try NSData(contentsOf:url, options:.mappedIfSafe) as Data
             } catch {
-                print("Can't create NSData from \(url)")
+                hxerror("Can't create NSData from \(url)")
             }
         }
         return nil
@@ -75,6 +75,13 @@ public class HXDownloadTask : Equatable {
     
     func addJob(_ job:HXDownloadJob) {
         self.jobs.append(job)
+    }
+    
+    func hasLiveJobs() -> Bool {
+        if let _ = self.jobs.first(where: {$0.cancelled == false}) {
+            return true
+        }
+        return false
     }
     
     func appendData(_ data:Data) {

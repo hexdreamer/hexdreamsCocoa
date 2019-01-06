@@ -29,7 +29,7 @@ public extension Array {
     {
         return self.mapDict(getter, {
             (element:Element) -> Bool in
-            print("Array.mapDictNT: object does not contain value for key: \(element)")
+            hxerror("Array.mapDictNT: object does not contain value for key: \(element)")
             return true
         })
     }
@@ -45,7 +45,7 @@ public extension Array {
             if let key = getter(obj) {
                 dict[key] = obj
             } else {
-                print("Array.mapDict: object does not contain value for key: \(obj)")
+                hxerror("Array.mapDict: object does not contain value for key: \(obj)")
                 if let nnHandler = handler {
                     if !nnHandler(obj) {
                         return dict

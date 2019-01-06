@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-open class HXDataController {
+open class HXDataController : HXObject {
     
     // MARK: - Internal Declarations
     public enum Errors : Error {
@@ -69,7 +69,7 @@ open class HXDataController {
         }
         let cont = NSPersistentContainer(name:self.storeName, managedObjectModel:model)
         cont.loadPersistentStores(completionHandler:{ (description, error) in
-            print("Loaded persistent stores:\(description)")
+            self.hxinfo("Loaded persistent stores:\(description)")
             if let e = error {
                 fatalError("\(e)")
             }
@@ -86,7 +86,7 @@ open class HXDataController {
     }()
     
     // MARK: - Constructors/Destructors
-    public init() {}
+    public override init() {}
     
     // MARK: - Methods
     /*
@@ -108,7 +108,7 @@ open class HXDataController {
                 return // block
             }
             guard let nndata = data else {
-                print("no data received -- log better")
+                this.hxerror("no data received -- log better")
                 return // block
             }
             do {
@@ -122,9 +122,9 @@ open class HXDataController {
                 if let processing = additionalProcessing {
                     processing(mos)
                 }
-                print("Loaded: [\(mos.count)] \(url)")
+                this.hxinfo("Loaded: [\(mos.count)] \(url)")
             } catch {
-                print("Unexpected error loading \(url): \(error)")
+                this.hxerror("Unexpected error loading \(url): \(error)")
             }
         }
         task.resume()

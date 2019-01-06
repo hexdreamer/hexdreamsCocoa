@@ -106,6 +106,10 @@ public class HXDownloadManager : NSObject, URLSessionDelegate, URLSessionTaskDel
                     return
                 }
                 
+                if !task.hasLiveJobs() {
+                    continue
+                }
+                
                 let options = task.options
                 let session = options.contains(.cellularAllowed) ? self.cellularSession : self.wifiOnlySession
                 let request = URLRequest(url:task.url)
@@ -133,7 +137,7 @@ public class HXDownloadManager : NSObject, URLSessionDelegate, URLSessionTaskDel
     
     // MARK: - URLSessionDelegate
     public func urlSession(_ session:URLSession, didBecomeInvalidWithError error:Error?) {
-        print("session became invalid!")
+        hxwarn("session became invalid!")
     }
     
     // MARK: - URLSessionTaskDelegate : URLSessionDelegate

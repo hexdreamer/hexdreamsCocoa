@@ -13,7 +13,6 @@ public class HXFlowingTextView : UIView {
     public var textMargins:UIEdgeInsets = UIEdgeInsets(top:0, left:0, bottom:0, right:0)
     public var flowMargins:UIEdgeInsets = UIEdgeInsets(top:0, left:0, bottom:0, right:0)
     public var maximumHeight:CGFloat = 500
-    public var debug = false
     
     override init(frame:CGRect) {
         super.init(frame:frame)
@@ -24,13 +23,15 @@ public class HXFlowingTextView : UIView {
     }
     
     override public func draw(_ rect: CGRect) {
+        hxdebug(["bounds":self.bounds])
+
         var margins = self.textMargins
         margins.top = 0
         margins.bottom = self.textMargins.top
         let bounds = self.bounds
         let boundingBox = UIEdgeInsetsInsetRect(bounds, margins)
         guard let c = UIGraphicsGetCurrentContext(),
-            let frame = self._generateCTFrame(boundingBox:boundingBox) else {
+            let frame = self._createCTFrame(boundingBox:boundingBox) else {
                 return
         }
         
@@ -38,7 +39,7 @@ public class HXFlowingTextView : UIView {
         c.scaleBy(x:1.0, y:-1.0)
         CTFrameDraw(frame, c);
         
-        if ( debug ) {
+        hxdebug("drawing borders and baselines") {
             c.setLineWidth(1.0)
             c.setStrokeColor(UIColor.red.cgColor)
             c.stroke(self.bounds)
@@ -50,17 +51,26 @@ public class HXFlowingTextView : UIView {
             CTFrameGetLineOrigins(frame, CFRange(location:0, length:count), &lineOrigins);
             c.setLineWidth(0.5)
             c.setStrokeColor(UIColor.orange.cgColor)
+            let attributes = NSAttributedString.attributesWith(font:UIFont(name:"AvenirNextCondensed-Bold", size:8), color:.orange)
             for lineOrigin in lineOrigins {
                 c.strokeLineSegments(between:[CGPoint(x:boundingBox.minX, y:lineOrigin.y), CGPoint(x:boundingBox.maxX, y:lineOrigin.y)])
+                
+                let lineLabel = NSAttributedString(string:"\(Int(lineOrigin.y))", attributes:attributes)
+                let line = CTLineCreateWithAttributedString(lineLabel)
+                let offset = CGFloat(CTLineGetPenOffsetForFlush(line, 1.0, 50))
+                c.textPosition = CGPoint(x:boundingBox.maxX - 52 + offset, y:lineOrigin.y + 1)
+                CTLineDraw(line, c)
             }
         }
     }
     
     override public func sizeToFit() {
+        hxdebug(["bounds":self.bounds])
+
         var boundingBox = self.bounds
         boundingBox = UIEdgeInsetsInsetRect(boundingBox, self.textMargins)
         boundingBox.size.height = self.maximumHeight
-        guard let frame = self._generateCTFrame(boundingBox:boundingBox) else {
+        guard let frame = self._createCTFrame(boundingBox:boundingBox) else {
             return
         }
         
@@ -72,10 +82,13 @@ public class HXFlowingTextView : UIView {
         
         var fitFrame = self.frame
         fitFrame.size.height = (boundingBox.maxY - lastLineOrigin.y) + self.textMargins.top + self.textMargins.bottom
-        self.frame = fitFrame
+        if ( fitFrame != self.frame ) {
+            self.frame = fitFrame
+            self.setNeedsDisplay()
+        }
     }
     
-    private func _generateCTFrame(boundingBox:CGRect) -> CTFrame? {
+    private func _createCTFrame(boundingBox:CGRect) -> CTFrame? {
         guard let text = self.text else {
             return nil
         }
