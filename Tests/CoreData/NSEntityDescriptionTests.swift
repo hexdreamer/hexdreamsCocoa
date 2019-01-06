@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import CoreData
 
 class NSEntityDescriptionTests: CoreDataTestCase {
 
@@ -21,8 +22,8 @@ class NSEntityDescriptionTests: CoreDataTestCase {
     }
 
     func testEntityForClass() {
-        guard let entity = NSEntityDescription.entityForClass(entityClass:HXManagedPerson.self, inManagedObjectContext:self.pc.viewContext),
-            let name = entity.name else {
+        let entity = NSEntityDescription.entityForClass(entityClass:HXManagedPerson.self, inManagedObjectContext:self.pc.viewContext)
+        guard let name = entity.name else {
                 XCTFail()
                 return
         }

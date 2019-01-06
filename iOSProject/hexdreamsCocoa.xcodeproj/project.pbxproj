@@ -48,6 +48,9 @@
 		B99F938021E155A300CB8044 /* HXTimeIntervalFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F937F21E155A300CB8044 /* HXTimeIntervalFormatter.swift */; };
 		B99F938221E1711100CB8044 /* NSObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F938121E1711100CB8044 /* NSObjectExtensions.swift */; };
 		B99F938421E17F7600CB8044 /* HXLoggingCovers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F938321E17F7600CB8044 /* HXLoggingCovers.swift */; };
+		B99F938B21E1E38100CB8044 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F938621E1DF5600CB8044 /* CoreDataTestCase.swift */; };
+		B99F938C21E1E38400CB8044 /* NSEntityDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F938521E1DF5600CB8044 /* NSEntityDescriptionTests.swift */; };
+		B99F938D21E1E38800CB8044 /* NSManagedObjectContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F938721E1DF5600CB8044 /* NSManagedObjectContextTests.swift */; };
 		B9B66E0C1E57E9D4004F5894 /* FD_utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B66E0B1E57E9D4004F5894 /* FD_utilities.swift */; };
 		B9B66E0E1E57EA0A004F5894 /* C.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B66E0D1E57EA0A004F5894 /* C.swift */; };
 		B9BD6B6D210EBD1600BFE05C /* HXStorageDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BD6B6C210EBD1600BFE05C /* HXStorageDomain.swift */; };
@@ -149,6 +152,9 @@
 		B99F937F21E155A300CB8044 /* HXTimeIntervalFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXTimeIntervalFormatter.swift; sourceTree = "<group>"; };
 		B99F938121E1711100CB8044 /* NSObjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtensions.swift; sourceTree = "<group>"; };
 		B99F938321E17F7600CB8044 /* HXLoggingCovers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXLoggingCovers.swift; sourceTree = "<group>"; };
+		B99F938521E1DF5600CB8044 /* NSEntityDescriptionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSEntityDescriptionTests.swift; sourceTree = "<group>"; };
+		B99F938621E1DF5600CB8044 /* CoreDataTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
+		B99F938721E1DF5600CB8044 /* NSManagedObjectContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextTests.swift; sourceTree = "<group>"; };
 		B9B66E0B1E57E9D4004F5894 /* FD_utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FD_utilities.swift; sourceTree = "<group>"; };
 		B9B66E0D1E57EA0A004F5894 /* C.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = C.swift; sourceTree = "<group>"; };
 		B9BD6B6C210EBD1600BFE05C /* HXStorageDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXStorageDomain.swift; sourceTree = "<group>"; };
@@ -438,8 +444,11 @@
 		B9CCA1A01CC8891C0002A24F /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				B9CCA1A11CC8891C0002A24F /* HXDataControllerTests.swift */,
+				B99F938621E1DF5600CB8044 /* CoreDataTestCase.swift */,
+				B99F938521E1DF5600CB8044 /* NSEntityDescriptionTests.swift */,
+				B99F938721E1DF5600CB8044 /* NSManagedObjectContextTests.swift */,
 				B9CCA1A21CC8891C0002A24F /* NSPredicateTests.swift */,
+				B9CCA1A11CC8891C0002A24F /* HXDataControllerTests.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -711,17 +720,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B99F938B21E1E38100CB8044 /* CoreDataTestCase.swift in Sources */,
 				B9218AFE1CC887A000A97389 /* hexdreamsCocoaTests.swift in Sources */,
 				B9CCA1BE1CC8891C0002A24F /* HXManagedPerson+CoreDataProperties.swift in Sources */,
 				B9CCA1B91CC8891C0002A24F /* CGRectExtensionsTests.swift in Sources */,
 				B91CAB9C21C1EDD9000E43F4 /* DownloadManagerTests.swift in Sources */,
 				B9CCA1C21CC8891C0002A24F /* HXTestDataController.swift in Sources */,
+				B99F938C21E1E38400CB8044 /* NSEntityDescriptionTests.swift in Sources */,
 				B9CCA1BC1CC8891C0002A24F /* HXMatrixTests.swift in Sources */,
 				B9CCA1BA1CC8891C0002A24F /* CGSizeExtensionsTests.swift in Sources */,
 				B9CCA1B71CC8891C0002A24F /* HXDataControllerTests.swift in Sources */,
 				B9CCA1C31CC8891C0002A24F /* ArrayExtensionsTests.swift in Sources */,
 				B9CCA1B81CC8891C0002A24F /* NSPredicateTests.swift in Sources */,
 				B9CCA1BB1CC8891C0002A24F /* NSSortDescriptorExtensionsTests.swift in Sources */,
+				B99F938D21E1E38800CB8044 /* NSManagedObjectContextTests.swift in Sources */,
 				B9CCA1C41CC8891C0002A24F /* StringExtensionsTests.swift in Sources */,
 				B9CCA1BF1CC8891C0002A24F /* HXManagedPerson.swift in Sources */,
 				B9CCA1BD1CC8891C0002A24F /* hexdreams.xcdatamodeld in Sources */,

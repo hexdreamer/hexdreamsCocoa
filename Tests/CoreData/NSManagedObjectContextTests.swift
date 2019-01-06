@@ -12,13 +12,13 @@ import hexdreamsCocoa
 class NSManagedObjectContextTests: CoreDataTestCase {
 
     func testFetchEntityClass() throws {
-        let people = try self.moc.fetch(entity:HXManagedPerson.self)
+        let people = self.moc.hxFetch(entity:HXManagedPerson.self)
         XCTAssertNotNil(people)
     }
 
     // TODO: This needs some work to wait for the asynschronous results
     func testAsynchronousFetch() throws {
-        try self.moc.fetch(entity:HXManagedPerson.self, completion:{ result in
+        self.moc.hxFetch(entity:HXManagedPerson.self, completion:{ result in
             let people = result
             XCTAssertNotNil(people)
         })
@@ -26,7 +26,7 @@ class NSManagedObjectContextTests: CoreDataTestCase {
     
     // TODO: This needs some work to wait for the asynschronous results
     func testAsynchronousFetchTrailing() throws {
-        try self.moc.fetch(entity:HXManagedPerson.self) { result in
+        self.moc.hxFetch(entity:HXManagedPerson.self) { result in
             let people = result
             XCTAssertNotNil(people)
         }
