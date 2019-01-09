@@ -7,6 +7,7 @@ import Foundation
 
 extension NSAttributedString {
     
+    #if os(iOS)
     public class func attributesWith(font:UIFont?, color:UIColor = .black) -> [NSAttributedStringKey:Any] {
         guard let font = font else {
             fatalError("required: font")
@@ -15,11 +16,13 @@ extension NSAttributedString {
         let attributes:[NSAttributedStringKey:Any] = [.font:ctfont, .foregroundColor:color]
         return attributes
     }
+    #endif
     
 }
 
 extension NSMutableAttributedString {
     
+    #if os(iOS)
     public func hxappend(string:String, fontName:String, size:CGFloat, color:UIColor = .black) {
         guard let font = UIFont(name:fontName, size:size) else {
             fatalError("Could not find font \(fontName)")
@@ -32,4 +35,5 @@ extension NSMutableAttributedString {
         let attributedString = NSAttributedString(string:string, attributes:attributes)
         self.append(attributedString)
     }
+    #endif
 }

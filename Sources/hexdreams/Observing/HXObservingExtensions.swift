@@ -32,20 +32,16 @@ public extension NSObject {
 #if os(OSX)
     public extension NSWindowController {
         func observe<T:AnyObject> (
-            _ observed:T?,
+            _ observed:T,
             _ keyPath:PartialKeyPath<T>,
-            action:@escaping ()->Void
+            action:@escaping (AnyObject,AnyKeyPath)->Void
             ) {
-            guard let nnobserved = observed else {
-                return
-            }
             HXObserverCenter.shared.observe(
-                target:nnobserved,
+                target:observed,
                 keyPath:keyPath,
-                observer:self,
-                action:action,
-                queue:DispatchQueue.main,
-                coalescingInterval:.milliseconds(100)
+                notify:self,
+                coalescingInterval:.milliseconds(100),
+                action:action
             )
         }
         
@@ -55,7 +51,7 @@ public extension NSObject {
             guard let nnobserved = observed else {
                 return
             }
-            HXObserverCenter.shared.removeObserver(self, observed:nnobserved)
+            HXObserverCenter.shared.removeObserver(self, target:nnobserved)
         }
     }
 #endif

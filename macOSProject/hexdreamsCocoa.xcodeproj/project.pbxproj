@@ -10,6 +10,39 @@
 		B92AE21B200030AE0040762A /* HXObserverCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE215200030AE0040762A /* HXObserverCenter.swift */; };
 		B92AE21C200030AE0040762A /* HXObserverEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE216200030AE0040762A /* HXObserverEntry.swift */; };
 		B92AE21F200030AE0040762A /* HXObservingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE219200030AE0040762A /* HXObservingExtensions.swift */; };
+		B94E22AC21E1D79600DD2214 /* HXErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22A821E1D79600DD2214 /* HXErrors.swift */; };
+		B94E22AD21E1D79600DD2214 /* HXRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22A921E1D79600DD2214 /* HXRepresentation.swift */; };
+		B94E22AE21E1D79600DD2214 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22AA21E1D79600DD2214 /* Utilities.swift */; };
+		B94E22AF21E1D79600DD2214 /* HXCachingWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22AB21E1D79600DD2214 /* HXCachingWrapper.swift */; };
+		B94E22CB21E1D7BA00DD2214 /* HXDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22B121E1D7BA00DD2214 /* HXDownloadManager.swift */; };
+		B94E22CC21E1D7BA00DD2214 /* HXDownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22B221E1D7BA00DD2214 /* HXDownloadTask.swift */; };
+		B94E22CD21E1D7BA00DD2214 /* HXDownloadJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22B321E1D7BA00DD2214 /* HXDownloadJob.swift */; };
+		B94E22CE21E1D7BA00DD2214 /* HXStorageDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22B521E1D7BA00DD2214 /* HXStorageDomain.swift */; };
+		B94E22CF21E1D7BA00DD2214 /* HXStorageManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B94E22B621E1D7BA00DD2214 /* HXStorageManager.xcdatamodeld */; };
+		B94E22D021E1D7BA00DD2214 /* HXStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22B821E1D7BA00DD2214 /* HXStorageManager.swift */; };
+		B94E22D121E1D7BA00DD2214 /* HXLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22BA21E1D7BA00DD2214 /* HXLogger.swift */; };
+		B94E22D221E1D7BA00DD2214 /* HXThreadContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22BB21E1D7BA00DD2214 /* HXThreadContext.swift */; };
+		B94E22D321E1D7BA00DD2214 /* HXTypeContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22BC21E1D7BA00DD2214 /* HXTypeContext.swift */; };
+		B94E22D421E1D7BA00DD2214 /* HXLoggingChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22BD21E1D7BA00DD2214 /* HXLoggingChannel.swift */; };
+		B94E22D521E1D7BA00DD2214 /* HXInstanceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22BE21E1D7BA00DD2214 /* HXInstanceContext.swift */; };
+		B94E22D621E1D7BA00DD2214 /* HXLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22BF21E1D7BA00DD2214 /* HXLog.swift */; };
+		B94E22D721E1D7BA00DD2214 /* HXLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22C021E1D7BA00DD2214 /* HXLogging.swift */; };
+		B94E22D821E1D7BA00DD2214 /* HXLoggingCovers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22C121E1D7BA00DD2214 /* HXLoggingCovers.swift */; };
+		B94E22D921E1D7BA00DD2214 /* HXLoggingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22C221E1D7BA00DD2214 /* HXLoggingExtensions.swift */; };
+		B94E22DA21E1D7BA00DD2214 /* HXFileHandleLoggingChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22C321E1D7BA00DD2214 /* HXFileHandleLoggingChannel.swift */; };
+		B94E22DB21E1D7BA00DD2214 /* HXImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22C521E1D7BA00DD2214 /* HXImageManager.swift */; };
+		B94E22DD21E1D7BA00DD2214 /* HXImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22C721E1D7BA00DD2214 /* HXImageButton.swift */; };
+		B94E22DE21E1D7BA00DD2214 /* HXImageJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22C821E1D7BA00DD2214 /* HXImageJob.swift */; };
+		B94E22DF21E1D7BA00DD2214 /* HXImageTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22C921E1D7BA00DD2214 /* HXImageTask.swift */; };
+		B94E22E021E1D7BA00DD2214 /* HXImageSizingDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22CA21E1D7BA00DD2214 /* HXImageSizingDescriptor.swift */; };
+		B94E22E321E1D7CA00DD2214 /* HXSynchronousObserverEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22E121E1D7CA00DD2214 /* HXSynchronousObserverEntry.swift */; };
+		B94E22E421E1D7CA00DD2214 /* HXSynchronousObserverCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22E221E1D7CA00DD2214 /* HXSynchronousObserverCenter.swift */; };
+		B94E22E921E1D8B900DD2214 /* NSAttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22E521E1D8B900DD2214 /* NSAttributedStringExtensions.swift */; };
+		B94E22EA21E1D8B900DD2214 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22E621E1D8B900DD2214 /* DictionaryExtensions.swift */; };
+		B94E22EB21E1D8B900DD2214 /* NSObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22E721E1D8B900DD2214 /* NSObjectExtensions.swift */; };
+		B94E22EC21E1D8B900DD2214 /* HXTimeIntervalFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22E821E1D8B900DD2214 /* HXTimeIntervalFormatter.swift */; };
+		B94E22EE21E1D9BB00DD2214 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22ED21E1D9BB00DD2214 /* UtilityFunctions.swift */; };
+		B94E22F121E1DA1500DD2214 /* DispatchQueueExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E22F021E1DA1500DD2214 /* DispatchQueueExtensions.swift */; };
 		B9518AE620094B020011F072 /* NSEntityDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9518AE520094B020011F072 /* NSEntityDescriptionTests.swift */; };
 		B9518AE82009536C0011F072 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9518AE72009536C0011F072 /* CoreDataTestCase.swift */; };
 		B9518AEA2009561D0011F072 /* NSManagedObjectContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9518AE92009561D0011F072 /* NSManagedObjectContextTests.swift */; };
@@ -21,7 +54,6 @@
 		B97110481FE5E98600F50FF4 /* C.swift in Sources */ = {isa = PBXBuildFile; fileRef = B971102D1FE5E98600F50FF4 /* C.swift */; };
 		B97110491FE5E98600F50FF4 /* FD_utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B971102E1FE5E98600F50FF4 /* FD_utilities.swift */; };
 		B971104B1FE5E98600F50FF4 /* HXManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97110311FE5E98600F50FF4 /* HXManagedObject.swift */; };
-		B971104C1FE5E98600F50FF4 /* HXModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97110321FE5E98600F50FF4 /* HXModelController.swift */; };
 		B971104D1FE5E98600F50FF4 /* NSEntityDescriptionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97110331FE5E98600F50FF4 /* NSEntityDescriptionExtensions.swift */; };
 		B971104E1FE5E98600F50FF4 /* NSManagedObjectContextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97110341FE5E98600F50FF4 /* NSManagedObjectContextExtensions.swift */; };
 		B971104F1FE5E98600F50FF4 /* CGContextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97110361FE5E98600F50FF4 /* CGContextExtensions.swift */; };
@@ -69,6 +101,39 @@
 		B92AE215200030AE0040762A /* HXObserverCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserverCenter.swift; sourceTree = "<group>"; };
 		B92AE216200030AE0040762A /* HXObserverEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserverEntry.swift; sourceTree = "<group>"; };
 		B92AE219200030AE0040762A /* HXObservingExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObservingExtensions.swift; sourceTree = "<group>"; };
+		B94E22A821E1D79600DD2214 /* HXErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXErrors.swift; sourceTree = "<group>"; };
+		B94E22A921E1D79600DD2214 /* HXRepresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXRepresentation.swift; sourceTree = "<group>"; };
+		B94E22AA21E1D79600DD2214 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		B94E22AB21E1D79600DD2214 /* HXCachingWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXCachingWrapper.swift; sourceTree = "<group>"; };
+		B94E22B121E1D7BA00DD2214 /* HXDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXDownloadManager.swift; sourceTree = "<group>"; };
+		B94E22B221E1D7BA00DD2214 /* HXDownloadTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXDownloadTask.swift; sourceTree = "<group>"; };
+		B94E22B321E1D7BA00DD2214 /* HXDownloadJob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXDownloadJob.swift; sourceTree = "<group>"; };
+		B94E22B521E1D7BA00DD2214 /* HXStorageDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXStorageDomain.swift; sourceTree = "<group>"; };
+		B94E22B721E1D7BA00DD2214 /* HXResourceManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HXResourceManager.xcdatamodel; sourceTree = "<group>"; };
+		B94E22B821E1D7BA00DD2214 /* HXStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXStorageManager.swift; sourceTree = "<group>"; };
+		B94E22BA21E1D7BA00DD2214 /* HXLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXLogger.swift; sourceTree = "<group>"; };
+		B94E22BB21E1D7BA00DD2214 /* HXThreadContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXThreadContext.swift; sourceTree = "<group>"; };
+		B94E22BC21E1D7BA00DD2214 /* HXTypeContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXTypeContext.swift; sourceTree = "<group>"; };
+		B94E22BD21E1D7BA00DD2214 /* HXLoggingChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXLoggingChannel.swift; sourceTree = "<group>"; };
+		B94E22BE21E1D7BA00DD2214 /* HXInstanceContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXInstanceContext.swift; sourceTree = "<group>"; };
+		B94E22BF21E1D7BA00DD2214 /* HXLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXLog.swift; sourceTree = "<group>"; };
+		B94E22C021E1D7BA00DD2214 /* HXLogging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXLogging.swift; sourceTree = "<group>"; };
+		B94E22C121E1D7BA00DD2214 /* HXLoggingCovers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXLoggingCovers.swift; sourceTree = "<group>"; };
+		B94E22C221E1D7BA00DD2214 /* HXLoggingExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXLoggingExtensions.swift; sourceTree = "<group>"; };
+		B94E22C321E1D7BA00DD2214 /* HXFileHandleLoggingChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXFileHandleLoggingChannel.swift; sourceTree = "<group>"; };
+		B94E22C521E1D7BA00DD2214 /* HXImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXImageManager.swift; sourceTree = "<group>"; };
+		B94E22C721E1D7BA00DD2214 /* HXImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXImageButton.swift; sourceTree = "<group>"; };
+		B94E22C821E1D7BA00DD2214 /* HXImageJob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXImageJob.swift; sourceTree = "<group>"; };
+		B94E22C921E1D7BA00DD2214 /* HXImageTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXImageTask.swift; sourceTree = "<group>"; };
+		B94E22CA21E1D7BA00DD2214 /* HXImageSizingDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXImageSizingDescriptor.swift; sourceTree = "<group>"; };
+		B94E22E121E1D7CA00DD2214 /* HXSynchronousObserverEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXSynchronousObserverEntry.swift; sourceTree = "<group>"; };
+		B94E22E221E1D7CA00DD2214 /* HXSynchronousObserverCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXSynchronousObserverCenter.swift; sourceTree = "<group>"; };
+		B94E22E521E1D8B900DD2214 /* NSAttributedStringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtensions.swift; sourceTree = "<group>"; };
+		B94E22E621E1D8B900DD2214 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
+		B94E22E721E1D8B900DD2214 /* NSObjectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObjectExtensions.swift; sourceTree = "<group>"; };
+		B94E22E821E1D8B900DD2214 /* HXTimeIntervalFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXTimeIntervalFormatter.swift; sourceTree = "<group>"; };
+		B94E22ED21E1D9BB00DD2214 /* UtilityFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
+		B94E22F021E1DA1500DD2214 /* DispatchQueueExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueueExtensions.swift; sourceTree = "<group>"; };
 		B9518AE520094B020011F072 /* NSEntityDescriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSEntityDescriptionTests.swift; sourceTree = "<group>"; };
 		B9518AE72009536C0011F072 /* CoreDataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
 		B9518AE92009561D0011F072 /* NSManagedObjectContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextTests.swift; sourceTree = "<group>"; };
@@ -83,7 +148,6 @@
 		B971102D1FE5E98600F50FF4 /* C.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = C.swift; sourceTree = "<group>"; };
 		B971102E1FE5E98600F50FF4 /* FD_utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FD_utilities.swift; sourceTree = "<group>"; };
 		B97110311FE5E98600F50FF4 /* HXManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXManagedObject.swift; sourceTree = "<group>"; };
-		B97110321FE5E98600F50FF4 /* HXModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXModelController.swift; sourceTree = "<group>"; };
 		B97110331FE5E98600F50FF4 /* NSEntityDescriptionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSEntityDescriptionExtensions.swift; sourceTree = "<group>"; };
 		B97110341FE5E98600F50FF4 /* NSManagedObjectContextExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextExtensions.swift; sourceTree = "<group>"; };
 		B97110361FE5E98600F50FF4 /* CGContextExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGContextExtensions.swift; sourceTree = "<group>"; };
@@ -141,9 +205,68 @@
 			children = (
 				B92AE215200030AE0040762A /* HXObserverCenter.swift */,
 				B92AE216200030AE0040762A /* HXObserverEntry.swift */,
+				B94E22E221E1D7CA00DD2214 /* HXSynchronousObserverCenter.swift */,
+				B94E22E121E1D7CA00DD2214 /* HXSynchronousObserverEntry.swift */,
 				B92AE219200030AE0040762A /* HXObservingExtensions.swift */,
 			);
 			path = Observing;
+			sourceTree = "<group>";
+		};
+		B94E22B021E1D7BA00DD2214 /* DownloadManager */ = {
+			isa = PBXGroup;
+			children = (
+				B94E22B121E1D7BA00DD2214 /* HXDownloadManager.swift */,
+				B94E22B221E1D7BA00DD2214 /* HXDownloadTask.swift */,
+				B94E22B321E1D7BA00DD2214 /* HXDownloadJob.swift */,
+			);
+			path = DownloadManager;
+			sourceTree = "<group>";
+		};
+		B94E22B421E1D7BA00DD2214 /* StorageManager */ = {
+			isa = PBXGroup;
+			children = (
+				B94E22B521E1D7BA00DD2214 /* HXStorageDomain.swift */,
+				B94E22B621E1D7BA00DD2214 /* HXStorageManager.xcdatamodeld */,
+				B94E22B821E1D7BA00DD2214 /* HXStorageManager.swift */,
+			);
+			path = StorageManager;
+			sourceTree = "<group>";
+		};
+		B94E22B921E1D7BA00DD2214 /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				B94E22BA21E1D7BA00DD2214 /* HXLogger.swift */,
+				B94E22BB21E1D7BA00DD2214 /* HXThreadContext.swift */,
+				B94E22BC21E1D7BA00DD2214 /* HXTypeContext.swift */,
+				B94E22BD21E1D7BA00DD2214 /* HXLoggingChannel.swift */,
+				B94E22BE21E1D7BA00DD2214 /* HXInstanceContext.swift */,
+				B94E22BF21E1D7BA00DD2214 /* HXLog.swift */,
+				B94E22C021E1D7BA00DD2214 /* HXLogging.swift */,
+				B94E22C121E1D7BA00DD2214 /* HXLoggingCovers.swift */,
+				B94E22C221E1D7BA00DD2214 /* HXLoggingExtensions.swift */,
+				B94E22C321E1D7BA00DD2214 /* HXFileHandleLoggingChannel.swift */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
+		B94E22C421E1D7BA00DD2214 /* ImageManager */ = {
+			isa = PBXGroup;
+			children = (
+				B94E22C521E1D7BA00DD2214 /* HXImageManager.swift */,
+				B94E22C721E1D7BA00DD2214 /* HXImageButton.swift */,
+				B94E22C821E1D7BA00DD2214 /* HXImageJob.swift */,
+				B94E22C921E1D7BA00DD2214 /* HXImageTask.swift */,
+				B94E22CA21E1D7BA00DD2214 /* HXImageSizingDescriptor.swift */,
+			);
+			path = ImageManager;
+			sourceTree = "<group>";
+		};
+		B94E22EF21E1DA1500DD2214 /* GrandCentralDispatch */ = {
+			isa = PBXGroup;
+			children = (
+				B94E22F021E1DA1500DD2214 /* DispatchQueueExtensions.swift */,
+			);
+			path = GrandCentralDispatch;
 			sourceTree = "<group>";
 		};
 		B96D596D1FE5E887002AE6CE = {
@@ -187,6 +310,7 @@
 		B971102B1FE5E98600F50FF4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B94E22EF21E1DA1500DD2214 /* GrandCentralDispatch */,
 				B971103D1FE5E98600F50FF4 /* hexdreams */,
 				B971103A1FE5E98600F50FF4 /* Foundation */,
 				B97110821FE5ECB900F50FF4 /* AppKit */,
@@ -216,7 +340,6 @@
 			children = (
 				B97110801FE5EB0900F50FF4 /* HXDataController.swift */,
 				B97110311FE5E98600F50FF4 /* HXManagedObject.swift */,
-				B97110321FE5E98600F50FF4 /* HXModelController.swift */,
 				B97110331FE5E98600F50FF4 /* NSEntityDescriptionExtensions.swift */,
 				B97110341FE5E98600F50FF4 /* NSManagedObjectContextExtensions.swift */,
 			);
@@ -237,6 +360,10 @@
 		B971103A1FE5E98600F50FF4 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				B94E22E621E1D8B900DD2214 /* DictionaryExtensions.swift */,
+				B94E22E821E1D8B900DD2214 /* HXTimeIntervalFormatter.swift */,
+				B94E22E521E1D8B900DD2214 /* NSAttributedStringExtensions.swift */,
+				B94E22E721E1D8B900DD2214 /* NSObjectExtensions.swift */,
 				B971103B1FE5E98600F50FF4 /* DateExtensions.swift */,
 				B971103C1FE5E98600F50FF4 /* NSSortDescriptorExtensions.swift */,
 			);
@@ -246,10 +373,18 @@
 		B971103D1FE5E98600F50FF4 /* hexdreams */ = {
 			isa = PBXGroup;
 			children = (
+				B94E22AB21E1D79600DD2214 /* HXCachingWrapper.swift */,
+				B94E22A821E1D79600DD2214 /* HXErrors.swift */,
+				B94E22A921E1D79600DD2214 /* HXRepresentation.swift */,
+				B94E22AA21E1D79600DD2214 /* Utilities.swift */,
 				B971103F1FE5E98600F50FF4 /* hexdreams.swift */,
 				B97110851FE5EE1A00F50FF4 /* HXApplication.swift */,
 				B971103E1FE5E98600F50FF4 /* CommandLineInterface.swift */,
 				B92AE213200030AE0040762A /* Observing */,
+				B94E22B021E1D7BA00DD2214 /* DownloadManager */,
+				B94E22C421E1D7BA00DD2214 /* ImageManager */,
+				B94E22B921E1D7BA00DD2214 /* Logging */,
+				B94E22B421E1D7BA00DD2214 /* StorageManager */,
 			);
 			path = hexdreams;
 			sourceTree = "<group>";
@@ -268,6 +403,7 @@
 				B97110431FE5E98600F50FF4 /* ArrayExtensions.swift */,
 				B97110441FE5E98600F50FF4 /* StringExtensions.swift */,
 				B9D60F0B2012E9F4009039DE /* OptionalExtensions.swift */,
+				B94E22ED21E1D9BB00DD2214 /* UtilityFunctions.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -410,15 +546,17 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "PepperDog Enterprises";
 				TargetAttributes = {
 					B96D59761FE5E887002AE6CE = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 					B96D597F1FE5E887002AE6CE = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -464,30 +602,62 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B94E22D621E1D7BA00DD2214 /* HXLog.swift in Sources */,
+				B94E22CC21E1D7BA00DD2214 /* HXDownloadTask.swift in Sources */,
+				B94E22DA21E1D7BA00DD2214 /* HXFileHandleLoggingChannel.swift in Sources */,
 				B97110541FE5E98600F50FF4 /* NSSortDescriptorExtensions.swift in Sources */,
+				B94E22E421E1D7CA00DD2214 /* HXSynchronousObserverCenter.swift in Sources */,
+				B94E22D721E1D7BA00DD2214 /* HXLogging.swift in Sources */,
+				B94E22CD21E1D7BA00DD2214 /* HXDownloadJob.swift in Sources */,
+				B94E22D021E1D7BA00DD2214 /* HXStorageManager.swift in Sources */,
 				B97110521FE5E98600F50FF4 /* CGSizeExtensions.swift in Sources */,
+				B94E22AD21E1D79600DD2214 /* HXRepresentation.swift in Sources */,
+				B94E22DD21E1D7BA00DD2214 /* HXImageButton.swift in Sources */,
+				B94E22D521E1D7BA00DD2214 /* HXInstanceContext.swift in Sources */,
 				B971104D1FE5E98600F50FF4 /* NSEntityDescriptionExtensions.swift in Sources */,
 				B971104E1FE5E98600F50FF4 /* NSManagedObjectContextExtensions.swift in Sources */,
 				B97110561FE5E98600F50FF4 /* hexdreams.swift in Sources */,
+				B94E22E921E1D8B900DD2214 /* NSAttributedStringExtensions.swift in Sources */,
 				B92AE21F200030AE0040762A /* HXObservingExtensions.swift in Sources */,
+				B94E22D321E1D7BA00DD2214 /* HXTypeContext.swift in Sources */,
 				B971104B1FE5E98600F50FF4 /* HXManagedObject.swift in Sources */,
 				B971104F1FE5E98600F50FF4 /* CGContextExtensions.swift in Sources */,
+				B94E22DB21E1D7BA00DD2214 /* HXImageManager.swift in Sources */,
 				B92AE21C200030AE0040762A /* HXObserverEntry.swift in Sources */,
 				B97110531FE5E98600F50FF4 /* DateExtensions.swift in Sources */,
+				B94E22AF21E1D79600DD2214 /* HXCachingWrapper.swift in Sources */,
+				B94E22E321E1D7CA00DD2214 /* HXSynchronousObserverEntry.swift in Sources */,
 				B97110861FE5EE1A00F50FF4 /* HXApplication.swift in Sources */,
-				B971104C1FE5E98600F50FF4 /* HXModelController.swift in Sources */,
 				B9518AF1201039700011F072 /* statfs.swift in Sources */,
+				B94E22D221E1D7BA00DD2214 /* HXThreadContext.swift in Sources */,
+				B94E22DE21E1D7BA00DD2214 /* HXImageJob.swift in Sources */,
+				B94E22EA21E1D8B900DD2214 /* DictionaryExtensions.swift in Sources */,
 				B97110551FE5E98600F50FF4 /* CommandLineInterface.swift in Sources */,
 				B97110581FE5E98600F50FF4 /* ArrayExtensions.swift in Sources */,
+				B94E22AE21E1D79600DD2214 /* Utilities.swift in Sources */,
 				B92AE21B200030AE0040762A /* HXObserverCenter.swift in Sources */,
+				B94E22CF21E1D7BA00DD2214 /* HXStorageManager.xcdatamodeld in Sources */,
+				B94E22D821E1D7BA00DD2214 /* HXLoggingCovers.swift in Sources */,
+				B94E22D121E1D7BA00DD2214 /* HXLogger.swift in Sources */,
+				B94E22D421E1D7BA00DD2214 /* HXLoggingChannel.swift in Sources */,
+				B94E22AC21E1D79600DD2214 /* HXErrors.swift in Sources */,
+				B94E22F121E1DA1500DD2214 /* DispatchQueueExtensions.swift in Sources */,
+				B94E22EC21E1D8B900DD2214 /* HXTimeIntervalFormatter.swift in Sources */,
+				B94E22E021E1D7BA00DD2214 /* HXImageSizingDescriptor.swift in Sources */,
 				B97110591FE5E98600F50FF4 /* StringExtensions.swift in Sources */,
+				B94E22CB21E1D7BA00DD2214 /* HXDownloadManager.swift in Sources */,
 				B97110491FE5E98600F50FF4 /* FD_utilities.swift in Sources */,
 				B9D60F0C2012E9F4009039DE /* OptionalExtensions.swift in Sources */,
 				B9518AEF2010310A0011F072 /* CString.swift in Sources */,
+				B94E22EB21E1D8B900DD2214 /* NSObjectExtensions.swift in Sources */,
 				B97110511FE5E98600F50FF4 /* CGRectExtensions.swift in Sources */,
 				B97110501FE5E98600F50FF4 /* CGPointExtensions.swift in Sources */,
 				B97110811FE5EB0900F50FF4 /* HXDataController.swift in Sources */,
+				B94E22D921E1D7BA00DD2214 /* HXLoggingExtensions.swift in Sources */,
+				B94E22CE21E1D7BA00DD2214 /* HXStorageDomain.swift in Sources */,
+				B94E22DF21E1D7BA00DD2214 /* HXImageTask.swift in Sources */,
 				B97110571FE5E98600F50FF4 /* HXMatrix.swift in Sources */,
+				B94E22EE21E1D9BB00DD2214 /* UtilityFunctions.swift in Sources */,
 				B97110481FE5E98600F50FF4 /* C.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -542,6 +712,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -549,6 +720,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -577,7 +749,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -602,6 +774,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -609,6 +782,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -631,7 +805,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -655,10 +829,11 @@
 				INFOPLIST_FILE = hexdreamsCocoa/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pepperdog.hexdreamsCocoa;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -677,10 +852,11 @@
 				INFOPLIST_FILE = hexdreamsCocoa/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pepperdog.hexdreamsCocoa;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -695,7 +871,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pepperdog.hexdreamsCocoaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -710,7 +886,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pepperdog.hexdreamsCocoaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -747,6 +923,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		B94E22B621E1D7BA00DD2214 /* HXStorageManager.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B94E22B721E1D7BA00DD2214 /* HXResourceManager.xcdatamodel */,
+			);
+			currentVersion = B94E22B721E1D7BA00DD2214 /* HXResourceManager.xcdatamodel */;
+			path = HXStorageManager.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		B97110681FE5E9A500F50FF4 /* hexdreams.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
