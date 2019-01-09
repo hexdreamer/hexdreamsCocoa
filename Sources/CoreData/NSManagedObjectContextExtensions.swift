@@ -9,7 +9,7 @@ import CoreData
 
 public extension NSManagedObjectContext {
 
-    public func hxFetch<T:NSManagedObject> (
+    func hxFetch<T:NSManagedObject> (
         entity:T.Type,
         predicate             :NSPredicate? = nil,
         sortString            :String? = nil,
@@ -35,7 +35,7 @@ public extension NSManagedObjectContext {
         }
     }
     
-    public func hxFetch<T:NSManagedObject> (
+    func hxFetch<T:NSManagedObject> (
         entity:T.Type,
         predicate             :NSPredicate? = nil,
         sortString            :String? = nil,
@@ -63,7 +63,7 @@ public extension NSManagedObjectContext {
     }
     
     // Add this one so we can do trailing closures
-    public func hxFetch<T:NSManagedObject> (
+    func hxFetch<T:NSManagedObject> (
         entity:T.Type,
         completionBlock:@escaping (NSAsynchronousFetchResult<T>)->Void
         )
@@ -71,7 +71,7 @@ public extension NSManagedObjectContext {
         self.hxFetch(entity:entity, predicate:nil, sortString:nil, returnFaults:false, completion:completionBlock)
     }
     
-    @inlinable public func hxPerform(_ block:@escaping (NSManagedObjectContext)throws->Void, hxCatch:@escaping (Error)->Void) {
+    @inlinable func hxPerform(_ block:@escaping (NSManagedObjectContext)throws->Void, hxCatch:@escaping (Error)->Void) {
         self.perform {
             do {
                 try block(self)
@@ -117,7 +117,7 @@ public extension NSManagedObjectContext {
         }
     }
 
-    @inlinable public func hxTranslate<T:NSManagedObject>(foreignObject:T) throws -> T {
+    @inlinable func hxTranslate<T:NSManagedObject>(foreignObject:T) throws -> T {
         let local = self.object(with:foreignObject.objectID)
         guard let typedLocal = local as? T else {
             throw HXErrors.general(.info(self,"Could not cast \(local) to \(T.self)"))
@@ -125,11 +125,11 @@ public extension NSManagedObjectContext {
         return typedLocal
     }
 
-    @inlinable public func hxTranslate<T:NSManagedObject>(foreignObjects:[T]) throws -> [T] {
+    @inlinable func hxTranslate<T:NSManagedObject>(foreignObjects:[T]) throws -> [T] {
         return try foreignObjects.map { try self.hxTranslate(foreignObject:$0) }
     }
     
-    @inlinable public func hxTranslate<T:NSManagedObject>(objectID:NSManagedObjectID, entity:T.Type) throws -> T {
+    @inlinable func hxTranslate<T:NSManagedObject>(objectID:NSManagedObjectID, entity:T.Type) throws -> T {
         let local = self.object(with:objectID)
         guard let typedLocal = local as? T else {
             throw HXErrors.general(.info(self,"Could not cast \(local) to \(T.self)"))
@@ -137,7 +137,7 @@ public extension NSManagedObjectContext {
         return typedLocal
     }
     
-    @inlinable public func hxTranslate<T:NSManagedObject>(objectIDs:[NSManagedObjectID], entity:T.Type) throws -> [T] {
+    @inlinable func hxTranslate<T:NSManagedObject>(objectIDs:[NSManagedObjectID], entity:T.Type) throws -> [T] {
         return try objectIDs.map {try self.hxTranslate(objectID:$0, entity:entity)}
     }
 }

@@ -17,7 +17,7 @@ public extension Date {
         return cal
     }
     
-    public static let GMT = Date._createGMTTimeZone()
+    static let GMT = Date._createGMTTimeZone()
     private static func _createGMTTimeZone() -> TimeZone {
         guard let TimeZone = TimeZone(abbreviation:"GMT") else {
             fatalError("Could not create GMT time zone")
@@ -25,7 +25,7 @@ public extension Date {
         return TimeZone
     }
 
-    public static func GMTFormatter(timeZone:TimeZone, showTimeZone:Bool) -> DateFormatter {
+    static func GMTFormatter(timeZone:TimeZone, showTimeZone:Bool) -> DateFormatter {
         let formatter = DateFormatter()
         formatter.formatterBehavior = .behavior10_4
         if showTimeZone {
@@ -37,7 +37,7 @@ public extension Date {
         return formatter
     }
     
-    public static func rfc3339Formatter() -> DateFormatter {
+    static func rfc3339Formatter() -> DateFormatter {
         let formatter = DateFormatter()
         formatter.formatterBehavior = .behavior10_4
         formatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
@@ -47,7 +47,7 @@ public extension Date {
     }
     
     // MARK: Creating New Dates
-    public static func dateWith(year:Int, month:Int, day:Int, hour:Int, minute:Int, second:Int, timeZone:TimeZone) -> Date? {
+    static func dateWith(year:Int, month:Int, day:Int, hour:Int, minute:Int, second:Int, timeZone:TimeZone) -> Date? {
         var cal = Calendar(identifier:.gregorian)
         cal.timeZone = timeZone
         var components = DateComponents()
@@ -61,7 +61,7 @@ public extension Date {
     }
     
     // MARK: Deriving New Dates
-    public func dateByAdding(years:Int, months:Int, days:Int, hours:Int, minutes:Int, seconds:Int) throws -> Date? {
+    func dateByAdding(years:Int, months:Int, days:Int, hours:Int, minutes:Int, seconds:Int) throws -> Date? {
         let cal = Calendar(identifier:.gregorian)
         var components = cal.dateComponents([.year, .month, .day, .hour, .minute, .second], from:self)
         
@@ -81,7 +81,7 @@ public extension Date {
         return cal.date(from: components)
     }
     
-    public func beginningOfDay(timeZone:TimeZone) -> Date {
+    func beginningOfDay(timeZone:TimeZone) -> Date {
         var cal = Calendar(identifier:.gregorian)
         cal.timeZone = timeZone
         let components = cal.dateComponents([.year, .month, .day], from:self)
@@ -91,7 +91,7 @@ public extension Date {
         return beginningOfDay
     }
     
-    public func endOfDay(timeZone:TimeZone) -> Date {
+    func endOfDay(timeZone:TimeZone) -> Date {
         var cal = Calendar(identifier:.gregorian)
         cal.timeZone = timeZone
         var components = cal.dateComponents([.year, .month, .day], from:self)
@@ -105,27 +105,27 @@ public extension Date {
     }
             
     // MARK: Comparing Dates
-    public func equalTo(other :Date) -> Bool  {
+    func equalTo(other :Date) -> Bool  {
         return self.compare(other) == .orderedSame
     }
     
-    public func greaterThan(other :Date) -> Bool  {
+    func greaterThan(other :Date) -> Bool  {
         return self.compare(other) == .orderedDescending
     }
 
-    public func greaterThanOrEqualTo(other :Date) -> Bool  {
+    func greaterThanOrEqualTo(other :Date) -> Bool  {
         return self.compare(other) != .orderedAscending
     }
 
-    public func lessThan(other :Date) -> Bool  {
+    func lessThan(other :Date) -> Bool  {
         return self.compare(other) == .orderedAscending
     }
 
-    public func lessThanOrEqualTo(other :Date) -> Bool  {
+    func lessThanOrEqualTo(other :Date) -> Bool  {
         return self.compare(other) != .orderedDescending
     }
 
-    public func sameDayAs(other :Date) -> Bool {
+    func sameDayAs(other :Date) -> Bool {
         let me = Date.defaultCalendar.dateComponents([.year,.month,.day], from:self)
         let yu = Date.defaultCalendar.dateComponents([.year,.month,.day], from:other)
         return (me.year == yu.year && me.month == yu.month && me.day == yu.day);

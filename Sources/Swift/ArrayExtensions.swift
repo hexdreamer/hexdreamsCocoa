@@ -5,7 +5,7 @@
 
 public extension Array {
 
-    public func mapDict<Key> (
+    func mapDict<Key> (
                     _ getter: (_ element: Element) -> Key?
                 ) throws
                 -> Dictionary<Key,Element>
@@ -22,7 +22,7 @@ public extension Array {
     }
     
     // Have this non-throwing version of mapDict because the compiler is too dumb to figure out the fully generalized version without a lot of help from the calling end. (See testMapDictWithHandler)
-    public func mapDictNT<Key> (
+    func mapDictNT<Key> (
                     _ getter: (_ element: Element) -> Key?
                 )
                 -> Dictionary<Key,Element>
@@ -34,7 +34,7 @@ public extension Array {
         })
     }
     
-    public func mapDict<Key> (
+    func mapDict<Key> (
                     _ getter:  (_ element: Element) -> Key?,
                     _ handler: ((_ element: Element) -> Bool)?
                 )
@@ -60,7 +60,7 @@ public extension Array {
     // May want to replace this with Swift's own private function:
     // https://lists.swift.org/pipermail/swift-users/Week-of-Mon-20160815/002957.html
     // https://github.com/apple/swift/blob/dfc3933a05264c0c19f7cd43ea0dca351f53ed48/stdlib/private/SwiftPrivate/SwiftPrivate.swift#L68
-    public func cStringArray ()
+    func cStringArray ()
                 throws
                 -> ArrayBridge<Element,CChar> {
         return try ArrayBridge<Element,CChar>(array:self) {

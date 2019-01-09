@@ -5,7 +5,7 @@
 
 public extension StringProtocol where Index == String.Index {
     
-    public var hxlastPathComponent:Self.SubSequence {
+    var hxlastPathComponent:Self.SubSequence {
         if let lastSlash = self.lastIndex(of:"/") {
             return self[self.index(after:lastSlash)..<self.endIndex]
         } else {
@@ -13,7 +13,7 @@ public extension StringProtocol where Index == String.Index {
         }
     }
 
-    public func split<T:StringProtocol>(pattern:T) -> [Self.SubSequence]  {
+    func split<T:StringProtocol>(pattern:T) -> [Self.SubSequence]  {
         var results = [Self.SubSequence]()
         var remainingRange = self.startIndex..<self.endIndex
         while let matchRange = self.range(of:pattern, options:.regularExpression, range:remainingRange) {
@@ -24,7 +24,7 @@ public extension StringProtocol where Index == String.Index {
         return results
     }
     
-    public func head(_ count:Int) -> Self.SubSequence {
+    func head(_ count:Int) -> Self.SubSequence {
         var headRange = self.startIndex..<self.endIndex
         var remainingRange = self.startIndex..<self.endIndex
         var lines = 0
@@ -46,7 +46,7 @@ public extension StringProtocol where Index == String.Index {
      #strippedOf(prefix:)
      If the prefix exists on the string, then it is stripped, and the remainder is returned. If the prefix does not exist, returns nil
      */
-    public func hxexcluding<T:StringProtocol>(prefix:T) -> Self.SubSequence {
+    func hxexcluding<T:StringProtocol>(prefix:T) -> Self.SubSequence {
         if let prefixRange = self.range(of:prefix) {
             if prefixRange.lowerBound == self.startIndex {
                 return self[prefixRange.upperBound...]
@@ -59,7 +59,7 @@ public extension StringProtocol where Index == String.Index {
      #strippedOf(suffix:)
      If the suffix exists on the string, then it is stripped, and the remainder is returned. If the suffix does not exist, returns nil
      */
-    public func hxexcluding<T:StringProtocol>(suffix:T) -> Self.SubSequence {
+    func hxexcluding<T:StringProtocol>(suffix:T) -> Self.SubSequence {
         if let suffixRange = self.range(of:suffix) {
             if suffixRange.upperBound == self.endIndex {
                 return self[..<suffixRange.lowerBound]
@@ -68,7 +68,7 @@ public extension StringProtocol where Index == String.Index {
         return self[self.startIndex..<self.endIndex]
     }
     
-    public func hxexcluding<T:StringProtocol>(fixes:T) -> Self.SubSequence {
+    func hxexcluding<T:StringProtocol>(fixes:T) -> Self.SubSequence {
         if let prefixRange = self.range(of:fixes) {
             if prefixRange.lowerBound == self.startIndex {
                 let remainingRange = prefixRange.upperBound..<self.endIndex;
@@ -95,7 +95,7 @@ public extension StringProtocol where Index == String.Index {
         return self + String(repeating: " ", count: width - count)
     }
     
-    public func htmlFlattened() -> String {
+    func htmlFlattened() -> String {
         fatalError("Not implemented")
     }
     

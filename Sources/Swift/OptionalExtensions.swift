@@ -9,7 +9,7 @@
 // Requires Swift 4.1 or higher - conditional conformances
 
 public extension Optional where Wrapped == Bool {
-    public var boolValue:Bool {
+    var boolValue:Bool {
         guard let val = self else {
             return false
         }
@@ -18,7 +18,7 @@ public extension Optional where Wrapped == Bool {
 }
 
 public extension Optional where Wrapped == NSNumber {
-    public var boolValue:Bool {
+    var boolValue:Bool {
         guard let val = self else {
             return false
         }

@@ -75,7 +75,7 @@ public extension Dictionary {
         fatalError("Could not coerce \(val) to Bool NSNumber")
     }
     
-    static public var jsonDateFormatter:DateFormatter {
+    static var jsonDateFormatter:DateFormatter {
         get {return _jsonDateFormatter}
         set {_jsonDateFormatter = newValue}
     }

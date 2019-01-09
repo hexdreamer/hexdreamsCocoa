@@ -118,7 +118,7 @@ public protocol HXErrorHandler:AnyObject {
 }
 
 public extension Error {
-    public var consoleDescription:String {
+    var consoleDescription:String {
         guard let error = self as? HXErrors else {
             return String(describing:self)
         }

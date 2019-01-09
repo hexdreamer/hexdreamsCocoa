@@ -35,7 +35,7 @@
 
 public extension statfs {
     
-    public enum FSType:Int64 {
+    enum FSType:Int64 {
         case hfs = 23
         case autofs = 25
         case afpfs = 27
