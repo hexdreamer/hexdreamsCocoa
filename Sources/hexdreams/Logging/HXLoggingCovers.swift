@@ -1,10 +1,7 @@
-//
-//  HXLoggingCovers.swift
-//  hexdreamsCocoa
-//
-//  Created by Kenny Leung on 1/5/19.
-//  Copyright © 2019 hexdreams. All rights reserved.
-//
+// hexdreamsCocoa
+// HXLoggingCovers.swift
+// Copyright © 2019 Kenny Leung
+// This code is PUBLIC DOMAIN
 
 func hxloggingIsEnabled(level:HXLog.Level) -> Bool {
     return true
@@ -26,7 +23,7 @@ func hxlog(
     level:HXLog.Level,
     function:String, file:String, line:Int,
     callStackReturnAddresses:[NSNumber],
-    message:String? = nil, variables:[String:Any?]? = nil,
+    message:String? = nil, variables:[String:Any?]? = nil, error:Error? = nil,
     messageTime:TimeInterval? = nil, measureTime:TimeInterval? = nil
     ) {
     let thread = Thread.current
@@ -35,7 +32,7 @@ func hxlog(
                         function:function, file:file, line:line,
                         callStackReturnAddresses:callStackReturnAddresses,
                         callingType:nil, callingInstance:nil,
-                        message:message, variables:variables,
+                        message:message, variables:variables, error:error,
                         messageTime:messageTime, measureTime:measureTime,
                         threadVariables:threadContext.threadVariables,
                         typeVariables:nil,
@@ -191,6 +188,7 @@ public func hxwarn(
 public func hxerror(
     _ messageClosure:@autoclosure () throws -> String?,
     _ variables:[String:Any?]? = nil,
+    _ error:Error? = nil,
     function:String = #function, file:String = #file, line:Int = #line,
     callStackReturnAddresses:[NSNumber] = Thread.callStackReturnAddresses
     ) rethrows
@@ -206,6 +204,6 @@ public func hxerror(
     hxlog(level:.error,
           function:function, file:file, line:line,
           callStackReturnAddresses:callStackReturnAddresses,
-          message:message, variables:variables,
+          message:message, variables:variables, error:error,
           messageTime:messageTime)
 }

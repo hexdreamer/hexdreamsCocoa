@@ -1,10 +1,7 @@
-//
-//  HXLog.swift
-//  hexdreamsCocoa
-//
-//  Created by Kenny Leung on 1/2/19.
-//  Copyright © 2019 hexdreams. All rights reserved.
-//
+// hexdreamsCocoa
+// HXLog.swift
+// Copyright © 2019 Kenny Leung
+// This code is PUBLIC DOMAIN
 
 import Foundation
 
@@ -34,6 +31,7 @@ public class HXLog {
     
     let message:String?
     let variables:[String:Any?]?
+    let error:Error?
     let messageTime:TimeInterval?
     let measureTime:TimeInterval?
     
@@ -49,7 +47,7 @@ public class HXLog {
         function:String, file:String, line:Int,
         callStackReturnAddresses:[NSNumber],
         callingType:String? = nil, callingInstance:UnsafeMutableRawPointer? = nil,
-        message:String? = nil, variables:[String:Any?]? = nil,
+        message:String? = nil, variables:[String:Any?]? = nil, error:Error? = nil,
         messageTime:TimeInterval? = nil, measureTime:TimeInterval? = nil,
         threadVariables:[String:Any?]?, typeVariables:[String:Any?]?, instanceVariables:[String:Any?]?
         )
@@ -69,6 +67,7 @@ public class HXLog {
         
         self.message = message
         self.variables = variables
+        self.error = error
         self.messageTime = messageTime
         self.measureTime = measureTime
 
@@ -76,7 +75,7 @@ public class HXLog {
         self.typeVariables = typeVariables
         self.instanceVariables = instanceVariables
     }
-
+    
     static let dateFormatter:DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -158,4 +157,48 @@ public class HXLog {
         return count
     }
     
+    var propertyList:[String:Any?] {
+        let dict:[String:Any?] = [
+            "timestamp"               : self.timestampString,
+            "threadIdentifier"        : self.threadIdentifier,
+            "threadName"              : self.threadName,
+            
+            "level"                   : self.level,
+            "function"                : self.function,
+            "file"                    : self.file,
+            "line"                    : self.line,
+            "callStackReturnAddresses": self.callStackReturnAddresses,
+            
+            "callingType"             : self.callingType,
+            "callingInstance"         : self.callingInstance,
+            
+            "message"                 : self.message,
+            "variables"               : self.variables,
+            "error"                   : self.error,
+            "messageTime"             : self.messageTime.flatMap{$0 * 1E9},
+            "measureTime"             : self.measureTime.flatMap{$0 * 1E9},
+            
+            "threadVariables"         : self.threadVariables,
+            "typeVariables"           : self.typeVariables,
+            "instanceVariables"       : self.instanceVariables
+        ]
+        
+        /*
+        print("Swift:\(dict)\n")
+        
+        do {
+            guard let plist = hxpropertyList(dict) else {
+                fatalError()
+            }
+            let json = try JSONSerialization.data(withJSONObject:plist, options:[.prettyPrinted, .sortedKeys])
+            let jsonString = String(data:json, encoding:.utf8)
+            print("JSON:\(jsonString ?? "nil")\n")
+        } catch {
+            print("Error!")
+        }
+         */
+        
+        return hxpropertyList(dict:dict)
+    }
+
 }

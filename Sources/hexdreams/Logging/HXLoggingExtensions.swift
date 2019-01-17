@@ -190,6 +190,7 @@ public extension HXLoggingExtensions where Self:AnyObject {
     func hxerror(
         _ messageClosure:@autoclosure () throws -> String?,
         _ variables:[String:Any?]? = nil,
+        _ error:Error? = nil,
         function:String = #function, file:String = #file, line:Int = #line,
         callStackReturnAddresses:[NSNumber] = Thread.callStackReturnAddresses
         ) rethrows

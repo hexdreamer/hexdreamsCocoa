@@ -1,10 +1,7 @@
-//
-//  HXFileHandleLoggingChannel.swift
-//  hexdreamsCocoa
-//
-//  Created by Kenny Leung on 1/4/19.
-//  Copyright © 2019 hexdreams. All rights reserved.
-//
+// hexdreamsCocoa
+// HXFileLoggingChannel.swift
+// Copyright © 2019 Kenny Leung
+// This code is PUBLIC DOMAIN
 
 import Foundation
 
@@ -20,16 +17,22 @@ public class HXFileHandleLoggingChannel : HXLoggingChannel {
         self.filehandle = filehandle
     }
     
-    override func log(_ log:HXLog) {
+    public func log(_ log:HXLog) {
         self.serialize.async {
             self.logs.append(log)
             if !self.flushEnqueued {
                 self.serialize.async {
-                    self.flushEnqueued = false
                     self.flushLogs()
+                    self.flushEnqueued = false
                 }
                 self.flushEnqueued = true
             }
+        }
+    }
+
+    public func addLogs(_ logs:[HXLog]) {
+        self.serialize.async {
+            self.logs.append(contentsOf:logs)
         }
     }
 
@@ -80,7 +83,8 @@ public class HXFileHandleLoggingChannel : HXLoggingChannel {
     }
     
     func renderVariables(_ log:HXLog) -> String {
-        let dicts:[[String:Any?]] = [log.threadVariables, log.typeVariables, log.instanceVariables, log.variables].compactMap {$0}
+        let errorDict:[String:Any?]? = (log.error != nil) ? ["error":log.error] : nil
+        let dicts:[[String:Any?]] = [log.threadVariables, log.typeVariables, log.instanceVariables, log.variables, errorDict].compactMap {$0}
         
         if dicts.count == 0 {
             return ""

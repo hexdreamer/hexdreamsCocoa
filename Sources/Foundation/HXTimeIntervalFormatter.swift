@@ -1,10 +1,7 @@
-//
-//  HXTimeIntervalFormatter.swift
-//  hexdreamsCocoa
-//
-//  Created by Kenny Leung on 1/5/19.
-//  Copyright © 2019 hexdreams. All rights reserved.
-//
+// hexdreamsCocoa
+// HXTimeIntervalFormatter.swift
+// Copyright © 2019 Kenny Leung
+// This code is PUBLIC DOMAIN
 
 import Foundation
 
