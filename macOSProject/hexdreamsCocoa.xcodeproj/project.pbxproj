@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B900FB4621EEBB6500F68774 /* HTTP_1_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB4521EEBB6500F68774 /* HTTP_1_1.swift */; };
+		B900FB4C21F0F29D00F68774 /* HXWebServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB4721F0F29D00F68774 /* HXWebServer.swift */; };
+		B900FB4D21F0F29D00F68774 /* HXWebMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB4821F0F29D00F68774 /* HXWebMessage.swift */; };
+		B900FB4E21F0F29D00F68774 /* HXWebResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB4921F0F29D00F68774 /* HXWebResponse.swift */; };
+		B900FB4F21F0F29D00F68774 /* HXWebRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB4A21F0F29D00F68774 /* HXWebRequestHandler.swift */; };
+		B900FB5021F0F29D00F68774 /* HXWebRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB4B21F0F29D00F68774 /* HXWebRequest.swift */; };
+		B900FB5221F0F39600F68774 /* HXNetworkLoggingChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB5121F0F39600F68774 /* HXNetworkLoggingChannel.swift */; };
+		B900FB5521F0F3F800F68774 /* HXBonjourService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB5321F0F3F800F68774 /* HXBonjourService.swift */; };
+		B900FB5621F0F3F800F68774 /* HXBonjourBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB5421F0F3F800F68774 /* HXBonjourBrowser.swift */; };
+		B900FB5821F0F41E00F68774 /* HXPropertyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB5721F0F41E00F68774 /* HXPropertyList.swift */; };
 		B92AE21B200030AE0040762A /* HXObserverCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE215200030AE0040762A /* HXObserverCenter.swift */; };
 		B92AE21C200030AE0040762A /* HXObserverEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE216200030AE0040762A /* HXObserverEntry.swift */; };
 		B92AE21F200030AE0040762A /* HXObservingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE219200030AE0040762A /* HXObservingExtensions.swift */; };
@@ -98,6 +108,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B900FB4521EEBB6500F68774 /* HTTP_1_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTP_1_1.swift; sourceTree = "<group>"; };
+		B900FB4721F0F29D00F68774 /* HXWebServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXWebServer.swift; sourceTree = "<group>"; };
+		B900FB4821F0F29D00F68774 /* HXWebMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXWebMessage.swift; sourceTree = "<group>"; };
+		B900FB4921F0F29D00F68774 /* HXWebResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXWebResponse.swift; sourceTree = "<group>"; };
+		B900FB4A21F0F29D00F68774 /* HXWebRequestHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXWebRequestHandler.swift; sourceTree = "<group>"; };
+		B900FB4B21F0F29D00F68774 /* HXWebRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXWebRequest.swift; sourceTree = "<group>"; };
+		B900FB5121F0F39600F68774 /* HXNetworkLoggingChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXNetworkLoggingChannel.swift; sourceTree = "<group>"; };
+		B900FB5321F0F3F800F68774 /* HXBonjourService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXBonjourService.swift; sourceTree = "<group>"; };
+		B900FB5421F0F3F800F68774 /* HXBonjourBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXBonjourBrowser.swift; sourceTree = "<group>"; };
+		B900FB5721F0F41E00F68774 /* HXPropertyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXPropertyList.swift; sourceTree = "<group>"; };
 		B92AE215200030AE0040762A /* HXObserverCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserverCenter.swift; sourceTree = "<group>"; };
 		B92AE216200030AE0040762A /* HXObserverEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserverEntry.swift; sourceTree = "<group>"; };
 		B92AE219200030AE0040762A /* HXObservingExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObservingExtensions.swift; sourceTree = "<group>"; };
@@ -200,6 +220,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B900FB4421EEBAD000F68774 /* WebServer */ = {
+			isa = PBXGroup;
+			children = (
+				B900FB4721F0F29D00F68774 /* HXWebServer.swift */,
+				B900FB4821F0F29D00F68774 /* HXWebMessage.swift */,
+				B900FB4B21F0F29D00F68774 /* HXWebRequest.swift */,
+				B900FB4921F0F29D00F68774 /* HXWebResponse.swift */,
+				B900FB4A21F0F29D00F68774 /* HXWebRequestHandler.swift */,
+				B900FB4521EEBB6500F68774 /* HTTP_1_1.swift */,
+			);
+			path = WebServer;
+			sourceTree = "<group>";
+		};
 		B92AE213200030AE0040762A /* Observing */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,16 +268,17 @@
 		B94E22B921E1D7BA00DD2214 /* Logging */ = {
 			isa = PBXGroup;
 			children = (
+				B94E22C021E1D7BA00DD2214 /* HXLogging.swift */,
 				B94E22BA21E1D7BA00DD2214 /* HXLogger.swift */,
+				B94E22BD21E1D7BA00DD2214 /* HXLoggingChannel.swift */,
+				B94E22C321E1D7BA00DD2214 /* HXFileHandleLoggingChannel.swift */,
+				B900FB5121F0F39600F68774 /* HXNetworkLoggingChannel.swift */,
 				B94E22BB21E1D7BA00DD2214 /* HXThreadContext.swift */,
 				B94E22BC21E1D7BA00DD2214 /* HXTypeContext.swift */,
-				B94E22BD21E1D7BA00DD2214 /* HXLoggingChannel.swift */,
 				B94E22BE21E1D7BA00DD2214 /* HXInstanceContext.swift */,
 				B94E22BF21E1D7BA00DD2214 /* HXLog.swift */,
-				B94E22C021E1D7BA00DD2214 /* HXLogging.swift */,
-				B94E22C121E1D7BA00DD2214 /* HXLoggingCovers.swift */,
 				B94E22C221E1D7BA00DD2214 /* HXLoggingExtensions.swift */,
-				B94E22C321E1D7BA00DD2214 /* HXFileHandleLoggingChannel.swift */,
+				B94E22C121E1D7BA00DD2214 /* HXLoggingCovers.swift */,
 			);
 			path = Logging;
 			sourceTree = "<group>";
@@ -313,7 +347,6 @@
 				B94E22EF21E1DA1500DD2214 /* GrandCentralDispatch */,
 				B971103D1FE5E98600F50FF4 /* hexdreams */,
 				B971103A1FE5E98600F50FF4 /* Foundation */,
-				B97110821FE5ECB900F50FF4 /* AppKit */,
 				B97110351FE5E98600F50FF4 /* CoreGraphics */,
 				B971102F1FE5E98600F50FF4 /* CoreData */,
 				B97110401FE5E98600F50FF4 /* Math */,
@@ -366,6 +399,8 @@
 				B94E22E721E1D8B900DD2214 /* NSObjectExtensions.swift */,
 				B971103B1FE5E98600F50FF4 /* DateExtensions.swift */,
 				B971103C1FE5E98600F50FF4 /* NSSortDescriptorExtensions.swift */,
+				B900FB5421F0F3F800F68774 /* HXBonjourBrowser.swift */,
+				B900FB5321F0F3F800F68774 /* HXBonjourService.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -380,11 +415,13 @@
 				B971103F1FE5E98600F50FF4 /* hexdreams.swift */,
 				B97110851FE5EE1A00F50FF4 /* HXApplication.swift */,
 				B971103E1FE5E98600F50FF4 /* CommandLineInterface.swift */,
+				B900FB5721F0F41E00F68774 /* HXPropertyList.swift */,
 				B92AE213200030AE0040762A /* Observing */,
 				B94E22B021E1D7BA00DD2214 /* DownloadManager */,
 				B94E22C421E1D7BA00DD2214 /* ImageManager */,
 				B94E22B921E1D7BA00DD2214 /* Logging */,
 				B94E22B421E1D7BA00DD2214 /* StorageManager */,
+				B900FB4421EEBAD000F68774 /* WebServer */,
 			);
 			path = hexdreams;
 			sourceTree = "<group>";
@@ -480,13 +517,6 @@
 				B97110711FE5E9A500F50FF4 /* StringExtensionsTests.swift */,
 			);
 			path = Swift;
-			sourceTree = "<group>";
-		};
-		B97110821FE5ECB900F50FF4 /* AppKit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AppKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -602,11 +632,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B900FB5021F0F29D00F68774 /* HXWebRequest.swift in Sources */,
 				B94E22D621E1D7BA00DD2214 /* HXLog.swift in Sources */,
+				B900FB5221F0F39600F68774 /* HXNetworkLoggingChannel.swift in Sources */,
 				B94E22CC21E1D7BA00DD2214 /* HXDownloadTask.swift in Sources */,
 				B94E22DA21E1D7BA00DD2214 /* HXFileHandleLoggingChannel.swift in Sources */,
 				B97110541FE5E98600F50FF4 /* NSSortDescriptorExtensions.swift in Sources */,
 				B94E22E421E1D7CA00DD2214 /* HXSynchronousObserverCenter.swift in Sources */,
+				B900FB5821F0F41E00F68774 /* HXPropertyList.swift in Sources */,
 				B94E22D721E1D7BA00DD2214 /* HXLogging.swift in Sources */,
 				B94E22CD21E1D7BA00DD2214 /* HXDownloadJob.swift in Sources */,
 				B94E22D021E1D7BA00DD2214 /* HXStorageManager.swift in Sources */,
@@ -614,10 +647,13 @@
 				B94E22AD21E1D79600DD2214 /* HXRepresentation.swift in Sources */,
 				B94E22DD21E1D7BA00DD2214 /* HXImageButton.swift in Sources */,
 				B94E22D521E1D7BA00DD2214 /* HXInstanceContext.swift in Sources */,
+				B900FB5621F0F3F800F68774 /* HXBonjourBrowser.swift in Sources */,
 				B971104D1FE5E98600F50FF4 /* NSEntityDescriptionExtensions.swift in Sources */,
 				B971104E1FE5E98600F50FF4 /* NSManagedObjectContextExtensions.swift in Sources */,
 				B97110561FE5E98600F50FF4 /* hexdreams.swift in Sources */,
+				B900FB5521F0F3F800F68774 /* HXBonjourService.swift in Sources */,
 				B94E22E921E1D8B900DD2214 /* NSAttributedStringExtensions.swift in Sources */,
+				B900FB4E21F0F29D00F68774 /* HXWebResponse.swift in Sources */,
 				B92AE21F200030AE0040762A /* HXObservingExtensions.swift in Sources */,
 				B94E22D321E1D7BA00DD2214 /* HXTypeContext.swift in Sources */,
 				B971104B1FE5E98600F50FF4 /* HXManagedObject.swift in Sources */,
@@ -626,10 +662,12 @@
 				B92AE21C200030AE0040762A /* HXObserverEntry.swift in Sources */,
 				B97110531FE5E98600F50FF4 /* DateExtensions.swift in Sources */,
 				B94E22AF21E1D79600DD2214 /* HXCachingWrapper.swift in Sources */,
+				B900FB4F21F0F29D00F68774 /* HXWebRequestHandler.swift in Sources */,
 				B94E22E321E1D7CA00DD2214 /* HXSynchronousObserverEntry.swift in Sources */,
 				B97110861FE5EE1A00F50FF4 /* HXApplication.swift in Sources */,
 				B9518AF1201039700011F072 /* statfs.swift in Sources */,
 				B94E22D221E1D7BA00DD2214 /* HXThreadContext.swift in Sources */,
+				B900FB4D21F0F29D00F68774 /* HXWebMessage.swift in Sources */,
 				B94E22DE21E1D7BA00DD2214 /* HXImageJob.swift in Sources */,
 				B94E22EA21E1D8B900DD2214 /* DictionaryExtensions.swift in Sources */,
 				B97110551FE5E98600F50FF4 /* CommandLineInterface.swift in Sources */,
@@ -643,6 +681,7 @@
 				B94E22AC21E1D79600DD2214 /* HXErrors.swift in Sources */,
 				B94E22F121E1DA1500DD2214 /* DispatchQueueExtensions.swift in Sources */,
 				B94E22EC21E1D8B900DD2214 /* HXTimeIntervalFormatter.swift in Sources */,
+				B900FB4C21F0F29D00F68774 /* HXWebServer.swift in Sources */,
 				B94E22E021E1D7BA00DD2214 /* HXImageSizingDescriptor.swift in Sources */,
 				B97110591FE5E98600F50FF4 /* StringExtensions.swift in Sources */,
 				B94E22CB21E1D7BA00DD2214 /* HXDownloadManager.swift in Sources */,
@@ -657,6 +696,7 @@
 				B94E22CE21E1D7BA00DD2214 /* HXStorageDomain.swift in Sources */,
 				B94E22DF21E1D7BA00DD2214 /* HXImageTask.swift in Sources */,
 				B97110571FE5E98600F50FF4 /* HXMatrix.swift in Sources */,
+				B900FB4621EEBB6500F68774 /* HTTP_1_1.swift in Sources */,
 				B94E22EE21E1D9BB00DD2214 /* UtilityFunctions.swift in Sources */,
 				B97110481FE5E98600F50FF4 /* C.swift in Sources */,
 			);
