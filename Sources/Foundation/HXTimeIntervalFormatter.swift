@@ -9,7 +9,7 @@ public class HXTimeIntervalFormatter {
     
     static public func string(from time:TimeInterval) -> String {
         if time < 0.000000001 {
-            return ""
+            return "<1ns"
         } else if time < 0.00000001 {
             return String(format:"%1.2fns", time * 1000000000)
         } else if time < 0.0000001 {

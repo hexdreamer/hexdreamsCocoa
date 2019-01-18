@@ -19,6 +19,7 @@ public enum HXErrors : Error {
     case internalInconsistency(Info)
     case network(Info)
     case cocoa(Info)
+    case web(HTTP_1_1.Status,String)
     
     public var name:String {
         let name:String
@@ -42,6 +43,8 @@ public enum HXErrors : Error {
             name = "network"
         case .cocoa:
             name = "cocoa"
+        case .web(_, _):
+            name = "web"
         }
         
         return name
@@ -144,6 +147,8 @@ public extension Error {
             desc = info.consoleDescription
         case .cocoa(let info):
             desc = info.consoleDescription
+        case .web(_, _):
+            return String(describing:self)
         }
         
         return "\(error.name) at \(desc)"

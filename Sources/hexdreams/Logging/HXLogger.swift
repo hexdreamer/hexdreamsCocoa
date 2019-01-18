@@ -6,6 +6,7 @@
 import Foundation
 
 public class HXLogger {
+    public static var networkLoggingDisabled = false
     static let shared = HXLogger()
 
     private let serialize = DispatchQueue(label:"HXLogger", qos:.default, attributes:[], autoreleaseFrequency:.workItem, target:nil)
@@ -15,12 +16,18 @@ public class HXLogger {
     private var activeChannel:HXLoggingChannel
     var logs = [HXLog]()
     var initializing = true
-    let bonjourBrowser:HXBonjourBrowser
+    var bonjourBrowser:HXBonjourBrowser? = nil
     
     private init() {
         self.activeChannel = self.stderrChannel
-        self.bonjourBrowser = HXBonjourBrowser(type:"_hxlogging._tcp.", domain:"");
-        self.bonjourBrowser.start(queue:self.serialize) {
+        
+        if HXLogger.networkLoggingDisabled {
+            self.initializing = false
+            return
+        }
+        
+        let bonjourBrowser = HXBonjourBrowser(type:"_hxlogging._tcp.", domain:"");
+        bonjourBrowser.start(queue:self.serialize) {
             if $0.services.count > 1 {
                 hxwarn("Found more than one destination to log to. Ignoring.")
             }
@@ -42,9 +49,11 @@ public class HXLogger {
                     self.activeChannel = channel
                     self.logs.removeAll()
                     self.initializing = false
+                    self.bonjourBrowser = nil
                 }
             }
         }
+        self.bonjourBrowser = bonjourBrowser
     }
     
     // This is the master log function. Everyone else winds up calling this.
@@ -60,11 +69,11 @@ public class HXLogger {
     {
         let thread = Thread.current
         let log = HXLog(timestamp:Date(),
-                        threadIdentifier:Unmanaged.passUnretained(thread).toOpaque(), threadName:thread.isMainThread ? "main" : thread.name,
+                        threadIdentifier:"\(Unmanaged.passUnretained(thread).toOpaque())", threadName:thread.isMainThread ? "main" : thread.name,
                         level:level,
                         function:function, file:file, line:line,
                         callStackReturnAddresses:callStackReturnAddresses,
-                        callingType:callingType.flatMap{"\($0)"}, callingInstance:Unmanaged.passUnretained(thread).toOpaque(),
+                        callingType:callingType.flatMap{"\($0)"}, callingInstance:"\(Unmanaged.passUnretained(thread).toOpaque())",
                         message:message, variables:variables, error:error,
                         messageTime:messageTime, measureTime:measureTime,
                         threadVariables:threadVariables, typeVariables:typeVariables, instanceVariables:instanceVariables)
