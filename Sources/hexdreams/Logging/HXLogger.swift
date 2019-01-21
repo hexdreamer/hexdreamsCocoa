@@ -68,7 +68,7 @@ public class HXLogger {
         )
     {
         let thread = Thread.current
-        let log = HXLog(timestamp:Date(),
+        let log = HXLog(timestamp:HXTimestamp(),
                         threadIdentifier:"\(Unmanaged.passUnretained(thread).toOpaque())", threadName:thread.isMainThread ? "main" : thread.name,
                         level:level,
                         function:function, file:file, line:line,

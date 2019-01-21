@@ -32,7 +32,7 @@ public protocol UIViewControllerExtensionData:AnyObject {
 public extension UIViewControllerExtensions where Self:UIViewController, Self:UIViewControllerExtensionData, Self:HXErrorHandler {
     
     // MARK: - New Methods
-    public func success() {
+    func success() {
         if let successCallback = self.successCallback {
             successCallback(self)
         } else if let callback = self.callback {
@@ -43,7 +43,7 @@ public extension UIViewControllerExtensions where Self:UIViewController, Self:UI
         self._clearCallbacks()
     }
     
-    public func failure() {
+    func failure() {
         if let failureCallback = self.failureCallback {
             failureCallback(self)
         } else if let callback = self.callback {
@@ -54,7 +54,7 @@ public extension UIViewControllerExtensions where Self:UIViewController, Self:UI
         self._clearCallbacks()
     }
     
-    public func cancel() {
+    func cancel() {
         if let cancelCallback = self.cancelCallback {
             cancelCallback(self)
         } else if let callback = self.callback {

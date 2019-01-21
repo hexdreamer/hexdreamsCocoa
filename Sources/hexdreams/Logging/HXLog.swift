@@ -63,32 +63,32 @@ public class HXLog {
         }
     }
     
-    let timestamp:Date
-    let threadIdentifier:String
-    let threadName:String?
+    public let timestamp:HXTimestamp
+    public let threadIdentifier:String
+    public let threadName:String?
 
-    let level:Level
-    let function:String
-    let file:String
-    let line:Int
-    let callStackReturnAddresses:[NSNumber]
+    public let level:Level
+    public let function:String
+    public let file:String
+    public let line:Int
+    public let callStackReturnAddresses:[NSNumber]
     
-    let callingType:String?
-    let callingInstance:String?
+    public let callingType:String?
+    public let callingInstance:String?
     
-    let message:String?
-    let variables:[String:Any?]?
-    let error:String?
-    let messageTime:TimeInterval?
-    let measureTime:TimeInterval?
+    public let message:String?
+    public let variables:[String:Any?]?
+    public let error:String?
+    public let messageTime:TimeInterval?
+    public let measureTime:TimeInterval?
     
     // "contextVariables"
-    let threadVariables:[String:Any?]?
-    let typeVariables:[String:Any?]?
-    let instanceVariables:[String:Any?]?
+    public let threadVariables:[String:Any?]?
+    public let typeVariables:[String:Any?]?
+    public let instanceVariables:[String:Any?]?
 
-    init(
-        timestamp:Date,
+    public init(
+        timestamp:HXTimestamp,
         threadIdentifier:String, threadName:String?,
         level:Level,
         function:String, file:String, line:Int,
@@ -114,7 +114,7 @@ public class HXLog {
         
         self.message = message
         self.variables = variables
-        self.error = error?.consoleDescription
+        self.error = error?.hxconsoleDescription
         self.messageTime = messageTime
         self.measureTime = measureTime
 
@@ -123,10 +123,10 @@ public class HXLog {
         self.instanceVariables = instanceVariables
     }
     
-    init?(propertyList dict:NSDictionary) {
+    public init?(propertyList dict:NSDictionary) {
         guard
             let timestampString = dict["timestamp"] as? String,
-            let timestamp = HXLog.dateFromTimestampString(timestampString),
+            let timestamp = HXTimestamp(string:timestampString),
             let threadIdentifier = dict["threadIdentifier"] as? String,
             
             let levelString = dict["level"] as? String,
@@ -135,11 +135,9 @@ public class HXLog {
             let file = dict["file"] as? String,
             let line = dict["line"] as? NSNumber,
             let callStackReturnAddresses = dict["callStackReturnAddresses"] as? [NSNumber]
-            
+            else
+        { return nil }
         
-            else {
-            return nil
-        }
         self.timestamp = timestamp
         self.threadIdentifier = threadIdentifier
         self.threadName = dict["threadName"] as? String
@@ -166,11 +164,11 @@ public class HXLog {
     
     var propertyList:[String:Any?] {
         let dict:[String:Any?] = [
-            "timestamp"               : self.timestampString,
+            "timestamp"               : self.timestamp.initString,
             "threadIdentifier"        : self.threadIdentifier,
             "threadName"              : self.threadName,
             
-            "level"                   : self.level,
+            "level"                   : self.level.stringValue,
             "function"                : self.function,
             "file"                    : self.file,
             "line"                    : self.line,
@@ -191,10 +189,6 @@ public class HXLog {
         ]
         
         return hxpropertyList(dict:dict)
-    }
-    
-    public var timestampString:String {
-        return self.timestampStringFromDate(self.timestamp)
     }
     
     public var threadString:String {
@@ -227,49 +221,5 @@ public class HXLog {
         }
         return count
     }
-    
-    private func timestampStringFromDate(_ date:Date) -> String {
-        let ns = CALENDAR.component(.nanosecond, from:date)
-        var us = ns / 1000
-        let ms = us / 1000
-        
-        var mspadding:String
-        if ms < 10 {
-            mspadding = "00"
-        } else if ms < 100 {
-            mspadding = "0"
-        } else {
-            mspadding = ""
-        }
-        
-        us = us % 1000
-        var uspadding:String
-        if us < 10 {
-            uspadding = "00"
-        } else if us < 100 {
-            uspadding = "0"
-        } else {
-            uspadding = ""
-        }
-        
-        return "\(DATE_FORMATTER.string(from:self.timestamp)).\(mspadding)\(ms).\(uspadding)\(us)"
-    }
-    
-    static private func dateFromTimestampString(_ str:String) -> Date? {
-        let components = str.split(separator:".")
-        let dateString = String(components[0])
-        let msString = String(components[1])
-        let usString = String(components[2])
-        
-        guard let intermediate = DATE_FORMATTER.date(from:dateString),
-            let ms = Int(msString),
-            let us = Int(usString) else {
-                return nil
-        }
-        var dateComponents = CALENDAR.dateComponents([.year, .month, .day, .hour, .minute, .second], from:intermediate)
-        let ns = ms * 1000000 + us * 1000
-        dateComponents.nanosecond = ns
-        let date = CALENDAR.date(from:dateComponents)
-        return date
-    }
+
 }

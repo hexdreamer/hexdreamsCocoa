@@ -17,6 +17,7 @@
 		B900FB5521F0F3F800F68774 /* HXBonjourService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB5321F0F3F800F68774 /* HXBonjourService.swift */; };
 		B900FB5621F0F3F800F68774 /* HXBonjourBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB5421F0F3F800F68774 /* HXBonjourBrowser.swift */; };
 		B900FB5821F0F41E00F68774 /* HXPropertyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB5721F0F41E00F68774 /* HXPropertyList.swift */; };
+		B900FB6C21F1ACCF00F68774 /* HXTimestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB6B21F1ACCE00F68774 /* HXTimestamp.swift */; };
 		B92AE21B200030AE0040762A /* HXObserverCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE215200030AE0040762A /* HXObserverCenter.swift */; };
 		B92AE21C200030AE0040762A /* HXObserverEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE216200030AE0040762A /* HXObserverEntry.swift */; };
 		B92AE21F200030AE0040762A /* HXObservingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92AE219200030AE0040762A /* HXObservingExtensions.swift */; };
@@ -118,6 +119,7 @@
 		B900FB5321F0F3F800F68774 /* HXBonjourService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXBonjourService.swift; sourceTree = "<group>"; };
 		B900FB5421F0F3F800F68774 /* HXBonjourBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXBonjourBrowser.swift; sourceTree = "<group>"; };
 		B900FB5721F0F41E00F68774 /* HXPropertyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXPropertyList.swift; sourceTree = "<group>"; };
+		B900FB6B21F1ACCE00F68774 /* HXTimestamp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXTimestamp.swift; sourceTree = "<group>"; };
 		B92AE215200030AE0040762A /* HXObserverCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserverCenter.swift; sourceTree = "<group>"; };
 		B92AE216200030AE0040762A /* HXObserverEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObserverEntry.swift; sourceTree = "<group>"; };
 		B92AE219200030AE0040762A /* HXObservingExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXObservingExtensions.swift; sourceTree = "<group>"; };
@@ -393,6 +395,7 @@
 		B971103A1FE5E98600F50FF4 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				B900FB6B21F1ACCE00F68774 /* HXTimestamp.swift */,
 				B94E22E621E1D8B900DD2214 /* DictionaryExtensions.swift */,
 				B94E22E821E1D8B900DD2214 /* HXTimeIntervalFormatter.swift */,
 				B94E22E521E1D8B900DD2214 /* NSAttributedStringExtensions.swift */,
@@ -664,6 +667,7 @@
 				B94E22AF21E1D79600DD2214 /* HXCachingWrapper.swift in Sources */,
 				B900FB4F21F0F29D00F68774 /* HXWebRequestHandler.swift in Sources */,
 				B94E22E321E1D7CA00DD2214 /* HXSynchronousObserverEntry.swift in Sources */,
+				B900FB6C21F1ACCF00F68774 /* HXTimestamp.swift in Sources */,
 				B97110861FE5EE1A00F50FF4 /* HXApplication.swift in Sources */,
 				B9518AF1201039700011F072 /* statfs.swift in Sources */,
 				B94E22D221E1D7BA00DD2214 /* HXThreadContext.swift in Sources */,

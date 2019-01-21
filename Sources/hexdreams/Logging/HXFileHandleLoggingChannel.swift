@@ -79,7 +79,7 @@ public class HXFileHandleLoggingChannel : HXLoggingChannel {
             variablesString = ""
         }
         
-        return "\(log.timestampString) \(log.level.stringValue) [\(log.threadString)] \(log.codeLocationString)\(messageString)\(measureString)\(variablesString)\n"
+        return "\(log.timestamp.hxconsoleDescription) \(log.level.stringValue) [\(log.threadString)] \(log.codeLocationString)\(messageString)\(measureString)\(variablesString)\n"
     }
     
     func renderVariables(_ log:HXLog) -> String {
@@ -112,7 +112,7 @@ public class HXFileHandleLoggingChannel : HXLoggingChannel {
                     s += "\n"
                 }
                 first = false
-                s += "\(key.rightJustified(width:width)): \(value ?? "nil")"
+                s += "\(key.hxpad(width:width)): \(value ?? "nil")"
             }
         }
         return s

@@ -33,7 +33,7 @@ public class HXCachingWrapper : HXObject {
     var loadError:Error?  {
         didSet {
             if let error = loadError {
-                hxerror("\(error.consoleDescription)")
+                hxerror("\(error.hxconsoleDescription)")
             }
             changed(\HXCachingWrapper.loadError)
         }
@@ -47,7 +47,7 @@ public class HXCachingWrapper : HXObject {
     var refreshError:Error? {
         didSet {
             if let error = refreshError {
-                hxerror("\(error.consoleDescription)")
+                hxerror("\(error.hxconsoleDescription)")
             }
             changed(\HXCachingWrapper.refreshError)
         }

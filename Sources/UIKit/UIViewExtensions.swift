@@ -8,7 +8,7 @@ import UIKit
 public extension UIView {
     
     // https://stackoverflow.com/questions/47053727/how-to-find-your-own-constraint/47053965
-    public var hxAllConstraints:[NSLayoutConstraint] {
+    var hxAllConstraints:[NSLayoutConstraint] {
         // array will contain self and all superviews
         var views = [self]
         

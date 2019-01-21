@@ -8,12 +8,12 @@ import Foundation
 extension NSAttributedString {
     
     #if os(iOS)
-    public class func attributesWith(font:UIFont?, color:UIColor = .black) -> [NSAttributedStringKey:Any] {
+    public class func attributesWith(font:UIFont?, color:UIColor = .black) -> [NSAttributedString.Key:Any] {
         guard let font = font else {
             fatalError("required: font")
         }
         let ctfont = CTFontCreateWithName(font.fontName as CFString, font.pointSize, nil)
-        let attributes:[NSAttributedStringKey:Any] = [.font:ctfont, .foregroundColor:color]
+        let attributes:[NSAttributedString.Key:Any] = [.font:ctfont, .foregroundColor:color]
         return attributes
     }
     #endif

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B900FB6121F17CCF00F68774 /* HTTP_1_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB5B21F17CCF00F68774 /* HTTP_1_1.swift */; };
+		B900FB6221F17CCF00F68774 /* HXWebResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB5C21F17CCF00F68774 /* HXWebResponse.swift */; };
+		B900FB6321F17CCF00F68774 /* HXWebMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB5D21F17CCF00F68774 /* HXWebMessage.swift */; };
+		B900FB6421F17CCF00F68774 /* HXWebServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB5E21F17CCF00F68774 /* HXWebServer.swift */; };
+		B900FB6521F17CCF00F68774 /* HXWebRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB5F21F17CCF00F68774 /* HXWebRequest.swift */; };
+		B900FB6621F17CCF00F68774 /* HXWebRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB6021F17CCF00F68774 /* HXWebRequestHandler.swift */; };
+		B900FB6921F17E8C00F68774 /* HXTimestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B900FB6821F17E8C00F68774 /* HXTimestamp.swift */; };
 		B91ADF361E4E81270052E3F4 /* CGContextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91ADF351E4E81270052E3F4 /* CGContextExtensions.swift */; };
 		B91ADF381E4E8B160052E3F4 /* CGPointExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91ADF371E4E8B160052E3F4 /* CGPointExtensions.swift */; };
 		B91CAB9C21C1EDD9000E43F4 /* DownloadManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91CAB9B21C1EDD9000E43F4 /* DownloadManagerTests.swift */; };
@@ -114,6 +121,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B900FB5B21F17CCF00F68774 /* HTTP_1_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTP_1_1.swift; sourceTree = "<group>"; };
+		B900FB5C21F17CCF00F68774 /* HXWebResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXWebResponse.swift; sourceTree = "<group>"; };
+		B900FB5D21F17CCF00F68774 /* HXWebMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXWebMessage.swift; sourceTree = "<group>"; };
+		B900FB5E21F17CCF00F68774 /* HXWebServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXWebServer.swift; sourceTree = "<group>"; };
+		B900FB5F21F17CCF00F68774 /* HXWebRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXWebRequest.swift; sourceTree = "<group>"; };
+		B900FB6021F17CCF00F68774 /* HXWebRequestHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXWebRequestHandler.swift; sourceTree = "<group>"; };
+		B900FB6821F17E8C00F68774 /* HXTimestamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXTimestamp.swift; sourceTree = "<group>"; };
 		B91ADF351E4E81270052E3F4 /* CGContextExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGContextExtensions.swift; sourceTree = "<group>"; };
 		B91ADF371E4E8B160052E3F4 /* CGPointExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointExtensions.swift; sourceTree = "<group>"; };
 		B91CAB9B21C1EDD9000E43F4 /* DownloadManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManagerTests.swift; sourceTree = "<group>"; };
@@ -232,6 +246,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B900FB5A21F17CCF00F68774 /* WebServer */ = {
+			isa = PBXGroup;
+			children = (
+				B900FB5B21F17CCF00F68774 /* HTTP_1_1.swift */,
+				B900FB5C21F17CCF00F68774 /* HXWebResponse.swift */,
+				B900FB5D21F17CCF00F68774 /* HXWebMessage.swift */,
+				B900FB5E21F17CCF00F68774 /* HXWebServer.swift */,
+				B900FB5F21F17CCF00F68774 /* HXWebRequest.swift */,
+				B900FB6021F17CCF00F68774 /* HXWebRequestHandler.swift */,
+			);
+			path = WebServer;
+			sourceTree = "<group>";
+		};
 		B91CAB9A21C1EDD9000E43F4 /* hexdreams */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,6 +377,7 @@
 				B9DB9725210A3F2D0072FD19 /* StorageManager */,
 				B977729C2112382D00D9E1D8 /* DownloadManager */,
 				B9DB971A210A3F240072FD19 /* ImageManager */,
+				B900FB5A21F17CCF00F68774 /* WebServer */,
 			);
 			path = hexdreams;
 			sourceTree = "<group>";
@@ -399,6 +427,7 @@
 			children = (
 				B99F938121E1711100CB8044 /* NSObjectExtensions.swift */,
 				B96CC3B91DF1F612007DD4AA /* DateExtensions.swift */,
+				B900FB6821F17E8C00F68774 /* HXTimestamp.swift */,
 				B9CCA1851CC889060002A24F /* NSSortDescriptorExtensions.swift */,
 				B99C12DD20EF127600684F33 /* DictionaryExtensions.swift */,
 				B9560E3021D31C820006A458 /* NSAttributedStringExtensions.swift */,
@@ -666,6 +695,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B900FB6521F17CCF00F68774 /* HXWebRequest.swift in Sources */,
 				B9CCA1931CC889060002A24F /* NSEntityDescriptionExtensions.swift in Sources */,
 				B99F939221E6ECA700CB8044 /* HXBonjourBrowser.swift in Sources */,
 				B9BD6B6D210EBD1600BFE05C /* HXStorageDomain.swift in Sources */,
@@ -674,6 +704,7 @@
 				B9CCA1991CC889060002A24F /* HXMatrix.swift in Sources */,
 				B98E654E20BDDE0F00103810 /* HXSynchronousObserverEntry.swift in Sources */,
 				B9560E3321D5D6190006A458 /* HXImageTask.swift in Sources */,
+				B900FB6421F17CCF00F68774 /* HXWebServer.swift in Sources */,
 				B9DB97172109A1C80072FD19 /* HXRepresentation.swift in Sources */,
 				B99F937821DD3E6700CB8044 /* HXInstanceContext.swift in Sources */,
 				B9DB9723210A3F240072FD19 /* HXImageButton.swift in Sources */,
@@ -683,6 +714,7 @@
 				B97110881FE5EF8800F50FF4 /* HXApplication.swift in Sources */,
 				B9DB9721210A3F240072FD19 /* HXImageManager.swift in Sources */,
 				B99F937E21E0699300CB8044 /* HXFileHandleLoggingChannel.swift in Sources */,
+				B900FB6121F17CCF00F68774 /* HTTP_1_1.swift in Sources */,
 				B96931242135CB8100BF164B /* HXTableViewCell.swift in Sources */,
 				B99B7DD920EFD1AC00BA8CD2 /* HXXMLNode.swift in Sources */,
 				B99F937221DD3E1600CB8044 /* HXLogger.swift in Sources */,
@@ -701,6 +733,7 @@
 				B99F938421E17F7600CB8044 /* HXLoggingCovers.swift in Sources */,
 				B9DB9727210A3F2D0072FD19 /* HXStorageManager.swift in Sources */,
 				B9CCA19D1CC889060002A24F /* HXViewController.swift in Sources */,
+				B900FB6321F17CCF00F68774 /* HXWebMessage.swift in Sources */,
 				B9DB96F7210829770072FD19 /* UIViewControllerExtensions.swift in Sources */,
 				B96CC3BA1DF1F612007DD4AA /* DateExtensions.swift in Sources */,
 				B99F938221E1711100CB8044 /* NSObjectExtensions.swift in Sources */,
@@ -710,6 +743,7 @@
 				B9D284CB20A7A520009B7D85 /* HXObserverCenter.swift in Sources */,
 				B964A99C21BB90DA00647C85 /* HXDownloadTask.swift in Sources */,
 				B97F03E221D2A60600926262 /* UIViewExtensions.swift in Sources */,
+				B900FB6921F17E8C00F68774 /* HXTimestamp.swift in Sources */,
 				B9F9421721E97D5900FA2791 /* HXPropertyList.swift in Sources */,
 				B9560E3C21D752240006A458 /* HXLoggingExtensions.swift in Sources */,
 				B9560E2A21D2C8720006A458 /* HXFlowingTextView.swift in Sources */,
@@ -731,8 +765,10 @@
 				B9CCA19C1CC889060002A24F /* StringExtensions.swift in Sources */,
 				B924AF1421E9102900960834 /* HXBonjourService.swift in Sources */,
 				B9DB9722210A3F240072FD19 /* HXImageView.swift in Sources */,
+				B900FB6621F17CCF00F68774 /* HXWebRequestHandler.swift in Sources */,
 				B9560E3F21D812F60006A458 /* OptionalExtensions.swift in Sources */,
 				B96931252135CB8100BF164B /* HXCollectionViewCell.swift in Sources */,
+				B900FB6221F17CCF00F68774 /* HXWebResponse.swift in Sources */,
 				B97772A121136D2600D9E1D8 /* DispatchQueueExtensions.swift in Sources */,
 				B9DB9724210A3F240072FD19 /* HXImageSizingDescriptor.swift in Sources */,
 				B9DB972A210A5B730072FD19 /* HXStorageManager.xcdatamodeld in Sources */,
@@ -897,7 +933,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = hexdreamsCocoa/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hexdreams.hexdreamsCocoa;
@@ -917,7 +953,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = hexdreamsCocoa/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hexdreams.hexdreamsCocoa;

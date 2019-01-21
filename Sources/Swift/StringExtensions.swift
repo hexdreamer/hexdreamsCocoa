@@ -3,6 +3,8 @@
 // Copyright © 2016 Kenny Leung
 // This code is PUBLIC DOMAIN
 
+// Note: the clause "where Index == String.Index" will be unnecessary in a future version of Swift.
+// https://forums.swift.org/t/trying-to-add-extension-to-stringprotocol/19151/4?u=hexdreamer
 public extension StringProtocol where Index == String.Index {
     
     var hxlastPathComponent:Self.SubSequence {
@@ -81,18 +83,26 @@ public extension StringProtocol where Index == String.Index {
     }
     
     // https://stackoverflow.com/questions/32338137/padding-a-swift-string-for-printing
-    func rightJustified(width: Int, truncate: Bool = false) -> String {
+    func hxpad(width:Int, with:Character=" ", truncate:Bool=false) -> String {
+        let count = self.count
+        if width == count {
+            return String(self)
+        }
         guard width > count else {
             return truncate ? String(suffix(width)) : String(self)
         }
-        return String(repeating: " ", count: width - count) + self
+        return String(repeating:with, count: width - count) + self
     }
     
-    func leftJustified(width: Int, truncate: Bool = false) -> String {
+    func hxpadRight(width:Int, with:Character=" ", truncate:Bool=false) -> String {
+        let count = self.count
+        if width == count {
+            return String(self)
+        }
         guard width > count else {
             return truncate ? String(prefix(width)) : String(self)
         }
-        return self + String(repeating: " ", count: width - count)
+        return self + String(repeating:with, count: width - count)
     }
     
     func htmlFlattened() -> String {

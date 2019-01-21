@@ -107,7 +107,7 @@ public enum HXErrors : Error {
             if let errors = self.causingErrors {
                 for error in errors {
                     desc += "\n    Caused by: "
-                    desc += error.consoleDescription
+                    desc += error.hxconsoleDescription
                 }
             }
             
@@ -121,7 +121,7 @@ public protocol HXErrorHandler:AnyObject {
 }
 
 public extension Error {
-    var consoleDescription:String {
+    var hxconsoleDescription:String {
         guard let error = self as? HXErrors else {
             return String(describing:self)
         }

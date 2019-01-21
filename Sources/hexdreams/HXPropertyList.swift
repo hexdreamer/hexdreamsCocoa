@@ -27,7 +27,7 @@ public func hxpropertyList(_ obj:Any?) -> Any? {
     } else if let n = obj as? NSNumber {
         return n
     } else if let error = obj as? Error {
-        return error.consoleDescription
+        return error.hxconsoleDescription
     } else if let dict = obj as? [String:Any?] {
         return hxpropertyList(dict:dict)
     } else if let arr = obj as? [Any?] {

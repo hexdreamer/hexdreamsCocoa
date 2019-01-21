@@ -29,7 +29,7 @@ public class HXFlowingTextView : UIView {
         margins.top = 0
         margins.bottom = self.textMargins.top
         let bounds = self.bounds
-        let boundingBox = UIEdgeInsetsInsetRect(bounds, margins)
+        let boundingBox = bounds.inset(by:margins)
         guard let c = UIGraphicsGetCurrentContext(),
             let frame = self._createCTFrame(boundingBox:boundingBox) else {
                 return
@@ -68,7 +68,7 @@ public class HXFlowingTextView : UIView {
         hxdebug(["bounds":self.bounds])
 
         var boundingBox = self.bounds
-        boundingBox = UIEdgeInsetsInsetRect(boundingBox, self.textMargins)
+        boundingBox = boundingBox.inset(by:self.textMargins)
         boundingBox.size.height = self.maximumHeight
         guard let frame = self._createCTFrame(boundingBox:boundingBox) else {
             return
@@ -104,7 +104,7 @@ public class HXFlowingTextView : UIView {
         transform = transform.scaledBy(x:1.0, y:-1.0)
         for subview in self.subviews {
             var flowRect = subview.frame;
-            flowRect = UIEdgeInsetsInsetRect(flowRect, self.flowMargins);
+            flowRect = flowRect.inset(by:self.flowMargins)
             let clippingPath = CGPath(rect:flowRect, transform:&transform)
             clippingPaths.append([kCTFramePathClippingPathAttributeName:clippingPath] as CFDictionary)
         }
