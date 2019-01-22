@@ -1,10 +1,7 @@
-//
-//  HXInstanceLogger.swift
-//  hexdreamsCocoa
-//
-//  Created by Kenny Leung on 1/2/19.
-//  Copyright © 2019 hexdreams. All rights reserved.
-//
+// hexdreamsCocoa
+// HXInstanceContext.swift
+// Copyright © 2019 Kenny Leung
+// This code is PUBLIC DOMAIN
 
 import Foundation
 

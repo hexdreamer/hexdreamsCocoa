@@ -185,6 +185,54 @@ public func hxwarn(
           messageTime:messageTime)
 }
 
+func hxcaught(
+    _ error:Error,
+    function:String = #function, file:String = #file, line:Int = #line,
+    callStackReturnAddresses:[NSNumber] = Thread.callStackReturnAddresses
+    )
+{
+    if hxloggingIsEnabled(level:.caught) {
+        hxlog(level:.caught,
+              function:function, file:file, line:line,
+              callStackReturnAddresses:callStackReturnAddresses,
+              message:nil, variables:nil, error:error)
+    }
+}
+
+func hxthrown(
+    _ error:HXErrors,
+    _ message:String? = nil,
+    _ variables:[String:Any?]? = nil,
+    function:String = #function, file:String = #file, line:Int = #line,
+    callStackReturnAddresses:[NSNumber] = Thread.callStackReturnAddresses
+    ) -> HXErrors
+{
+    if hxloggingIsEnabled(level:.thrown) {
+        hxlog(level:.thrown,
+              function:function, file:file, line:line,
+              callStackReturnAddresses:callStackReturnAddresses,
+              message:message, variables:variables, error:error)
+    }
+    return error
+}
+
+func hxthrown(
+    _ error:Error,
+    _ message:String? = nil,
+    _ variables:[String:Any?]? = nil,
+    function:String = #function, file:String = #file, line:Int = #line,
+    callStackReturnAddresses:[NSNumber] = Thread.callStackReturnAddresses
+    ) -> Error
+{
+    if hxloggingIsEnabled(level:.thrown) {
+        hxlog(level:.thrown,
+              function:function, file:file, line:line,
+              callStackReturnAddresses:callStackReturnAddresses,
+              message:message, variables:variables, error:error)
+    }
+    return error
+}
+
 public func hxerror(
     _ messageClosure:@autoclosure () throws -> String?,
     _ variables:[String:Any?]? = nil,

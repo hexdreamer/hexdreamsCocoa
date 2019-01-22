@@ -62,9 +62,9 @@ public class HXWebResponse : HXWebMessage {
             }
             responseData.append(CRLF)
         } catch {
+            hxcaught(error)
             do {
                 responseData.removeAll()
-                hxerror("Error generating response", ["error":error])
                 let statusLine = "HTTP/1.1 \(HTTP_1_1.Status.internalServerError) Error generating response"
                 responseData.append(try self.toData(statusLine))
                 responseData.append(CRLF)
@@ -86,14 +86,14 @@ public class HXWebResponse : HXWebMessage {
 
     func toData(_ str:String) throws -> Data {
         guard let data = str.data(using:.ascii) else {
-            throw HXErrors.invalidArgument(.info(self, "could not convert to data"))
+            throw hxthrown(.invalidArgument("could not convert to data"))
         }
         return data
     }
     
     func escape(_ str:String) throws -> String {
         guard let escaped = str.addingPercentEncoding(withAllowedCharacters:.urlPathAllowed) else {
-            throw HXErrors.invalidArgument(.info(self, "could not escape string"))
+            throw hxthrown(.invalidArgument("could not escape string"))
         }
         return escaped
     }

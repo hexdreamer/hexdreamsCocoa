@@ -39,7 +39,7 @@ public class HXFlowingTextView : UIView {
         c.scaleBy(x:1.0, y:-1.0)
         CTFrameDraw(frame, c);
         
-        hxdebug("drawing borders and baselines") {
+        hxdraw("drawing borders and baselines") {
             c.setLineWidth(1.0)
             c.setStrokeColor(UIColor.red.cgColor)
             c.stroke(self.bounds)

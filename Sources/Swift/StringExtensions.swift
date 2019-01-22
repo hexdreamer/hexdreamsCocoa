@@ -3,9 +3,7 @@
 // Copyright © 2016 Kenny Leung
 // This code is PUBLIC DOMAIN
 
-// Note: the clause "where Index == String.Index" will be unnecessary in a future version of Swift.
-// https://forums.swift.org/t/trying-to-add-extension-to-stringprotocol/19151/4?u=hexdreamer
-public extension StringProtocol where Index == String.Index {
+public extension StringProtocol {
     
     var hxlastPathComponent:Self.SubSequence {
         if let lastSlash = self.lastIndex(of:"/") {

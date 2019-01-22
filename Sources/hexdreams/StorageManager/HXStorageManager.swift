@@ -67,7 +67,7 @@ public class HXResourceManager : NSObject {
 
     public func domainFor(identifier:String) throws -> HXStorageDomain {
          return try self.domainsByIdentifier[identifier] ?? {
-            throw HXErrors.invalidArgument(.info(self,"No domain with identifier \(identifier)"))
+            throw hxthrown(.invalidArgument("No domain with identifier \(identifier)"))
         }
     }
     
@@ -108,13 +108,15 @@ public class HXResourceManager : NSObject {
                 case 1:
                     completionHandler(results[0].path, results, nil)
                 default:
-                    completionHandler(nil, results, HXErrors.invalidArgument(.info(self,"More than one resource found for domain:\(domainIdentifier), uuid:\(String(describing:uuid)), url:\(url?.absoluteString ?? "nil"), version:\(version ?? "nil")")))
+                    completionHandler(nil, results, self.hxthrown(.invalidArgument("More than one resource found for domain:\(domainIdentifier), uuid:\(String(describing:uuid)), url:\(url?.absoluteString ?? "nil"), version:\(version ?? "nil")")))
                 }
             }, hxCatch: {
+                self.hxcaught($0)
                 completionHandler(nil, nil, $0)
             })
             
         }, hxCatch: {
+            self.hxcaught($0)
             completionHandler(nil, nil, $0)
         })
     }
@@ -136,11 +138,11 @@ public class HXResourceManager : NSObject {
                 let results = try self.fetchResourcesFor(domain:domain, uuid:uuid, url:url, version:version, moc:$0)
                 if results.count > 1 {
                     let message = "More than one resource found for domain:\(domainIdentifier), uuid:\(String(describing:uuid)), url:\(url?.absoluteString ?? "nil"), version:\(version ?? "nil")"
-                    throw HXErrors.moreThanOneObjectFound(.info(self,message), results)
+                    throw self.hxthrown(.moreThanOneObjectFound(message, results))
                 }
                 let existingResource = results.last
                 let oldSize = existingResource?.size
-                let newSize = try FileManager.default.attributesOfItem(atPath:downloadedURL.path)[.size] as? Int64 ?? {throw HXErrors.cocoa(.info(self,"Could not get size of downloaded file at \(downloadedURL)"))}
+                let newSize = try FileManager.default.attributesOfItem(atPath:downloadedURL.path)[.size] as? Int64 ?? {throw self.hxthrown(.cocoa("Could not get size of downloaded file at \(downloadedURL)", nil))}
                 let delta = newSize - (oldSize ?? 0)
                 
                 if try self.makeRoomFor(bytes:delta, moc:$0) == false {
@@ -167,7 +169,7 @@ public class HXResourceManager : NSObject {
                 resource.updateDate = now
                 domain.adjustSize(delta:delta)
                 
-                let destPath = try resource.path ?? {throw HXErrors.hxnil(.info(self,"resource.path"))}
+                let destPath = try resource.path ?? {throw self.hxthrown(.hxnil("resource.path"))}
                 try FileManager.default.moveItem(at:downloadedURL, to:URL(fileURLWithPath:destPath))
                 
                 try $0.save()
@@ -178,10 +180,12 @@ public class HXResourceManager : NSObject {
                 let mainResource = try self.moc.hxTranslate(foreignObject:registeredResource)
                 completionHandler(mainResource, nil)
             }, hxCatch: {
+                self.hxcaught($0)
                 completionHandler(nil, $0)
             })
             
         }, hxCatch: {
+            self.hxcaught($0)
             completionHandler(nil, $0)
         })
     }

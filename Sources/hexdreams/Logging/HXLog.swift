@@ -21,15 +21,20 @@ fileprivate let DATE_FORMATTER:DateFormatter = {
 public class HXLog {
     
     public enum Level : Int {
+        case draw
         case trace
         case debug
         case info
         case warn
+        case caught
+        case thrown
         case error
         case fatal
         
         public static func from(string str:String) -> Level? {
-            if str == "TRACE" {
+            if str == "DRAW" {
+                return .draw
+            } else if str == "TRACE" {
                 return .trace
             } else if str == "DEBUG" {
                 return .debug
@@ -37,6 +42,10 @@ public class HXLog {
                 return .info
             } else if str == "WARN" {
                 return .warn
+            } else if str == "CAUGHT" {
+                return .caught
+            } else if str == "THROWN" {
+                return .thrown
             } else if str == "ERROR" {
                 return .error
             } else if str == "FATAL" {
@@ -47,6 +56,8 @@ public class HXLog {
         
         public var stringValue:String {
             switch self {
+            case .draw:
+                return "DRAW"
             case .trace:
                 return "TRACE"
             case .debug:
@@ -55,12 +66,40 @@ public class HXLog {
                 return "INFO"
             case .warn:
                 return "WARN"
+            case .caught:
+                return "CAUGHT"
+            case .thrown:
+                return "THROWN"
             case .error:
                 return "ERROR"
             case .fatal:
                 return "FATAL"
             }
         }
+        
+        public var hxconsoleDescription:String {
+            switch self {
+            case .draw:
+                return " DRAW"
+            case .trace:
+                return "TRACE"
+            case .debug:
+                return "DEBUG"
+            case .info:
+                return " INFO"
+            case .warn:
+                return " WARN"
+            case .caught:
+                return "CATCH"
+            case .thrown:
+                return "THROW"
+            case .error:
+                return "ERROR"
+            case .fatal:
+                return "FATAL"
+            }
+        }
+
     }
     
     public let timestamp:HXTimestamp

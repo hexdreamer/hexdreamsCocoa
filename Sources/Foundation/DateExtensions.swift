@@ -67,7 +67,7 @@ public extension Date {
         
         let addInts = { (a:Int?, b:Int) -> Int in
             guard let a = a else {
-                throw HXErrors.invalidArgument(.info(self,"Unexpected error: date component should not be empty"))
+                throw hxthrown(.invalidArgument("Unexpected error: date component should not be empty"))
             }
             return a + b
         }

@@ -58,11 +58,11 @@ public class HXWebRequest : HXWebMessage {
     func readRequestLine() {
         self.withNextLine { (data, range) in
             guard let line = String(data:data[range], encoding:.ascii) else {
-                throw HXErrors.web(.badRequest, "Request line is not ASCII: \(data[range])")
+                throw self.hxthrown(HXWebServer.Errors.web(.badRequest, "Request line is not ASCII: \(data[range])"))
             }
             let components = line.split(separator:" ")
             if components.count != 3 {
-                throw HXErrors.web(.badRequest, "Request line bad format: \(line))")
+                throw self.hxthrown(HXWebServer.Errors.web(.badRequest, "Request line bad format: \(line))"))
             }
             let method = String(components[0])
             let uri = String(components[1])
@@ -91,13 +91,13 @@ public class HXWebRequest : HXWebMessage {
             }
             
             guard let colonRange = data.range(of:COLON, options:[], in:range) else {
-                throw HXErrors.web(.badRequest, "Could not find colon delimiter in header: \(lineDesc())")
+                throw self.hxthrown(HXWebServer.Errors.web(.badRequest, "Could not find colon delimiter in header: \(lineDesc())"))
             }
             guard let name = String(data:data[range.lowerBound..<colonRange.lowerBound], encoding:.ascii) else {
-                throw HXErrors.web(.badRequest, "Could not read name in header: \(lineDesc())")
+                throw self.hxthrown(HXWebServer.Errors.web(.badRequest, "Could not read name in header: \(lineDesc())"))
             }
             guard let value = String(data:data[colonRange.upperBound..<range.upperBound], encoding:.ascii) else {
-                throw HXErrors.web(.badRequest, "Could not read value in header: \(lineDesc())")
+                throw self.hxthrown(HXWebServer.Errors.web(.badRequest, "Could not read value in header: \(lineDesc())"))
             }
             //self.hxtrace([name:value])
             self.headers[name] = value.trimmingCharacters(in:.whitespaces)
@@ -118,9 +118,10 @@ public class HXWebRequest : HXWebMessage {
             }
             
             if headerBytesRead > MAX_HEADER_LENGTH {
-                throw HXErrors.web(.badRequest, "Header length of \(MAX_HEADER_LENGTH) bytes exceeded.")
+                throw hxthrown(HXWebServer.Errors.web(.badRequest, "Header length of \(MAX_HEADER_LENGTH) bytes exceeded."))
             }
         } catch {
+            hxcaught(error)
             self.handleError(error)
         }
         
@@ -133,7 +134,7 @@ public class HXWebRequest : HXWebMessage {
                         self.networkConnection.cancel()
                         return
                     }
-                    throw HXErrors.web(.badRequest, "No data")
+                    throw self.hxthrown(HXWebServer.Errors.web(.badRequest, "No data"))
                 }
                 if let error = error {
                     throw error
@@ -145,6 +146,7 @@ public class HXWebRequest : HXWebMessage {
                 self.headerBytesRead += receivedData.count
                 self.withNextLine(processLine)
             } catch {
+                self.hxcaught(error)
                 self.handleError(error)
             }
         }
@@ -153,7 +155,7 @@ public class HXWebRequest : HXWebMessage {
     public func withBody(_ processBody:@escaping (Data) throws -> Void) {
         do {
             guard let contentLength = self.contentLength else {
-                self.handleError(HXErrors.web(.badRequest, "no content length"))
+                self.handleError(hxthrown(HXWebServer.Errors.web(.badRequest, "no content length")))
                 return
             }
             let expectedLength = contentLength - runningData.count
@@ -165,7 +167,7 @@ public class HXWebRequest : HXWebMessage {
             self.networkConnection.receive(minimumIncompleteLength:expectedLength, maximumLength:expectedLength) { (receivedData, context, isComplete, error) in
                 do {
                     guard let receivedData = receivedData else {
-                        throw HXErrors.web(.badRequest, "No data")
+                        throw self.hxthrown(HXWebServer.Errors.web(.badRequest, "No data"))
                     }
                     if let error = error {
                         throw error
@@ -179,6 +181,7 @@ public class HXWebRequest : HXWebMessage {
             }
             
         } catch {
+            hxcaught(error)
             self.handleError(error)
         }
     }

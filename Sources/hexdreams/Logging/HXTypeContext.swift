@@ -1,10 +1,7 @@
-//
-//  HXClassLogger.swift
-//  hexdreamsCocoa
-//
-//  Created by Kenny Leung on 1/2/19.
-//  Copyright © 2019 hexdreams. All rights reserved.
-//
+// hexdreamsCocoa
+// HXTypeContext.swift
+// Copyright © 2019 Kenny Leung
+// This code is PUBLIC DOMAIN
 
 public class HXTypeContext {
     

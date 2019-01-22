@@ -5,43 +5,46 @@
 
 import Foundation
 
-public class HXLogger {
+public class HXLogger : HXObject {
     public static var networkLoggingDisabled = false
-    static let shared = HXLogger()
+    public static let shared = HXLogger()
 
     private let serialize = DispatchQueue(label:"HXLogger", qos:.default, attributes:[], autoreleaseFrequency:.workItem, target:nil)
     
     private let stderrChannel = HXFileHandleLoggingChannel(filehandle:FileHandle.standardError)
-    private var networkChannel:HXNetworkLoggingChannel?
+    private var networkChannel:HXNetworkLoggingChannel? = nil
     private var activeChannel:HXLoggingChannel
     var logs = [HXLog]()
     var initializing = true
     var bonjourBrowser:HXBonjourBrowser? = nil
     
-    private init() {
+    private override init() {
         self.activeChannel = self.stderrChannel
         
         if HXLogger.networkLoggingDisabled {
             self.initializing = false
+            super.init()
             return
         }
         
         let bonjourBrowser = HXBonjourBrowser(type:"_hxlogging._tcp.", domain:"");
+        self.bonjourBrowser = bonjourBrowser
+        super.init()
         bonjourBrowser.start(queue:self.serialize) {
             if $0.services.count > 1 {
-                hxwarn("Found more than one destination to log to. Ignoring.")
+                self.hxwarn("Found more than one destination to log to. Ignoring.")
             }
             $0.services[0].resolve(queue:self.serialize) {
                 guard let hostname = $0.netService.hostName else {
-                    hxwarn("could not resolve hostname. Ignoring.")
+                    self.hxwarn("could not resolve hostname. Ignoring.")
                     return
                 }
                 let port = $0.netService.port
                 guard port > 0 else {
-                    hxwarn("could not resolve port. Ignoring.")
+                    self.hxwarn("could not resolve port. Ignoring.")
                     return
                 }
-                hxinfo("Switching over to Dreamsight on \(hostname):\(port)")
+                self.hxinfo("Switching over to Dreamsight on \(hostname):\(port)")
                 self.serialize.async {
                     let channel = HXNetworkLoggingChannel(hostname:hostname, port:port)
                     channel.addLogs(self.logs)
@@ -53,7 +56,6 @@ public class HXLogger {
                 }
             }
         }
-        self.bonjourBrowser = bonjourBrowser
     }
     
     // This is the master log function. Everyone else winds up calling this.

@@ -6,7 +6,7 @@
 //  Copyright © 2019 hexdreams. All rights reserved.
 //
 
-open class HXWebRequestHandler {
+open class HXWebRequestHandler : HXObject {
     
     public let request:HXWebRequest
     public let response:HXWebResponse

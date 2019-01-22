@@ -10,6 +10,10 @@ import Network
 
 public class HXWebServer {
     
+    public enum Errors : Error {
+        case web(HTTP_1_1.Status, String)
+    }
+    
     let name:String
     let queue:DispatchQueue
     var listener:NWListener?

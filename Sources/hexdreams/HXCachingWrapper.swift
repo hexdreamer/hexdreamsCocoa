@@ -32,9 +32,6 @@ public class HXCachingWrapper : HXObject {
     let loadBlock:(HXCachingWrapper)throws->Any?
     var loadError:Error?  {
         didSet {
-            if let error = loadError {
-                hxerror("\(error.hxconsoleDescription)")
-            }
             changed(\HXCachingWrapper.loadError)
         }
     }
@@ -46,9 +43,6 @@ public class HXCachingWrapper : HXObject {
     let refreshBlock:(HXCachingWrapper)throws->(Any?,Bool)
     var refreshError:Error? {
         didSet {
-            if let error = refreshError {
-                hxerror("\(error.hxconsoleDescription)")
-            }
             changed(\HXCachingWrapper.refreshError)
         }
     }
@@ -121,6 +115,7 @@ public class HXCachingWrapper : HXObject {
                     self._loadSucceeded(newData)
                 } // else asynchronous, and client needs to finish in loadingContinuance
             }, hxCatch: {
+                self.hxcaught($0)
                 self._loadFailed($0)
             })
         }
@@ -175,6 +170,7 @@ public class HXCachingWrapper : HXObject {
                     self._refreshSucceeded(newData, reload)
                 }
             }, hxCatch: {
+                self.hxcaught($0)
                 self._refreshFailed($0)
             })
         }

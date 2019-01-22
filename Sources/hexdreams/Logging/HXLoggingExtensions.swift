@@ -1,6 +1,6 @@
 // hexdreamsCocoa
 // HXLoggingExtensions.swift
-// Copyright © 2018 Kenny Leung
+// Copyright © 2019 Kenny Leung
 // This code is PUBLIC DOMAIN
 
 public protocol HXLoggingExtensions {}
@@ -27,18 +27,44 @@ public extension HXLoggingExtensions where Self:AnyObject {
         level:HXLog.Level,
         function:String, file:String, line:Int,
         callStackReturnAddresses:[NSNumber],
-        message:String? = nil, variables:[String:Any?]? = nil,
+        message:String? = nil, variables:[String:Any?]? = nil, error:Error? = nil,
         messageTime:TimeInterval? = nil, measureTime:TimeInterval? = nil
         ) {
         HXLogger.shared.log(level:level,
                             function:function, file:file, line:line,
                             callStackReturnAddresses:callStackReturnAddresses,
                             callingType:type(of:self), callingInstance:self,
-                            message:message, variables:variables,
+                            message:message, variables:variables, error:error,
                             messageTime:messageTime, measureTime:measureTime,
                             threadVariables:self.hxThreadVariables,
                             typeVariables:self.hxTypeVariables,
                             instanceVariables:self.hxInstanceVariables)
+    }
+    
+    func hxdraw(
+        _ messageClosure:@autoclosure () throws -> String?,
+        _ variables:[String:Any?]? = nil,
+        function:String = #function, file:String = #file, line:Int = #line,
+        callStackReturnAddresses:[NSNumber] = Thread.callStackReturnAddresses,
+        _ performClosure:() throws -> Void
+        ) rethrows
+    {
+        if !hxloggingIsEnabled(level:.draw) {
+            return
+        }
+        
+        let messageStart = Date.timeIntervalSinceReferenceDate
+        let message = try messageClosure()
+        let messageTime = Date.timeIntervalSinceReferenceDate - messageStart
+        let measureStart = Date.timeIntervalSinceReferenceDate
+        try performClosure()
+        let measureTime = Date.timeIntervalSinceReferenceDate - measureStart
+        
+        self.hxlog(level:.draw,
+                   function:function, file:file, line:line,
+                   callStackReturnAddresses:callStackReturnAddresses,
+                   message:message, variables:variables,
+                   messageTime:messageTime, measureTime:measureTime)
     }
     
     func hxtrace(
@@ -185,6 +211,54 @@ public extension HXLoggingExtensions where Self:AnyObject {
                    callStackReturnAddresses:callStackReturnAddresses,
                    message:message, variables:variables,
                    messageTime:messageTime)
+    }
+
+    func hxcaught(
+        _ error:Error,
+        function:String = #function, file:String = #file, line:Int = #line,
+        callStackReturnAddresses:[NSNumber] = Thread.callStackReturnAddresses
+        )
+    {
+        if hxloggingIsEnabled(level:.caught) {
+            self.hxlog(level:.caught,
+                       function:function, file:file, line:line,
+                       callStackReturnAddresses:callStackReturnAddresses,
+                       message:nil, variables:nil, error:error)
+        }
+    }
+
+    func hxthrown(
+        _ error:HXErrors,
+        _ message:String? = nil,
+        _ variables:[String:Any?]? = nil,
+        function:String = #function, file:String = #file, line:Int = #line,
+        callStackReturnAddresses:[NSNumber] = Thread.callStackReturnAddresses
+        ) -> HXErrors
+    {
+        if hxloggingIsEnabled(level:.thrown) {
+            self.hxlog(level:.thrown,
+                       function:function, file:file, line:line,
+                       callStackReturnAddresses:callStackReturnAddresses,
+                       message:message, variables:variables, error:error)
+        }
+        return error
+    }
+    
+    func hxthrown(
+        _ error:Error,
+        _ message:String? = nil,
+        _ variables:[String:Any?]? = nil,
+        function:String = #function, file:String = #file, line:Int = #line,
+        callStackReturnAddresses:[NSNumber] = Thread.callStackReturnAddresses
+        ) -> Error
+    {
+        if hxloggingIsEnabled(level:.thrown) {
+            self.hxlog(level:.thrown,
+                       function:function, file:file, line:line,
+                       callStackReturnAddresses:callStackReturnAddresses,
+                       message:message, variables:variables, error:error)
+        }
+        return error
     }
 
     func hxerror(

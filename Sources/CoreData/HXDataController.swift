@@ -132,7 +132,7 @@ open class HXDataController : HXObject {
 
     open func urlRequest(_ urlString:String) throws -> URLRequest {
         guard let url = URL(string:urlString) else {
-            throw HXErrors.invalidArgument(.info(self,"could not initialize URL \(urlString)"))
+            throw hxthrown(.invalidArgument("could not initialize URL \(urlString)"))
         }
         let request = URLRequest(url:url, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval:10)
         return request
@@ -157,17 +157,18 @@ open class HXDataController : HXObject {
         do {
             parsedjson = try JSONSerialization.jsonObject(with:json, options: [])
         } catch {
+            hxcaught(error)
             let jsonString = String(data:json, encoding:.utf8) ?? "null"
-            throw HXErrors.cocoa(.info(self,"Error parsing JSON:\n\(jsonString.head(20))", causingErrors:[error]))
+            throw hxthrown(.cocoa("Error parsing JSON:\n\(jsonString.head(20))", error))
         }
         
         guard let jsonObjs = parsedjson as? [[String:AnyObject]] else {
             let jsonString = String(data:json, encoding:.utf8) ?? "null"
-            throw Errors.BadJSON(message:"Error parsing JSON: \(jsonString)")
+            throw Errors.BadJSON(message:"Could not coerce JSON to [[String:AnyObject]]: \(jsonString)")
         }
         let pks:[K] = try jsonObjs.map {
             guard let pk = pkGetter($0) as? K else {
-                throw HXErrors.objectNotFound(.info(self,"Primary key not found in \($0)"))
+                throw hxthrown(.objectNotFound("Primary key not found in \($0)"))
             }
             return pk  // block
         }

@@ -16,7 +16,7 @@ public extension Array {
             return false
         })
         if let element = badElement {
-            throw HXErrors.objectNotFound(.info(self,"Array.mapDict: object does not contain value for key: \(element)"))
+            throw hxthrown(.objectNotFound("Array.mapDict: object does not contain value for key: \(element)"))
         }
         return dict
     }
@@ -66,7 +66,7 @@ public extension Array {
         return try ArrayBridge<Element,CChar>(array:self) {
             guard let item = $0 as? String,
                   let translated = item.cString(using: .utf8) else {
-                throw HXErrors.invalidArgument(.info(self,"blah"))
+                throw hxthrown(.invalidArgument("blah"))
             }
             return translated
         }
