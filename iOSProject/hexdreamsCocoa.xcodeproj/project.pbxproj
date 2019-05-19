@@ -15,6 +15,8 @@
 		B9218AFE1CC887A000A97389 /* hexdreamsCocoaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9218AFD1CC887A000A97389 /* hexdreamsCocoaTests.swift */; };
 		B92BE83221152E5200DE2D03 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92BE83121152E5200DE2D03 /* Utilities.swift */; };
 		B92D0BA420EFFF9200359640 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92D0BA320EFFF9200359640 /* UtilityFunctions.swift */; };
+		B9432FCA2207A42B007FBEBC /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9432FC92207A42B007FBEBC /* DataExtensions.swift */; };
+		B9432FCD2207A9C4007FBEBC /* DataExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9432FCB2207A85D007FBEBC /* DataExtensionsTests.swift */; };
 		B9560E2A21D2C8720006A458 /* HXFlowingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9560E2921D2C8720006A458 /* HXFlowingTextView.swift */; };
 		B9560E3121D31C820006A458 /* NSAttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9560E3021D31C820006A458 /* NSAttributedStringExtensions.swift */; };
 		B9560E3321D5D6190006A458 /* HXImageTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9560E3221D5D6190006A458 /* HXImageTask.swift */; };
@@ -28,7 +30,7 @@
 		B96931252135CB8100BF164B /* HXCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96931202135CB8100BF164B /* HXCollectionViewCell.swift */; };
 		B96931262135CB8100BF164B /* HXModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96931212135CB8100BF164B /* HXModelObject.swift */; };
 		B96CC3BA1DF1F612007DD4AA /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CC3B91DF1F612007DD4AA /* DateExtensions.swift */; };
-		B97110881FE5EF8800F50FF4 /* HXApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97110871FE5EF8700F50FF4 /* HXApplication.swift */; };
+		B97110881FE5EF8800F50FF4 /* HXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97110871FE5EF8700F50FF4 /* HXApp.swift */; };
 		B977729E2112382D00D9E1D8 /* HXDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B977729D2112382D00D9E1D8 /* HXDownloadManager.swift */; };
 		B97772A121136D2600D9E1D8 /* DispatchQueueExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97772A021136D2600D9E1D8 /* DispatchQueueExtensions.swift */; };
 		B97772A52116BA3600D9E1D8 /* HXDownloadJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97772A42116BA3600D9E1D8 /* HXDownloadJob.swift */; };
@@ -119,6 +121,8 @@
 		B9218AFF1CC887A000A97389 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B92BE83121152E5200DE2D03 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		B92D0BA320EFFF9200359640 /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
+		B9432FC92207A42B007FBEBC /* DataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensions.swift; sourceTree = "<group>"; };
+		B9432FCB2207A85D007FBEBC /* DataExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensionsTests.swift; sourceTree = "<group>"; };
 		B9560E2921D2C8720006A458 /* HXFlowingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXFlowingTextView.swift; sourceTree = "<group>"; };
 		B9560E3021D31C820006A458 /* NSAttributedStringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtensions.swift; sourceTree = "<group>"; };
 		B9560E3221D5D6190006A458 /* HXImageTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXImageTask.swift; sourceTree = "<group>"; };
@@ -132,7 +136,7 @@
 		B96931202135CB8100BF164B /* HXCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXCollectionViewCell.swift; sourceTree = "<group>"; };
 		B96931212135CB8100BF164B /* HXModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXModelObject.swift; sourceTree = "<group>"; };
 		B96CC3B91DF1F612007DD4AA /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
-		B97110871FE5EF8700F50FF4 /* HXApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXApplication.swift; sourceTree = "<group>"; };
+		B97110871FE5EF8700F50FF4 /* HXApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXApp.swift; sourceTree = "<group>"; };
 		B977729D2112382D00D9E1D8 /* HXDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXDownloadManager.swift; sourceTree = "<group>"; };
 		B97772A021136D2600D9E1D8 /* DispatchQueueExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueueExtensions.swift; sourceTree = "<group>"; };
 		B97772A42116BA3600D9E1D8 /* HXDownloadJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXDownloadJob.swift; sourceTree = "<group>"; };
@@ -325,7 +329,7 @@
 				B9CCA1861CC889060002A24F /* hexdreams.swift */,
 				B92BE83121152E5200DE2D03 /* Utilities.swift */,
 				B9DB96F4210823AD0072FD19 /* HXErrors.swift */,
-				B97110871FE5EF8700F50FF4 /* HXApplication.swift */,
+				B97110871FE5EF8700F50FF4 /* HXApp.swift */,
 				B9C601B51E01CBD9000FB2BA /* CommandLineInterface.swift */,
 				B9DB971421099C490072FD19 /* HXCachingWrapper.swift */,
 				B9DB97162109A1C80072FD19 /* HXRepresentation.swift */,
@@ -406,6 +410,7 @@
 				B9560E3D21D812F50006A458 /* OptionalExtensions.swift */,
 				B9CCA18C1CC889060002A24F /* StringExtensions.swift */,
 				B92D0BA320EFFF9200359640 /* UtilityFunctions.swift */,
+				B9432FC92207A42B007FBEBC /* DataExtensions.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -496,6 +501,7 @@
 			children = (
 				B9CCA1B31CC8891C0002A24F /* ArrayExtensionsTests.swift */,
 				B9CCA1B41CC8891C0002A24F /* StringExtensionsTests.swift */,
+				B9432FCB2207A85D007FBEBC /* DataExtensionsTests.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -659,7 +665,7 @@
 				B99F938021E155A300CB8044 /* HXTimeIntervalFormatter.swift in Sources */,
 				B9560E3921D740F70006A458 /* HXLogging.swift in Sources */,
 				B9B66E0C1E57E9D4004F5894 /* FD_utilities.swift in Sources */,
-				B97110881FE5EF8800F50FF4 /* HXApplication.swift in Sources */,
+				B97110881FE5EF8800F50FF4 /* HXApp.swift in Sources */,
 				B9DB9721210A3F240072FD19 /* HXImageManager.swift in Sources */,
 				B99F937E21E0699300CB8044 /* HXFileHandleLoggingChannel.swift in Sources */,
 				B96931242135CB8100BF164B /* HXTableViewCell.swift in Sources */,
@@ -707,6 +713,7 @@
 				B91ADF381E4E8B160052E3F4 /* CGPointExtensions.swift in Sources */,
 				B92D0BA420EFFF9200359640 /* UtilityFunctions.swift in Sources */,
 				B9CCA19C1CC889060002A24F /* StringExtensions.swift in Sources */,
+				B9432FCA2207A42B007FBEBC /* DataExtensions.swift in Sources */,
 				B9DB9722210A3F240072FD19 /* HXImageView.swift in Sources */,
 				B9560E3F21D812F60006A458 /* OptionalExtensions.swift in Sources */,
 				B96931252135CB8100BF164B /* HXCollectionViewCell.swift in Sources */,
@@ -728,6 +735,7 @@
 				B9CCA1C21CC8891C0002A24F /* HXTestDataController.swift in Sources */,
 				B99F938C21E1E38400CB8044 /* NSEntityDescriptionTests.swift in Sources */,
 				B9CCA1BC1CC8891C0002A24F /* HXMatrixTests.swift in Sources */,
+				B9432FCD2207A9C4007FBEBC /* DataExtensionsTests.swift in Sources */,
 				B9CCA1BA1CC8891C0002A24F /* CGSizeExtensionsTests.swift in Sources */,
 				B9CCA1B71CC8891C0002A24F /* HXDataControllerTests.swift in Sources */,
 				B9CCA1C31CC8891C0002A24F /* ArrayExtensionsTests.swift in Sources */,

@@ -103,5 +103,6 @@ public class HXMatrix {
 }
 
 // NOTE there is a DOT there as the operator
+// This is, admittedly, difficult to see, but it is the official unicode character as described here: https://en.wikipedia.org/wiki/Interpunct
 infix operator ⋅
 

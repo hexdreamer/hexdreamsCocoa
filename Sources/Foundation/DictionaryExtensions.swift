@@ -8,7 +8,7 @@
 
 import Foundation
 
-private var _jsonDateFormatter:DateFormatter = Date.rfc3339Formatter()
+private var _jsonDateFormatter:DateFormatter = Date.rfc3339Formatter
 
 public extension Dictionary {
     
