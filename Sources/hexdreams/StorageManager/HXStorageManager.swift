@@ -17,7 +17,7 @@ public class HXResourceManager : NSObject {
     private let serialize = DispatchQueue(label:"HXObserverCenter", qos:.default, attributes:[], autoreleaseFrequency:.workItem, target:nil)
 
     lazy var resourceManagerRootDirectory:URL = {
-        HXApplication.cachesDirectory().appendingPathComponent("HXResourceManager")
+        HXApp.cachesDirectory.appendingPathComponent("HXResourceManager")
     }()
     
     lazy var metadataStoreLocation:URL = {

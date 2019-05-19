@@ -12,6 +12,6 @@ public protocol HXRepresentation {
     
     //var representedObject:RepresentedType? {get set}
     
-    // Can't use associated type for the represented object because you can't cast to a protocol with represented type (don't know why, it's a known bug)
+    // Can't use associated type for the represented object because you can't cast to a protocol with an associated type (This is known as an existential)
     var representedObject:AnyObject? {get set}
 }

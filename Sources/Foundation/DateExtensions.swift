@@ -46,6 +46,26 @@ public extension Date {
         return formatter
     }()
     
+    // iCalendar format Form #1
+    public static var rfc5545LocalFormatter:DateFormatter {
+        let formatter = DateFormatter()
+        formatter.formatterBehavior = .behavior10_4
+        formatter.dateFormat = "yyyyMMdd'T'HHmmss"
+        formatter.timeZone = TimeZone.current
+        formatter.locale = Locale(identifier:"en_US_POSIX")
+        return formatter
+    }
+    
+    // iCalendar format Form #2
+    public static var rfc5545UTCFormatter:DateFormatter {
+        let formatter = DateFormatter()
+        formatter.formatterBehavior = .behavior10_4
+        formatter.dateFormat = "yyyyMMdd'T'HHmmss'Z'"
+        formatter.timeZone = TimeZone(abbreviation:"GMT")
+        formatter.locale = Locale(identifier:"en_US_POSIX")
+        return formatter
+    }
+
     // MARK: Creating New Dates
     static func dateWith(year:Int, month:Int, day:Int, hour:Int, minute:Int, second:Int, timeZone:TimeZone) -> Date? {
         var cal = Calendar(identifier:.gregorian)
