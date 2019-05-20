@@ -42,7 +42,7 @@ class HXTestDataController: HXDataController {
         // This doesn't save us any code over the "manual way" of just doing it ourselves. We need a better map method that ensures we get back non-optionals. Is that even possible? I want a generic function that returns something slightly different than it's input T vs T?
         let pks = try json.map { (dict :[String:AnyObject]) -> PKClass in
             guard let pk = jsonPKGetter(dict) else {
-                throw hexdreamsCocoa.HXErrors.objectNotFound(.info(self,"Primary key not found in \(dict)"))
+                throw hxthrown(.objectNotFound("Primary key not found in \(dict)"))
             }
             return pk
         }

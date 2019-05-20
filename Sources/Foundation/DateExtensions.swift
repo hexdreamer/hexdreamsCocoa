@@ -47,7 +47,7 @@ public extension Date {
     }()
     
     // iCalendar format Form #1
-    public static var rfc5545LocalFormatter:DateFormatter {
+    static var rfc5545LocalFormatter:DateFormatter {
         let formatter = DateFormatter()
         formatter.formatterBehavior = .behavior10_4
         formatter.dateFormat = "yyyyMMdd'T'HHmmss"
@@ -57,7 +57,7 @@ public extension Date {
     }
     
     // iCalendar format Form #2
-    public static var rfc5545UTCFormatter:DateFormatter {
+    static var rfc5545UTCFormatter:DateFormatter {
         let formatter = DateFormatter()
         formatter.formatterBehavior = .behavior10_4
         formatter.dateFormat = "yyyyMMdd'T'HHmmss'Z'"
