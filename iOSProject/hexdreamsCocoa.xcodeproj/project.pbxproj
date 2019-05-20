@@ -53,6 +53,11 @@
 		B99F938B21E1E38100CB8044 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F938621E1DF5600CB8044 /* CoreDataTestCase.swift */; };
 		B99F938C21E1E38400CB8044 /* NSEntityDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F938521E1DF5600CB8044 /* NSEntityDescriptionTests.swift */; };
 		B99F938D21E1E38800CB8044 /* NSManagedObjectContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F938721E1DF5600CB8044 /* NSManagedObjectContextTests.swift */; };
+		B9AB70C622922B5B005A48AD /* HXBonjourBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AB70C322922B5B005A48AD /* HXBonjourBrowser.swift */; };
+		B9AB70C722922B5B005A48AD /* HXBonjourService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AB70C422922B5B005A48AD /* HXBonjourService.swift */; };
+		B9AB70C822922B5B005A48AD /* HXTimestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AB70C522922B5B005A48AD /* HXTimestamp.swift */; };
+		B9AB70CA22922B80005A48AD /* HXNetworkLoggingChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AB70C922922B80005A48AD /* HXNetworkLoggingChannel.swift */; };
+		B9AB70CC22922BCD005A48AD /* HXPropertyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AB70CB22922BCD005A48AD /* HXPropertyList.swift */; };
 		B9B66E0C1E57E9D4004F5894 /* FD_utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B66E0B1E57E9D4004F5894 /* FD_utilities.swift */; };
 		B9B66E0E1E57EA0A004F5894 /* C.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B66E0D1E57EA0A004F5894 /* C.swift */; };
 		B9BD6B6D210EBD1600BFE05C /* HXStorageDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BD6B6C210EBD1600BFE05C /* HXStorageDomain.swift */; };
@@ -159,6 +164,11 @@
 		B99F938521E1DF5600CB8044 /* NSEntityDescriptionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSEntityDescriptionTests.swift; sourceTree = "<group>"; };
 		B99F938621E1DF5600CB8044 /* CoreDataTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
 		B99F938721E1DF5600CB8044 /* NSManagedObjectContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextTests.swift; sourceTree = "<group>"; };
+		B9AB70C322922B5B005A48AD /* HXBonjourBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXBonjourBrowser.swift; sourceTree = "<group>"; };
+		B9AB70C422922B5B005A48AD /* HXBonjourService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXBonjourService.swift; sourceTree = "<group>"; };
+		B9AB70C522922B5B005A48AD /* HXTimestamp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXTimestamp.swift; sourceTree = "<group>"; };
+		B9AB70C922922B80005A48AD /* HXNetworkLoggingChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXNetworkLoggingChannel.swift; sourceTree = "<group>"; };
+		B9AB70CB22922BCD005A48AD /* HXPropertyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HXPropertyList.swift; sourceTree = "<group>"; };
 		B9B66E0B1E57E9D4004F5894 /* FD_utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FD_utilities.swift; sourceTree = "<group>"; };
 		B9B66E0D1E57EA0A004F5894 /* C.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = C.swift; sourceTree = "<group>"; };
 		B9BD6B6C210EBD1600BFE05C /* HXStorageDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HXStorageDomain.swift; sourceTree = "<group>"; };
@@ -273,16 +283,17 @@
 		B9560E3421D740F70006A458 /* Logging */ = {
 			isa = PBXGroup;
 			children = (
-				B9560E3621D740F70006A458 /* HXLogging.swift */,
+				B99F937D21E0699300CB8044 /* HXFileHandleLoggingChannel.swift */,
+				B99F937721DD3E6700CB8044 /* HXInstanceContext.swift */,
 				B99F937921DD3E7400CB8044 /* HXLog.swift */,
 				B99F937121DD3E1600CB8044 /* HXLogger.swift */,
+				B9560E3621D740F70006A458 /* HXLogging.swift */,
+				B99F937B21E0697700CB8044 /* HXLoggingChannel.swift */,
+				B99F938321E17F7600CB8044 /* HXLoggingCovers.swift */,
+				B9560E3B21D752240006A458 /* HXLoggingExtensions.swift */,
+				B9AB70C922922B80005A48AD /* HXNetworkLoggingChannel.swift */,
 				B99F937321DD3E2E00CB8044 /* HXThreadContext.swift */,
 				B99F937521DD3E4700CB8044 /* HXTypeContext.swift */,
-				B99F937721DD3E6700CB8044 /* HXInstanceContext.swift */,
-				B99F937B21E0697700CB8044 /* HXLoggingChannel.swift */,
-				B99F937D21E0699300CB8044 /* HXFileHandleLoggingChannel.swift */,
-				B9560E3B21D752240006A458 /* HXLoggingExtensions.swift */,
-				B99F938321E17F7600CB8044 /* HXLoggingCovers.swift */,
 			);
 			path = Logging;
 			sourceTree = "<group>";
@@ -327,17 +338,18 @@
 			isa = PBXGroup;
 			children = (
 				B9CCA1861CC889060002A24F /* hexdreams.swift */,
-				B92BE83121152E5200DE2D03 /* Utilities.swift */,
-				B9DB96F4210823AD0072FD19 /* HXErrors.swift */,
 				B97110871FE5EF8700F50FF4 /* HXApp.swift */,
 				B9C601B51E01CBD9000FB2BA /* CommandLineInterface.swift */,
 				B9DB971421099C490072FD19 /* HXCachingWrapper.swift */,
+				B9DB96F4210823AD0072FD19 /* HXErrors.swift */,
+				B9AB70CB22922BCD005A48AD /* HXPropertyList.swift */,
 				B9DB97162109A1C80072FD19 /* HXRepresentation.swift */,
+				B92BE83121152E5200DE2D03 /* Utilities.swift */,
 				B9560E3421D740F70006A458 /* Logging */,
-				B9D284C720A7A51F009B7D85 /* Observing */,
-				B9DB9725210A3F2D0072FD19 /* StorageManager */,
-				B977729C2112382D00D9E1D8 /* DownloadManager */,
 				B9DB971A210A3F240072FD19 /* ImageManager */,
+				B9D284C720A7A51F009B7D85 /* Observing */,
+				B977729C2112382D00D9E1D8 /* DownloadManager */,
+				B9DB9725210A3F2D0072FD19 /* StorageManager */,
 			);
 			path = hexdreams;
 			sourceTree = "<group>";
@@ -385,12 +397,15 @@
 		B9CCA1841CC889060002A24F /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
-				B99F938121E1711100CB8044 /* NSObjectExtensions.swift */,
 				B96CC3B91DF1F612007DD4AA /* DateExtensions.swift */,
-				B9CCA1851CC889060002A24F /* NSSortDescriptorExtensions.swift */,
 				B99C12DD20EF127600684F33 /* DictionaryExtensions.swift */,
-				B9560E3021D31C820006A458 /* NSAttributedStringExtensions.swift */,
+				B9AB70C322922B5B005A48AD /* HXBonjourBrowser.swift */,
+				B9AB70C422922B5B005A48AD /* HXBonjourService.swift */,
 				B99F937F21E155A300CB8044 /* HXTimeIntervalFormatter.swift */,
+				B9AB70C522922B5B005A48AD /* HXTimestamp.swift */,
+				B9560E3021D31C820006A458 /* NSAttributedStringExtensions.swift */,
+				B99F938121E1711100CB8044 /* NSObjectExtensions.swift */,
+				B9CCA1851CC889060002A24F /* NSSortDescriptorExtensions.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -407,10 +422,10 @@
 			isa = PBXGroup;
 			children = (
 				B9CCA18A1CC889060002A24F /* ArrayExtensions.swift */,
+				B9432FC92207A42B007FBEBC /* DataExtensions.swift */,
 				B9560E3D21D812F50006A458 /* OptionalExtensions.swift */,
 				B9CCA18C1CC889060002A24F /* StringExtensions.swift */,
 				B92D0BA320EFFF9200359640 /* UtilityFunctions.swift */,
-				B9432FC92207A42B007FBEBC /* DataExtensions.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -500,8 +515,8 @@
 			isa = PBXGroup;
 			children = (
 				B9CCA1B31CC8891C0002A24F /* ArrayExtensionsTests.swift */,
-				B9CCA1B41CC8891C0002A24F /* StringExtensionsTests.swift */,
 				B9432FCB2207A85D007FBEBC /* DataExtensionsTests.swift */,
+				B9CCA1B41CC8891C0002A24F /* StringExtensionsTests.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -598,26 +613,26 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = hexdreams;
 				TargetAttributes = {
 					B9218AED1CC887A000A97389 = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 					};
 					B9218AF71CC887A000A97389 = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
 			buildConfigurationList = B9218AE81CC887A000A97389 /* Build configuration list for PBXProject "hexdreamsCocoa" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = B9218AE41CC887A000A97389;
 			productRefGroup = B9218AEF1CC887A000A97389 /* Products */;
@@ -654,7 +669,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9CCA1931CC889060002A24F /* NSEntityDescriptionExtensions.swift in Sources */,
+				B9AB70CC22922BCD005A48AD /* HXPropertyList.swift in Sources */,
 				B9BD6B6D210EBD1600BFE05C /* HXStorageDomain.swift in Sources */,
+				B9AB70CA22922B80005A48AD /* HXNetworkLoggingChannel.swift in Sources */,
 				B96931262135CB8100BF164B /* HXModelObject.swift in Sources */,
 				B9CCA1981CC889060002A24F /* hexdreams.swift in Sources */,
 				B9CCA1991CC889060002A24F /* HXMatrix.swift in Sources */,
@@ -679,6 +696,9 @@
 				B99F937621DD3E4700CB8044 /* HXTypeContext.swift in Sources */,
 				B96931222135CB8100BF164B /* HXTableViewController.swift in Sources */,
 				B99B7DDA20EFD1AC00BA8CD2 /* HXXMLParser.swift in Sources */,
+				B9AB70C622922B5B005A48AD /* HXBonjourBrowser.swift in Sources */,
+				B9AB70C822922B5B005A48AD /* HXTimestamp.swift in Sources */,
+				B9AB70C722922B5B005A48AD /* HXBonjourService.swift in Sources */,
 				B96931232135CB8100BF164B /* HXCollectionViewController.swift in Sources */,
 				B9D284CD20A7A520009B7D85 /* HXObservingExtensions.swift in Sources */,
 				B9D284CC20A7A520009B7D85 /* HXObserverEntry.swift in Sources */,
@@ -765,6 +785,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -824,6 +845,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -888,7 +910,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hexdreams.hexdreamsCocoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -909,7 +931,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -920,7 +942,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hexdreams.hexdreamsCocoaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -932,7 +954,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hexdreams.hexdreamsCocoaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
