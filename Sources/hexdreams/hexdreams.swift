@@ -12,3 +12,6 @@ open class HXThrowingObject : HXLoggingExtensions {
     // See HXObservingExtensions.swift for more methods
     public init() throws {}
 }
+
+public let GOLDEN_RATIO = CGFloat(1.61803398875)
+
