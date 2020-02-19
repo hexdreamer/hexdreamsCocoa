@@ -3,6 +3,27 @@
 // Copyright © 2016 Kenny Leung
 // This code is PUBLIC DOMAIN
 
+import Foundation
+
+public func HXBlank(_ str:String?) -> Bool {
+    guard let val = str else {
+        return true
+    }
+
+    if val.isEmpty {
+        return true
+    }
+
+    let charset = CharacterSet.whitespacesAndNewlines
+    for char in val.unicodeScalars {
+        if !charset.contains(char) {
+            return false
+        }
+    }
+    return true
+}
+
+
 public extension StringProtocol {
     
     var hxlastPathComponent:Self.SubSequence {

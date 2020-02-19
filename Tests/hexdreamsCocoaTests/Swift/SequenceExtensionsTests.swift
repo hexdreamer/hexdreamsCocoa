@@ -50,6 +50,18 @@ class SequenceExtensionsTests: XCTestCase {
                         + " WHERE E.DEPT_CODE=DEPT.CODE"
                         + "\(query.hxjoin(" AND ", " AND ", nil, {"E.\($0.column)='\($0.value)'"}))")
 
+        // blank content is the same as null
+        XCTAssertEqual("SELECT"
+            +             " D.CODE,D.NAME,E.EMPID,E.FIRST,E.LAST,E.DEPT_CODE"
+            +             " FROM DEPT D,EMP E"
+            +             " WHERE E.DEPT_CODE=DEPT.CODE"
+            ,
+                       "SELECT"
+                        + " \(dept.hxjoin(",", {"D." + $0})),\(emp.hxjoin(",", {"E." + $0}))"
+                        + " FROM DEPT D,EMP E"
+                        + " WHERE E.DEPT_CODE=DEPT.CODE"
+                        + "\(query.hxjoin(" AND ", " AND ", nil, {q in " \t\n"}))")
+
     }
 
 }
