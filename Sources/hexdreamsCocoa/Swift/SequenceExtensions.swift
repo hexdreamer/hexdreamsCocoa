@@ -29,7 +29,7 @@ public extension Sequence {
         for element in self {
             if let value = mapFunction(element) {
                 let valueString = String(describing:value)
-                if !HXBlank(valueString) {
+                if !valueString.hxisBlank() {
                     if !hasValue {
                         hasValue = true
                         if let startDelimiter = startDelimiter {

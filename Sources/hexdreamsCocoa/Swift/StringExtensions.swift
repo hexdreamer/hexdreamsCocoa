@@ -5,33 +5,28 @@
 
 import Foundation
 
-public func HXBlank(_ str:String?) -> Bool {
-    guard let val = str else {
-        return true
-    }
-
-    if val.isEmpty {
-        return true
-    }
-
-    let charset = CharacterSet.whitespacesAndNewlines
-    for char in val.unicodeScalars {
-        if !charset.contains(char) {
-            return false
-        }
-    }
-    return true
-}
-
-
 public extension StringProtocol {
-    
+
     var hxlastPathComponent:Self.SubSequence {
         if let lastSlash = self.lastIndex(of:"/") {
             return self[self.index(after:lastSlash)..<self.endIndex]
         } else {
             return self[self.startIndex..<self.endIndex]
         }
+    }
+
+    func hxisBlank() -> Bool {
+        if self.isEmpty {
+            return true
+        }
+
+        let charset = CharacterSet.whitespacesAndNewlines
+        for char in self.unicodeScalars {
+            if !charset.contains(char) {
+                return false
+            }
+        }
+        return true
     }
 
     func split<T:StringProtocol>(pattern:T) -> [Self.SubSequence]  {

@@ -11,7 +11,7 @@
 import Foundation
 
 public extension Optional where Wrapped == Bool {
-    var boolValue:Bool {
+    var hxboolValue:Bool {
         guard let val = self else {
             return false
         }
@@ -20,10 +20,20 @@ public extension Optional where Wrapped == Bool {
 }
 
 public extension Optional where Wrapped == NSNumber {
-    var boolValue:Bool {
+    var hxboolValue:Bool {
         guard let val = self else {
             return false
         }
         return val.boolValue
+    }
+}
+
+public extension Optional where Wrapped : StringProtocol {
+    func hxisBlank() -> Bool {
+        if let x = self {
+            return x.hxisBlank()
+        } else {
+            return true
+        }
     }
 }
