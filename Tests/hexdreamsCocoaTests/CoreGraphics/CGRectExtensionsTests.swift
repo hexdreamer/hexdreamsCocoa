@@ -42,28 +42,28 @@ class CGRectExtensionsTests: XCTestCase {
     func testScaleAndCenterAroundPortrait() {
         let outer = CGRect(x: 0, y: 0, width: 100, height: 100)
         let inner = CGRect(x: 0, y: 0, width: 10, height: 20)
-        let scaled = inner.scaleAndCenterAround(rect: outer)
+        let scaled = inner.fill(rect: outer)
         assert(rect: scaled, 0, -50, 100, 200)
     }
 
     func testScaleAndCenterAroundLandscape() {
         let outer = CGRect(x: 0, y: 0, width: 100, height: 100)
         let inner = CGRect(x: 0, y: 0, width: 20, height: 10)
-        let scaled = inner.scaleAndCenterAround(rect: outer)
+        let scaled = inner.fill(rect: outer)
         assert(rect: scaled, -50, 0, 200, 100)
     }
 
     func testScaleAndCenterInPortrait() {
         let outer = CGRect(x: 0, y: 0, width: 100, height: 100)
         let inner = CGRect(x: 0, y: 0, width: 10, height: 20)
-        let scaled = inner.scaleAndCenterIn(rect: outer)
+        let scaled = inner.fit(rect: outer)
         assert(rect: scaled, 25, 0, 50, 100)
     }
 
     func testScaleAndCenterInLandscape() {
         let outer = CGRect(x: 0, y: 0, width: 100, height: 100)
         let inner = CGRect(x: 0, y: 0, width: 20, height: 10)
-        let scaled = inner.scaleAndCenterIn(rect: outer)
+        let scaled = inner.fit(rect: outer)
         assert(rect: scaled, 0, 25, 100, 50)
     }
 
