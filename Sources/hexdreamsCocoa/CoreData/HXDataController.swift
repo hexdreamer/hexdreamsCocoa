@@ -176,7 +176,7 @@ open class HXDataController : HXObject {
         return try moc.hxPerformAndWait {
             let predicate = NSPredicate(format: "\(primaryKeyName) in %@", argumentArray:[pks])
             let existingMOs = $0.hxFetch(entity:E.self, predicate:predicate)
-            var mosByID = try existingMOs.mapDict{$0[keyPath:primaryKeyPath]}
+            var mosByID = existingMOs.mapDict{$0[keyPath:primaryKeyPath]}
             var updatedMOs = [E]()
             
             for entityDict in jsonObjs {

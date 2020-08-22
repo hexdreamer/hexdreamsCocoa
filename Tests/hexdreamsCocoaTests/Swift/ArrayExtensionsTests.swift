@@ -44,68 +44,15 @@ class ArrayExtensionsTests: XCTestCase {
     }
 
     func testMapDict() {
-        do {
-            let dict = try self.array.mapDict {$0.firstName}
-
-            XCTAssertEqual(dict["Charlie"]!.lastName!, self.array[0].lastName!)
-            XCTAssertEqual(dict["Peppermint"]!.lastName!, self.array[1].lastName!)
-            XCTAssertEqual(dict["Linus"]!.lastName!, self.array[2].lastName!)
-        } catch {
-            XCTFail("\(error)")
-        }
-    }
-
-    func testMapDictIndirect() {
-        do {
-            let dict = try self.mapDict(self.array) {$0.lastName}
-
-            XCTAssertEqual(dict["Brown"]!.lastName!, self.array[0].lastName!)
-            XCTAssertEqual(dict["Patti"]!.lastName!, self.array[1].lastName!)
-            XCTAssertEqual(dict["Van Pelt"]!.lastName!, self.array[2].lastName!)
-        } catch {
-            XCTFail("\(error)")
-        }
-    }
-
-    private func mapDict<E,K>(
-        _ array :Array<E>,
-        keyGetter :(E) -> K?
-        ) throws -> Dictionary<K,E>
-    {
-        return try array.mapDict(keyGetter)
+        let dict = self.array.mapDict {$0.firstName}
+        
+        XCTAssertEqual(dict["Charlie"]!.lastName!,    self.array[0].lastName!)
+        XCTAssertEqual(dict["Peppermint"]!.lastName!, self.array[1].lastName!)
+        XCTAssertEqual(dict["Linus"]!.lastName!,      self.array[2].lastName!)
     }
 
     func testMissingKey() {
-        var errorEncountered = false
-        do {
-            self.array.last?.lastName = nil
-            let _ = try self.array.mapDict {$0.lastName}
-            XCTFail()
-        } catch HXErrors.objectNotFound {
-            errorEncountered = true
-        } catch {
-            XCTFail("\(error)")
-        }
-        XCTAssertTrue(errorEncountered)
-    }
-
-    func testMapDictNT() {
-        let dict = self.array.mapDictNT {$0.firstName}
-        
-        XCTAssertEqual(dict["Charlie"]!.lastName!, self.array[0].lastName!)
-        XCTAssertEqual(dict["Peppermint"]!.lastName!, self.array[1].lastName!)
-        XCTAssertEqual(dict["Linus"]!.lastName!, self.array[2].lastName!)
-    }
-
-    func testMapDictWithHandler() {
-        let dict = self.array.mapDict({
-            (person:HXPerson) -> String? in person.firstName
-        },{
-            (person:HXPerson) -> Bool in true}
-        )
-        
-        XCTAssertEqual(dict["Charlie"]!.lastName!, self.array[0].lastName!)
-        XCTAssertEqual(dict["Peppermint"]!.lastName!, self.array[1].lastName!)
-        XCTAssertEqual(dict["Linus"]!.lastName!, self.array[2].lastName!)
+        self.array.last?.lastName = nil
+        let _ = self.array.mapDict {$0.lastName}
     }
 }

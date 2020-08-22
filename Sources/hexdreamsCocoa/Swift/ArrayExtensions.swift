@@ -4,104 +4,67 @@
 // This code is PUBLIC DOMAIN
 
 public extension Array {
-
+        
     func mapDict<Key> (
-                    _ getter: (_ element: Element) -> Key?
-                ) throws
-                -> Dictionary<Key,Element>
-    {
-        var badElement:Element? = nil
-        let dict = self.mapDict(getter, {
-            badElement = $0
-            return false
-        })
-        if let element = badElement {
-            throw hxthrown(.objectNotFound("Array.mapDict: object does not contain value for key: \(element)"))
-        }
-        return dict
-    }
-    
-    // Have this non-throwing version of mapDict because the compiler is too dumb to figure out the fully generalized version without a lot of help from the calling end. (See testMapDictWithHandler)
-    func mapDictNT<Key> (
-                    _ getter: (_ element: Element) -> Key?
-                )
-                -> Dictionary<Key,Element>
-    {
-        return self.mapDict(getter, {
-            (element:Element) -> Bool in
-            hxerror("Array.mapDictNT: object does not contain value for key: \(element)")
-            return true
-        })
-    }
-    
-    func mapDict<Key> (
-                    _ getter:  (_ element: Element) -> Key?,
-                    _ handler: ((_ element: Element) -> Bool)?
-                )
-                -> Dictionary<Key,Element>
+        _ getter:  (_ element: Element) throws -> Key?
+    ) rethrows
+    -> Dictionary<Key,Element>
     {
         var dict = Dictionary<Key,Element>(minimumCapacity: self.count)
         for obj in self {
-            if let key = getter(obj) {
+            if let key = try getter(obj) {
                 dict[key] = obj
-            } else {
-                hxerror("Array.mapDict: object does not contain value for key: \(obj)")
-                if let nnHandler = handler {
-                    if !nnHandler(obj) {
-                        return dict
-                    }
-                }
             }
         }
         return dict
     }
+}
 
-    // Translate [String] to (const char * const *), which translates to Swift as
+public extension Array where Element == String {
+    
+    // Translate [String] to (const char * const *)
     // May want to replace this with Swift's own private function:
     // https://lists.swift.org/pipermail/swift-users/Week-of-Mon-20160815/002957.html
     // https://github.com/apple/swift/blob/dfc3933a05264c0c19f7cd43ea0dca351f53ed48/stdlib/private/SwiftPrivate/SwiftPrivate.swift#L68
-    func cStringArray ()
-                throws
-                -> ArrayBridge<Element,CChar> {
-        return try ArrayBridge<Element,CChar>(array:self) {
-            guard let item = $0 as? String,
-                  let translated = item.cString(using: .utf8) else {
-                throw hxthrown(.invalidArgument("blah"))
-            }
-            return translated
+
+    func withArrayOfCStrings<R>(
+        _ body: ([UnsafeMutablePointer<CChar>?]) -> R
+    ) -> R {
+        let argsCounts = self.map { $0.utf8.count + 1 }
+        let argsOffsets = [ 0 ] + scan(argsCounts, 0, +)
+        let argsBufferSize = argsOffsets.last!
+        
+        var argsBuffer: [UInt8] = []
+        argsBuffer.reserveCapacity(argsBufferSize)
+        for arg in self {
+            argsBuffer.append(contentsOf: arg.utf8)
+            argsBuffer.append(0)
+        }
+        
+        return argsBuffer.withUnsafeMutableBufferPointer {
+            (argsBuffer) in
+            let ptr = UnsafeMutableRawPointer(argsBuffer.baseAddress!).bindMemory(
+                to: CChar.self, capacity: argsBuffer.count)
+            var cStrings: [UnsafeMutablePointer<CChar>?] = argsOffsets.map { ptr + $0 }
+            cStrings[cStrings.count - 1] = nil
+            return body(cStrings)
         }
     }
-
-    /*
-     The more generic form, which we'll save for later.
-    public func cArray<CType>() throws -> ArrayBridge<Element,CType> {
-        return ArrayBridge<Element,CType>(array:self)
-    }
-    */
-}
-
-/*
- We need to have this intermediate object around to hold on to the translated objects, otherwise they will go away.
- The UnsafePointer won't hold on to the objects that it's pointing to.
- */
-public struct ArrayBridge<SwiftType,CType> {
-
-    let originals  :[SwiftType]
-    let translated :[[CType]]
-    let pointers   :[UnsafePointer<CType>?]
-    public let pointer    :UnsafePointer<UnsafePointer<CType>?>
-
-    init(array :[SwiftType], transform: (SwiftType) throws -> [CType]) throws {
-        self.originals = array
-        self.translated = try array.map(transform)
-
-        var pointers = [UnsafePointer<CType>?]()
-        for item in translated {
-            pointers.append(UnsafePointer<CType>(item))
+        
+    /// Compute the prefix sum of `seq`.
+    private func scan<S:Sequence,U>(
+        _ seq: S,
+        _ initial: U,
+        _ combine: (U, S.Iterator.Element) -> U
+    ) -> [U] {
+        var result: [U] = []
+        result.reserveCapacity(seq.underestimatedCount)
+        var runningResult = initial
+        for element in seq {
+            runningResult = combine(runningResult, element)
+            result.append(runningResult)
         }
-        pointers.append(nil)
-        self.pointers = pointers
-        self.pointer = UnsafePointer(self.pointers)
+        return result
     }
-}
 
+}
