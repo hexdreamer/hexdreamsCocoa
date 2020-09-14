@@ -13,3 +13,14 @@ Notes:
 - can remotely affect values that are logged by adjusting variables dictionary for Threads and Types with new keyPaths (only if keyPaths can be encoded somehow)
  
 */
+
+
+@inlinable public func HXWarn(_ message:String) {
+    print("HXWarn: \(message)")
+}
+
+
+// When your app should curl up into the fetal position and die, but you never want it to just quit.
+@inlinable public func HXFetalError(_ message:String) {
+    print("HXFetalError: \(message)")
+}
