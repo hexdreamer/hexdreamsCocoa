@@ -18,6 +18,28 @@ public extension Array {
         }
         return dict
     }
+    
+    mutating func hxSetLast(_ elem:Self.Element) {
+        self[self.index(before:self.endIndex)] = elem
+    }
+    
+    mutating func hxWithIndex(_ index:Self.Index, _ action:(inout Self.Element)->Void) {
+        if self.count == 0 {
+            return
+        }
+        var elem = self[index]
+        action(&elem)
+        self[index] = elem
+    }
+    
+    mutating func hxWithFirst(_ action:(inout Self.Element)->Void) {
+        self.hxWithIndex(self.startIndex, action);
+    }
+    
+    mutating func hxWithLast(_ action:(inout Self.Element)->Void) {
+        self.hxWithIndex(self.index(before:self.endIndex), action);
+    }
+
 }
 
 public extension Array where Element == String {
