@@ -6,7 +6,7 @@
 //  Copyright © 2020 Kenny Leung. All rights reserved.
 //
 
-// TODO: Streaming data version from URL - use dispatchIO
+// Look at https://github.com/cezheng/Fuzi for example of using DOM parsing from libxml2
 
 import Foundation
 import Dispatch
