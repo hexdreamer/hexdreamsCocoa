@@ -36,11 +36,7 @@ public class HXURLSessionReader : NSObject, URLSessionTaskDelegate, URLSessionDa
         self.dataTask = dataTask
         dataTask.resume()
     }
-    
-    deinit {
-        print("HXURLSessionReader.deinit()")
-    }
-        
+            
     // URLSessionDataDelegate
     @objc
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data:Data) {
