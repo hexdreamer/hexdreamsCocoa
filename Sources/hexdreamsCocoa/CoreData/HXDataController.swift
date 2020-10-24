@@ -159,7 +159,7 @@ open class HXDataController : HXObject {
         } catch {
             hxcaught(error)
             let jsonString = String(data:json, encoding:.utf8) ?? "null"
-            throw hxthrown(.cocoa("Error parsing JSON:\n\(jsonString.head(20))", error))
+            throw hxthrown(.cocoa("Error parsing JSON:\n\(jsonString.hxhead(20))", error))
         }
         
         guard let jsonObjs = parsedjson as? [[String:AnyObject]] else {
@@ -176,7 +176,7 @@ open class HXDataController : HXObject {
         return try moc.hxPerformAndWait {
             let predicate = NSPredicate(format: "\(primaryKeyName) in %@", argumentArray:[pks])
             let existingMOs = $0.hxFetch(entity:E.self, predicate:predicate)
-            var mosByID = existingMOs.mapDict{$0[keyPath:primaryKeyPath]}
+            var mosByID = existingMOs.hxmapDict{$0[keyPath:primaryKeyPath]}
             var updatedMOs = [E]()
             
             for entityDict in jsonObjs {

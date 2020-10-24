@@ -10,7 +10,7 @@ import Foundation
 
 extension Data {
     
-    public func range(after prefix:Data, in searchRange:Range<Data.Index>? = nil) -> Range<Data.Index>? {
+    public func hxrange(after prefix:Data, in searchRange:Range<Data.Index>? = nil) -> Range<Data.Index>? {
         let searchRange = searchRange ?? self.startIndex..<self.endIndex
         
         var targetIndex = prefix.startIndex

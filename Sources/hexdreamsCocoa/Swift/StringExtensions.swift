@@ -29,7 +29,7 @@ public extension StringProtocol {
         return true
     }
 
-    func split<T:StringProtocol>(pattern:T) -> [Self.SubSequence]  {
+    func hxsplit<T:StringProtocol>(pattern:T) -> [Self.SubSequence]  {
         var results = [Self.SubSequence]()
         var remainingRange = self.startIndex..<self.endIndex
         while let matchRange = self.range(of:pattern, options:.regularExpression, range:remainingRange) {
@@ -40,7 +40,7 @@ public extension StringProtocol {
         return results
     }
     
-    func head(_ count:Int) -> Self.SubSequence {
+    func hxhead(_ count:Int) -> Self.SubSequence {
         var headRange = self.startIndex..<self.endIndex
         var remainingRange = self.startIndex..<self.endIndex
         var lines = 0
@@ -118,11 +118,7 @@ public extension StringProtocol {
         }
         return self + String(repeating:with, count: width - count)
     }
-    
-    func htmlFlattened() -> String {
-        fatalError("Not implemented")
-    }
-    
+        
 }
 
 // MARK: Operator Support

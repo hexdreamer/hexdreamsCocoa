@@ -5,7 +5,7 @@
 
 public extension Array {
         
-    func mapDict<Key> (
+    func hxmapDict<Key> (
         _ getter:  (_ element: Element) throws -> Key?
     ) rethrows
     -> Dictionary<Key,Element>
@@ -19,7 +19,7 @@ public extension Array {
         return dict
     }
     
-    mutating func hxSetLast(_ elem:Self.Element) {
+    mutating func hxsetLast(_ elem:Self.Element) {
         self[self.index(before:self.endIndex)] = elem
     }
     
@@ -32,11 +32,11 @@ public extension Array {
         self[index] = elem
     }
     
-    mutating func hxWithFirst(_ action:(inout Self.Element)->Void) {
+    mutating func hxwithFirst(_ action:(inout Self.Element)->Void) {
         self.hxWithIndex(self.startIndex, action);
     }
     
-    mutating func hxWithLast(_ action:(inout Self.Element)->Void) {
+    mutating func hxwithLast(_ action:(inout Self.Element)->Void) {
         self.hxWithIndex(self.index(before:self.endIndex), action);
     }
 
@@ -49,7 +49,7 @@ public extension Array where Element == String {
     // https://lists.swift.org/pipermail/swift-users/Week-of-Mon-20160815/002957.html
     // https://github.com/apple/swift/blob/dfc3933a05264c0c19f7cd43ea0dca351f53ed48/stdlib/private/SwiftPrivate/SwiftPrivate.swift#L68
 
-    func withArrayOfCStrings<R>(
+    func hxwithArrayOfCStrings<R>(
         _ body: ([UnsafeMutablePointer<CChar>?]) -> R
     ) -> R {
         let argsCounts = self.map { $0.utf8.count + 1 }

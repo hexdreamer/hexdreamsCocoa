@@ -20,7 +20,7 @@ extension NSSortDescriptor {
 
     public class func sortDescriptorsFrom(string sortString :String) throws -> [NSSortDescriptor] {
         var descriptors = [NSSortDescriptor]()
-        let components = sortString.split(pattern:"[, ]+")
+        let components = sortString.hxsplit(pattern:"[, ]+")
 
         for i in stride(from: 0, to: components.count, by: 2) {
             let key = String(components[i])

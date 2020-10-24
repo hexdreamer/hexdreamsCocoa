@@ -37,3 +37,13 @@ public extension Optional where Wrapped : StringProtocol {
         }
     }
 }
+
+public extension Optional where Wrapped == Data {
+    func hxtoString() -> String {
+        if let x = self {
+            return String(data:x, encoding:.utf8) ?? "nil"
+        } else {
+            return "nil"
+        }
+    }
+}
