@@ -6,10 +6,7 @@
 //  Copyright © 2020 Kenny Leung. All rights reserved.
 //
 
-// Look at https://github.com/cezheng/Fuzi for example of using DOM parsing from libxml2
-
 import Foundation
-import Dispatch
 import libxml2
 
 public protocol HXSAXParserDelegate:class {
