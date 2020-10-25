@@ -4,85 +4,110 @@ import UIKit
 
 // https://www.vadimbulavin.com/asynchronous-swiftui-image-loading-from-url-with-combine-and-swift/
 public struct HXAsyncImage<Content:View>: View {
-    private let image:UIImage?
-    // Would like this to be nil-able, but wrapper doesn't allow it
-    @ObservedObject private var loader:SEImageLoader
+    @ObservedObject private var loader:HXImageLoader
     private let placeholder:(()->Content)?
         
     public init(url:URL?, placeholder:@escaping ()->Content) {
-        if let image = SEImageLoader.cachedImageForURL(url:url) {
-            self.image = image
-            self.loader = SEImageLoader(url:nil)
-            self.placeholder = nil
-        } else {
-            self.image = nil
-            self.loader = SEImageLoader(url:url)
-            self.placeholder = placeholder
-        }
+        self.loader = HXImageLoader(url:url)
+        self.placeholder = placeholder
     }
         
     // Don't like the overuse of ! here, but if-let is not allowed
     public var body: some View {
-        if ( self.image != nil ) {
-            Image(uiImage:self.image!)
-                .resizable()
-        } else if ( self.loader.image != nil ) {
+        if ( self.loader.image != nil ) {
+            let x = print("\(self.loader.id) show image")
             Image(uiImage:self.loader.image!)
                 .resizable()
         } else {
+            let y = print("\(self.loader.id) show placeholder")
             self.placeholder!()
                 .onAppear() {
+                    print("\(self.loader.id) requesting load image")
                     self.loader.load()
                 }.onDisappear() {
+                    print("\(self.loader.id) cancelling load image")
                     self.loader.cancel()
                 }
         }
     }
 }
 
-class SEImageLoader: ObservableObject {
+private class HXImageLoader: ObservableObject {
     static private var cache = NSCache<NSURL,UIImage>()
-    
-    static func cachedImageForURL(url:URL?) -> UIImage? {
-        if let nsurl = url as NSURL? {
-            return cache.object(forKey:nsurl)
-        }
-        return nil
-    }
-    
-    @Published var image:UIImage? {
-        didSet {
-            if let image = self.image,
-               let nsurl = url as NSURL? {
-                Self.cache.setObject(image, forKey:nsurl)
-            }
-            self.url = nil
-            self.dataTask = nil
-        }
-    }
+        
+    @Published var image:UIImage?
     private var url:URL?
-    private var dataTask:AnyCancellable?
+    private var dataTask:URLSessionDataTask?
     
+    var id:UnsafeMutableRawPointer {
+        Unmanaged.passUnretained(self).toOpaque()
+    }
+
     init(url:URL?) {
-        self.url = url
+        if let url = url,
+           let cachedImage = Self.cache.object(forKey:url as NSURL) {
+            self.image = cachedImage
+        } else {
+            self.url = url
+        }
+        
+        print("\(self.id) init")
+        //self.load()
     }
     
     deinit {
+        print("\(self.id) deinit")
         self.cancel()
     }
     
     func load() {
-        guard let url = self.url else {
+        let selfid = self.id
+        
+        guard let url = self.url,
+              self.dataTask == nil,
+              self.image == nil else {
+            print("\(self.id) 1. Escaping url:\(String(describing: self.url)) dataTask:\(String(describing: self.dataTask)) image:\(String(describing: self.image))")
             return
         }
-        self.dataTask = URLSession.shared.dataTaskPublisher(for:url)
-            .map { UIImage(data:$0.data) }
-            .replaceError(with:nil)
-            .receive(on:DispatchQueue.main)
-            .assign(to:\.image, on:self)
+        
+        if let cachedImage = Self.cache.object(forKey:url as NSURL) {
+            print("\(self.id) 2. Escaping cached image:\(cachedImage)")
+            self.image = cachedImage
+            self.url = nil
+            return
+        }
+                
+        print("loading image: \(url)")
+        self.dataTask = URLSession.shared.dataTask(with:url, completionHandler: { [weak self] (data,response,error) in
+            print("\(selfid) loaded url: \(url) data:\(String(describing: data?.count))")
+            guard let self = self else {
+                return
+            }
+            if let error = error {
+                print(error)
+            }
+            if ( error == nil && data == nil ) {
+                print(response as Any)
+            }
+            if let data = data,
+               let image = UIImage(data:data) {
+                DispatchQueue.main.async { [weak self] in
+                    print("\(selfid) loaded image: \(url)")
+                    Self.cache.setObject(image, forKey:url as NSURL)
+                    self?.image = image
+                    self?.url = nil
+                }
+            }
+            DispatchQueue.main.async { [weak self] in
+                self?.dataTask = nil
+            }
+        })
+        self.dataTask?.resume()
     }
     
     func cancel() {
         self.dataTask?.cancel()
+        self.dataTask = nil
     }
+    
 }
