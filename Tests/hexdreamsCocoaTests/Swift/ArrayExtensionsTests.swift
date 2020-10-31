@@ -44,7 +44,7 @@ class ArrayExtensionsTests: XCTestCase {
     }
 
     func testMapDict() {
-        let dict = self.array.mapDict {$0.firstName}
+        let dict = self.array.hxmapDict {$0.firstName}
         
         XCTAssertEqual(dict["Charlie"]!.lastName!,    self.array[0].lastName!)
         XCTAssertEqual(dict["Peppermint"]!.lastName!, self.array[1].lastName!)
@@ -53,6 +53,6 @@ class ArrayExtensionsTests: XCTestCase {
 
     func testMissingKey() {
         self.array.last?.lastName = nil
-        let _ = self.array.mapDict {$0.lastName}
+        let _ = self.array.hxmapDict {$0.lastName}
     }
 }

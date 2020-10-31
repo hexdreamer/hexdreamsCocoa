@@ -26,7 +26,7 @@ class DataExtensionsTest: XCTestCase {
     
     func testPrefixRange() {
         let testData = dataFrom("BEGIN:VCALENDAR")
-        guard let range = testData.range(after:dataFrom("BEGIN:")) else {
+        guard let range = testData.hxrange(after:dataFrom("BEGIN:")) else {
             XCTFail("prefix not found")
             return
         }

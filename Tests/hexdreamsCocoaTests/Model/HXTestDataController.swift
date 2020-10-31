@@ -54,7 +54,7 @@ class HXTestDataController: HXDataController {
                 let entityDescription = NSEntityDescription.entityForClass(entityClass: Entity.self, inManagedObjectContext: moc)
                 let predicate = NSPredicate(format: "%@ in %@", argumentArray:[entityPKAttribute, pks])
                 let existingMOs = moc.hxFetch(entity:entityClass, predicate:predicate, sortString:nil, returnFaults:false)
-                mosByID = existingMOs.mapDict(entityPKGetter)
+                mosByID = existingMOs.hxmapDict(entityPKGetter)
 
                 for entityDict in json {
                     guard let pk = jsonPKGetter(entityDict)
