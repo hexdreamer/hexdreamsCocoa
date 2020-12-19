@@ -8,8 +8,7 @@
 import Foundation
 import SwiftUI
 
-public struct HXCoreGraphicsViewRepresentable: UIViewControllerRepresentable {
-    public typealias UIViewControllerType = UIViewController
+public struct HXCoreGraphicsViewRepresentable: UIViewRepresentable {
         
     var coreGraphicsCommands:(CGContext,CGRect)->Void
     
@@ -17,18 +16,16 @@ public struct HXCoreGraphicsViewRepresentable: UIViewControllerRepresentable {
         self.coreGraphicsCommands = cgCommands
     }
 
-    public func makeUIViewController(context: Context) -> UIViewController {
-        let controller = UIViewController()
-        controller.view = HXCoreGraphicsView(self.coreGraphicsCommands)
-        return controller
+    public func makeUIView(context: Context) -> HXCoreGraphicsView {
+        return HXCoreGraphicsView(self.coreGraphicsCommands)
     }
-    
-    public func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+
+    public func updateUIView(_ uiView: HXCoreGraphicsView, context: Context) {
         // do nothing
     }
 }
 
-class HXCoreGraphicsView : UIView {
+public class HXCoreGraphicsView : UIView {
     
     var coreGraphicsCommands: ((CGContext,CGRect)->Void)?
         
@@ -45,7 +42,7 @@ class HXCoreGraphicsView : UIView {
         self.coreGraphicsCommands = cgCommands
     }
     
-    override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         if let cgCommands = self.coreGraphicsCommands,
            let ctx = UIGraphicsGetCurrentContext() {
             cgCommands(ctx, rect)
