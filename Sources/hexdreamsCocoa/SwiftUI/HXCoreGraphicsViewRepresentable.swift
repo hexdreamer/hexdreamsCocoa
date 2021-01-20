@@ -4,7 +4,7 @@
 //
 //  Created by Kenny Leung on 10/31/20.
 //
-
+#if canImport(UIKit)
 import Foundation
 import SwiftUI
 
@@ -49,3 +49,4 @@ public class HXCoreGraphicsView : UIView {
         }
     }
 }
+#endif
