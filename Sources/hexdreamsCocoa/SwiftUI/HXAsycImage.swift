@@ -1,3 +1,4 @@
+#if canImport(UIKit)
 import SwiftUI
 import Combine
 import UIKit
@@ -84,3 +85,4 @@ private class HXImageLoader: ObservableObject {
     }
     
 }
+#endif
