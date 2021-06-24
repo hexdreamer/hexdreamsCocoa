@@ -53,5 +53,17 @@ extension CGRect {
     public func fill(rect r :CGRect) -> CGRect {return self.scale(self.scaleForFill(rect:r)).centerOn(rect:r)}
     public func scaleForFit(rect r :CGRect) -> CGFloat {return r.aspect<=self.aspect ? r.width/width : r.height/height}
     public func fit(rect r :CGRect) -> CGRect {return self.scale(self.scaleForFit(rect:r)).centerOn(rect:r)}
+
+    /// Return a transform that fits self (centered and scaled) in outerRect
+    public func tFitIn(outerRect:CGRect) -> CGAffineTransform {
+        let fittedRect = self.fit(rect: outerRect)
+        let scale = fittedRect.size.width/self.size.width
+        let offset = CGPoint(x:fittedRect.minX, y:fittedRect.minY)
+        let t = CGAffineTransform.identity
+            .concatenating(CGAffineTransform(scaleX: scale, y: scale))
+            .concatenating(CGAffineTransform(translationX: offset.x, y: offset.y))
+        return t
+    }
+
 }
 
