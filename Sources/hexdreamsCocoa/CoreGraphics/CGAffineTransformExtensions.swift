@@ -8,21 +8,19 @@
 import Foundation
 import CoreGraphics.CGAffineTransform
 
-/// https://stackoverflow.com/a/39215372/246801
-extension String {
-    func leftPadding(toLength: Int, withPad character: Character) -> String {
-        let stringLength = self.count
-        if stringLength < toLength {
-            let pad = String(repeatElement(character, count: toLength - stringLength))
-            return pad + self
-        } else {
-            return String(self.suffix(toLength))
-        }
-    }
-}
-
 extension CGAffineTransform {
-    func print() -> Void {
+    /// Return a transform that fits innerRect in outerRect by centering and scaling
+    static public func transformTo(fit innerRect:CGRect, in outerRect:CGRect) -> CGAffineTransform {
+        let fittedRect = innerRect.fit(rect: outerRect)
+        let scale = fittedRect.size.width/innerRect.size.width
+        let offset = CGPoint(x:fittedRect.minX, y:fittedRect.minY)
+        let t = CGAffineTransform.identity
+            .concatenating(CGAffineTransform(scaleX: scale, y: scale))
+            .concatenating(CGAffineTransform(translationX: offset.x, y: offset.y))
+        return t
+    }
+
+    public func toTable(indent:String = "") -> String {
         let t = self
         let fmt = NumberFormatter()
         fmt.numberStyle = .decimal
@@ -30,19 +28,24 @@ extension CGAffineTransform {
 
         let values = [t.a, t.b, t.c, t.d, t.tx, t.ty]
             .map { fmt.string(for: $0)! }
-        let max = values.max { (a, b) in a.count < b.count }!.count
+        let maxWidth = values
+            .max { (a, b) in a.count < b.count }
         let paddedValues = values
-            .map { $0.leftPadding(toLength: max, withPad: " ")}
+            .map { $0.hxpad(width: maxWidth!.count)}
 
-        var a,b,c,d,tx,ty: String
-        a = paddedValues[0]
-        b = paddedValues[1]
-        c = paddedValues[2]
-        d = paddedValues[3]
+        let a,b,c,d,tx,ty: String
+         a = paddedValues[0]
+         b = paddedValues[1]
+         c = paddedValues[2]
+         d = paddedValues[3]
         tx = paddedValues[4]
         ty = paddedValues[5]
 
-        let s = "┌ \(a) \(b)  0 ┐\n" + "│ \(c) \(d)  0 │\n" + "└ \(tx) \(ty)  1 ┘\n"
-        Swift.print(s)
+        let row1,row2,row3: String
+        row1 = indent + "┌ " +  a + " " +  b + "  0 ┐\n"
+        row2 = indent + "│ " +  c + " " +  d + "  0 │\n"
+        row3 = indent + "└ " + tx + " " + ty + "  1 ┘\n"
+
+        return row1 + row2 + row3
     }
 }
