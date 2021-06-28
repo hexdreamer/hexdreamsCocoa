@@ -22,22 +22,22 @@ class CGAffineTransformExtensionsTests: XCTestCase {
     func testTransformToFit() {
         func assert() {
             let got = CGAffineTransform.transformTo(fit: innerRect, in: outerRect)
-            XCTAssertEqual(got, t)
+            XCTAssertEqual(want, got)
         }
 
         var innerRect = CGRect(x: 0, y: 0, width: 1, height: 1)
         var outerRect = CGRect(x: 0, y: 0, width: 2, height: 2)
-        var t = CGAffineTransform(scaleX: 2, y: 2)
+        var want = CGAffineTransform(scaleX: 2, y: 2)
         assert()
 
         innerRect = CGRect(x: 0, y: 0, width: 1, height: 1)
         outerRect = CGRect(x: 1, y: 1, width: 1, height: 1)
-        t = CGAffineTransform(translationX: 1, y: 1)
+        want = CGAffineTransform(translationX: 1, y: 1)
         assert()
 
         innerRect = CGRect(x: 0, y: 0, width: 1, height: 1)
         outerRect = CGRect(x: 1, y: 1, width: 2, height: 2)
-        t = CGAffineTransform(translationX: 1, y: 1)
+        want = CGAffineTransform(translationX: 1, y: 1)
             .scaledBy(x: 2, y: 2)
         assert()
     }
@@ -47,7 +47,7 @@ class CGAffineTransformExtensionsTests: XCTestCase {
             XCTAssertEqual(want, got, "Got \n\(got), but want \n\(want)")
         }
 
-        // Note the "extra" in the multi-line string literals
+        // Note the "extra" newline in the multi-line string literals
 
         // Identity
         var want = """
