@@ -3,6 +3,15 @@
 // Copyright © 2016 Kenny Leung
 // This code is PUBLIC DOMAIN
 
+/// Why `@available(iOSApplicationExtension, unavailable)`?
+///
+/// Because (https://stackoverflow.com/a/68616278/246801), Xcode sees the
+/// possibility of this class being called as an App Extension, which is illegal
+/// for UIApplication.shared.  So, we proscriptively mark these `shared` vars as
+/// "never for an iOSApplicationExtension" to let Xcode know it'll never come to
+/// that.
+
+
 import Foundation
 #if os(macOS)
 import AppKit
@@ -17,6 +26,8 @@ public class HXApp {
         return NSApplication.shared
     }
     #elseif os(iOS)
+    // See @available comment at top of file
+    @available(iOSApplicationExtension, unavailable)
     public static var shared:UIApplication {
         return UIApplication.shared
     }
@@ -30,6 +41,8 @@ public class HXApp {
         fatalError("Application delegate is nil")
     }
     #elseif os(iOS)
+    // See @available comment at top of file
+    @available(iOSApplicationExtension, unavailable)
     public static var delegate:UIApplicationDelegate {
         if let delegate = UIApplication.shared.delegate {
             return delegate
