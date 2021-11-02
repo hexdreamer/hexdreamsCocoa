@@ -9,7 +9,7 @@ import Foundation
 import CoreGraphics.CGAffineTransform
 
 extension CGAffineTransform {
-    /// Return a transform that fits innerRect in outerRect by centering and scaling
+    /// Return a transform that fits innerRect in outerRect by scaling, then centering
     static public func transformTo(fit innerRect:CGRect, in outerRect:CGRect) -> CGAffineTransform {
         let fittedRect = innerRect.fit(rect: outerRect)
         let scale = fittedRect.size.width/innerRect.size.width
@@ -20,14 +20,27 @@ extension CGAffineTransform {
         return t
     }
 
-    public func toTable(indent:String = "") -> String {
+    /// Return a nicely-padded table of transform values, for printing.
+    /// - Parameter indent: Shift the table over to the right by prepending each line with this string; default is `""` (empty string).
+    /// - Parameter maxSigFigs: Maximum number of significant figures to show for a value in the table; default is 4.
+    /// - Parameter roundErrCutoff: Hide excessively small values due to Transform rounding errors; default is 1/10e6, "values less than 1 in a million show as `0`"
+    public func toTable(
+        indent:String = "",
+        maxSigFigs:Int = 4,
+        roundErrCutoff:CGFloat = 1/10e6) -> String
+    {
         let t = self
         let fmt = NumberFormatter()
         fmt.numberStyle = .decimal
-        fmt.maximumSignificantDigits = 4
+        fmt.usesSignificantDigits = true
+        fmt.minimumSignificantDigits = 1
+        fmt.maximumSignificantDigits = maxSigFigs
 
-        let values = [t.a, t.b, t.c, t.d, t.tx, t.ty]
-            .map { fmt.string(for: $0)! }
+        let values:[String] = [t.a, t.b, t.c, t.d, t.tx, t.ty]
+            .map {
+                let clamped = abs($0) < roundErrCutoff ? 0 : $0
+                return fmt.string(for: clamped)!
+            }
         let maxWidth = values
             .max { (a, b) in a.count < b.count }
         let paddedValues = values
