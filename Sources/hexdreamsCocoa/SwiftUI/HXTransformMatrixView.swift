@@ -41,11 +41,16 @@ extension HorizontalAlignment {
 }
 
 
-struct HXTransformMatrixView: View {
+public struct HXTransformMatrixView: View {
     let tr: CGAffineTransform
+    let maxSigFigs: Int
+    let roundErrCutoff: CGFloat
 
-    var maxSigFigs = 4
-    var roundErrCutoff: CGFloat = 1/10e6
+    public init(_ tr:CGAffineTransform, maxSigFigs:Int = 4, roundErrCutoff:CGFloat = 1/10e6) {
+        self.tr = tr
+        self.maxSigFigs = maxSigFigs
+        self.roundErrCutoff = roundErrCutoff
+    }
 
     var formattedValues: [FormattedValue] {
         let fmt = NumberFormatter()
@@ -71,7 +76,7 @@ struct HXTransformMatrixView: View {
         ]
     }
 
-    var body: some View {
+    public var body: some View {
         HStack {
             Spacer()
 
@@ -134,14 +139,14 @@ struct SwiftUIView_Previews: PreviewProvider {
         let identity = CGAffineTransform.identity
         VStack {
             Spacer()
-            HXTransformMatrixView(tr: identity)
+            HXTransformMatrixView(identity)
             Spacer()
-            HXTransformMatrixView(tr: identity
+            HXTransformMatrixView(identity
                                     .scaledBy(x: 1.3, y: 2.4)
                                     .rotated(by: 23.8)
             )
             Spacer()
-            HXTransformMatrixView(tr: identity
+            HXTransformMatrixView(identity
                                     .translatedBy(x: 100, y: 201.18)
                                     .scaledBy(x: 0.4, y: 0.003)
                                   )
