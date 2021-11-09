@@ -22,23 +22,37 @@ class CGAffineTransformExtensionsTests: XCTestCase {
     func testTransformToFit() {
         func assert() {
             let got = CGAffineTransform.transformTo(fit: innerRect, in: outerRect)
-            XCTAssertEqual(want, got)
+            let errMsg = """
+Wanted
+\(want.toTable())
+but got
+\(got.toTable())
+"""
+            XCTAssertEqual(want, got, errMsg)
         }
+
+        let identity = CGAffineTransform.identity
 
         var innerRect = CGRect(x: 0, y: 0, width: 1, height: 1)
         var outerRect = CGRect(x: 0, y: 0, width: 2, height: 2)
-        var want = CGAffineTransform(scaleX: 2, y: 2)
+        var want = identity
+            .scaledBy(x: 2, y: 2)
+
         assert()
 
         innerRect = CGRect(x: 0, y: 0, width: 1, height: 1)
         outerRect = CGRect(x: 1, y: 1, width: 1, height: 1)
-        want = CGAffineTransform(translationX: 1, y: 1)
+        want = identity
+            .translatedBy(x: 1, y: 1)
+
         assert()
 
         innerRect = CGRect(x: 0, y: 0, width: 1, height: 1)
         outerRect = CGRect(x: 1, y: 1, width: 2, height: 2)
-        want = CGAffineTransform(translationX: 1, y: 1)
+        want = identity
+            .translatedBy(x: 1, y: 1)
             .scaledBy(x: 2, y: 2)
+
         assert()
     }
 
