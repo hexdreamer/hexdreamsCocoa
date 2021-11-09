@@ -71,8 +71,6 @@ struct HXTransformMatrixView: View {
         ]
     }
 
-
-
     var body: some View {
         HStack {
             Spacer()
