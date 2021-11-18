@@ -1,6 +1,6 @@
 //
 //  HXTransformMatrixView.swift
-//  
+//
 //
 //  Created by Zach Young on 11/8/21.
 //
@@ -58,12 +58,10 @@ public struct HXTransformMatrixView: View {
         self.frameW = 200
 
         // ... 'cause I really want to do this
-        let (fmtdVals, maxLen) = self.makeFormattedVals()
-        self.formattedValues = fmtdVals
+        self.formattedValues = self.makeFormattedVals()
 
         let widths: [CGFloat] = [200, 213, 226, 239, 252, 265, 278, 291, 304, 317, 330]
-        let wIdx = maxLen < 10 ? maxLen-1 : 10
-        self.frameW = widths[wIdx]
+        self.frameW = widths[self.maxSigFigs]
     }
 
     public var body: some View {
@@ -96,7 +94,7 @@ public struct HXTransformMatrixView: View {
 
                 Spacer()
 
-                VStack(alignment: .integral) {
+                VStack {
                     let i0 = FormattedValue("0")
                     let i1 = FormattedValue("0")
                     let i2 = FormattedValue("1")
@@ -105,15 +103,12 @@ public struct HXTransformMatrixView: View {
                     formattedValueView(i1)
                     formattedValueView(i2)
                 }
-
-                Spacer()
-
             }
             .frame(width: frameW, height: 100)
         }
     }
 
-    func makeFormattedVals() -> ([FormattedValue], Int)  {
+    func makeFormattedVals() -> [FormattedValue]  {
         let fmt = NumberFormatter()
         fmt.numberStyle = .decimal
         fmt.usesSignificantDigits = true
@@ -126,7 +121,7 @@ public struct HXTransformMatrixView: View {
                 return fmt.string(for: clamped)!
             }
 
-        let fmtdVals: [FormattedValue] = [
+        return [
             FormattedValue(vals[0]),  //  a
             FormattedValue(vals[1]),  //  b
             FormattedValue(vals[2]),  //  c
@@ -134,16 +129,6 @@ public struct HXTransformMatrixView: View {
             FormattedValue(vals[4]),  // tx
             FormattedValue(vals[5]),  // ty
         ]
-
-        // Find the longest string (to determine frame width)
-        var maxLen = 0
-        for fmtdVal in fmtdVals {
-            let il = fmtdVal.integral.count
-            let dl = fmtdVal.decimal.count
-            maxLen = max(dl+il, maxLen)
-        }
-
-        return (fmtdVals, maxLen)
     }
 
     func formattedValueView(_ fm: FormattedValue) -> some View {
@@ -172,8 +157,10 @@ struct SwiftUIView_Previews: PreviewProvider {
 
             ForEach(0...11, id: \.self) { i in
                 HXTransformMatrixView(t, title: "\(i) sig figs", maxSigFigs: i)
+                    .border(Color.gray)
             }
         }
         .previewLayout(.fixed(width: 500, height: 1600))
     }
 }
+
