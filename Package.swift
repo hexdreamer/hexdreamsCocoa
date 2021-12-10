@@ -24,6 +24,8 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "hexdreamsCocoaTests",
-            dependencies: ["hexdreamsCocoa"]),
+            dependencies: ["hexdreamsCocoa"],
+            exclude: ["Model/HXPerson.json"]
+        ),
     ]
 )
