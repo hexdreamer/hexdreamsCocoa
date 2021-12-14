@@ -53,5 +53,15 @@ extension CGRect {
     public func fill(rect r :CGRect) -> CGRect {return self.scale(self.scaleForFill(rect:r)).centerOn(rect:r)}
     public func scaleForFit(rect r :CGRect) -> CGFloat {return r.aspect<=self.aspect ? r.width/width : r.height/height}
     public func fit(rect r :CGRect) -> CGRect {return self.scale(self.scaleForFit(rect:r)).centerOn(rect:r)}
+
+    /// [TL, TR, BR, BL]
+    public func corners() -> [CGPoint] {
+        return [
+            ┌self,
+            ┐self,
+            ┘self,
+            └self
+        ]
+    }
 }
 
